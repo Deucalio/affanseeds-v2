@@ -12,6 +12,7 @@ import { Label } from "@/components/ui/label"
 import { useToast } from "@/hooks/use-toast"
 import Breadcrumb from "@/components/breadcrumb"
 
+
 export default function ContactPage() {
   const router = useRouter()
   const { toast } = useToast()

@@ -136,7 +136,7 @@ export default function HomePage() {
       name: "Forage Field Crop Seeds",
       description: "High-quality seeds for pasture, hay, and silage production",
       icon: <Leaf className="h-6 w-6" />,
-      image: "/placeholder.svg?height=600&width=600&text=Forage+Seeds",
+      image: "/products/forage/STAMINA ALFALFA SEEDS POUCH.png",
       color: "from-emerald-500 to-green-700",
       count: 6,
     },
@@ -145,7 +145,7 @@ export default function HomePage() {
       name: "Oil Seeds",
       description: "Premium quality seeds for oil production",
       icon: <Sun className="h-6 w-6" />,
-      image: "/placeholder.svg?height=600&width=600&text=Oil+Seeds",
+      image: "/products/seeds/TITAN MUSTRAD SEEDS POUCH.png",
       color: "from-amber-500 to-orange-700",
       count: 3,
     },
@@ -154,19 +154,11 @@ export default function HomePage() {
       name: "Vegetable Seeds",
       description: "Fresh, high-yield vegetable seeds for commercial and home growers",
       icon: <Droplets className="h-6 w-6" />,
-      image: "/placeholder.svg?height=600&width=600&text=Vegetable+Seeds",
+      image: "/products/seeds/sunflowerseeds.jpg",
       color: "from-rose-500 to-red-700",
       count: 5,
     },
-    {
-      id: "microgreens",
-      name: "Microgreens",
-      description: "Fast-growing, nutrient-dense miniature greens",
-      icon: <Wind className="h-6 w-6" />,
-      image: "/placeholder.svg?height=600&width=600&text=Microgreens",
-      color: "from-teal-500 to-cyan-700",
-      count: 29,
-    },
+    
   ]
 
   // Sustainability practices
@@ -176,26 +168,26 @@ export default function HomePage() {
       title: "Global Seed Conservation",
       description:
         "We partner with seed banks worldwide to preserve rare and endangered plant varieties for future generations.",
-      image: "/placeholder.svg?height=300&width=400&text=Seed+Conservation",
+      image: "/slideshow-2.avif",
     },
     {
       icon: <Leaf className="h-10 w-10 text-emerald-400" />,
       title: "Organic Growing Methods",
       description:
         "All our seeds are grown using sustainable, organic practices without synthetic pesticides or fertilizers.",
-      image: "/placeholder.svg?height=300&width=400&text=Organic+Growing",
+      image: "/slideshow-3.jpg",
     },
     {
       icon: <BookOpen className="h-10 w-10 text-emerald-400" />,
       title: "Educational Initiatives",
       description: "We provide resources and workshops to help gardeners learn sustainable growing practices.",
-      image: "/placeholder.svg?height=300&width=400&text=Education",
+      image: "/ss3.avif",
     },
     {
       icon: <Calendar className="h-10 w-10 text-emerald-400" />,
       title: "Seasonal Seed Selection",
       description: "Our seed offerings follow natural growing cycles to promote biodiversity and ecological balance.",
-      image: "/placeholder.svg?height=300&width=400&text=Seasonal+Selection",
+      image: "/livestock.jpg",
     },
   ]
 
@@ -534,7 +526,7 @@ export default function HomePage() {
         </section>
 
         {/* Featured Products Section */}
-        <section ref={featuredRef} className="py-24 bg-gray-900 relative">
+        <section ref={featuredRef} className="py-24 bg-gray-900 relative hidden">
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMxMTI4MjciIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDM0djZoNnYtNmgtNnptNiA2djZoLTZ2LTZoNnptLTYtNnYtNmg2djZoLTZ6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-30"></div>
 
           <div className="container mx-auto px-4 relative">
@@ -714,7 +706,7 @@ export default function HomePage() {
               whileInView="visible"
               viewport={{ once: true, margin: "-100px" }}
               variants={staggerContainer}
-              className="grid md:grid-cols-2 lg:grid-cols-4 gap-8"
+              className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mx-auto"
             >
               {categories.map((category, index) => (
                 <motion.div key={category.id} variants={scaleIn} className="group">
@@ -893,7 +885,11 @@ export default function HomePage() {
         </section>
 
         {/* Location Section */}
-        <section ref={locationRef} className="py-24 bg-gray-900 relative">
+        <section style={{
+          // Add bg image https://kohenoorint.com/wp-content/uploads/2017/12/colored-corrected.png
+          backgroundImage: "url('https://kohenoorint.com/wp-content/uploads/2017/12/colored-corrected.png')",
+
+        }} ref={locationRef} className="py-24 bg-gray-900 relative">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-emerald-900/20 via-gray-900/10 to-gray-950 opacity-50"></div>
 
           <div className="container mx-auto px-4 relative">
@@ -908,7 +904,7 @@ export default function HomePage() {
                 Our <span className="text-emerald-400">Location</span>
               </motion.h2>
               <motion.div variants={fadeInUp} className="w-24 h-1 bg-emerald-500 mx-auto mb-6 rounded-full" />
-              <motion.p variants={fadeInUp} className="text-lg text-gray-400 max-w-2xl mx-auto">
+              <motion.p variants={fadeInUp} className="text-lg text-gray-100 max-w-2xl mx-auto">
                 Visit our office or get in touch with us. We're always ready to assist you with your agricultural needs.
               </motion.p>
             </motion.div>
@@ -960,29 +956,11 @@ export default function HomePage() {
                 </div>
 
                 <div className="flex items-start">
-                  <div className="p-3 bg-emerald-900/30 rounded-full mr-4 border border-emerald-700/30">
-                    <Clock className="h-6 w-6 text-emerald-400" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-white mb-2">Business Hours</h3>
-                    <div className="text-gray-300 space-y-1">
-                      <div className="flex justify-between">
-                        <span>Monday - Friday:</span>
-                        <span>9:00 AM - 6:00 PM</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Saturday:</span>
-                        <span>9:00 AM - 2:00 PM</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Sunday:</span>
-                        <span>Closed</span>
-                      </div>
-                    </div>
-                  </div>
+                 
+                
                 </div>
               </motion.div>
-
+{/* 
               <motion.div variants={scaleIn} className="relative">
                 <div className="absolute -inset-4 rounded-2xl bg-emerald-600/10 opacity-20 blur-lg"></div>
                 <div className="relative rounded-2xl overflow-hidden shadow-lg h-full min-h-[400px]">
@@ -999,7 +977,7 @@ export default function HomePage() {
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </motion.div> */}
             </motion.div>
           </div>
         </section>

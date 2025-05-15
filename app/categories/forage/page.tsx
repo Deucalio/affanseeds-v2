@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import Breadcrumb from "@/components/breadcrumb"
+import {useRouter} from "next/navigation"
 
 // Define TypeScript interfaces for our data
 interface ProductFeature {
@@ -79,6 +80,8 @@ export default function ForageCategoryPage() {
   const [activeProduct, setActiveProduct] = useState<number | null>(null)
   const [showScrollTop, setShowScrollTop] = useState(false)
 
+
+  const router = useRouter()
   // Refs for scroll sections
   const heroRef = useRef<HTMLElement>(null)
   const productsRef = useRef<HTMLElement>(null)
@@ -165,7 +168,7 @@ export default function ForageCategoryPage() {
       unit: "per kg",
       minOrder: "5kg",
       availability: "In Stock",
-      image: "/placeholder.svg?height=600&width=600&text=Thai+Grass",
+      image: "/products/forage/THAI GRASS MOCKUP POUCH.png",
       features: [
         "High leaf-to-stem ratio",
         "Excellent palatability",
@@ -206,7 +209,7 @@ export default function ForageCategoryPage() {
       unit: "per kg",
       minOrder: "5kg",
       availability: "In Stock",
-      image: "/placeholder.svg?height=600&width=600&text=Alfalfa",
+      image: "/products/forage/STAMINA ALFALFA SEEDS POUCH.png",
       features: [
         "High protein content (18-22%)",
         "Deep root system",
@@ -247,7 +250,7 @@ export default function ForageCategoryPage() {
       unit: "per kg",
       minOrder: "5kg",
       availability: "In Stock",
-      image: "/placeholder.svg?height=600&width=600&text=Ryegrass",
+      image: "/products/forage/jivet annual ryegrass.jpg",
       features: [
         "Quick establishment",
         "High digestibility",
@@ -288,7 +291,7 @@ export default function ForageCategoryPage() {
       unit: "per kg",
       minOrder: "5kg",
       availability: "In Stock",
-      image: "/placeholder.svg?height=600&width=600&text=Berseem+Clover",
+      image: "/products/forage/IMG-20241017-WA0004(2).jpg",
       features: [
         "Fast establishment",
         "Multiple cuttings",
@@ -329,7 +332,7 @@ export default function ForageCategoryPage() {
       unit: "per kg",
       minOrder: "2kg",
       availability: "In Stock",
-      image: "/placeholder.svg?height=600&width=600&text=Fodder+Beet",
+      image: "/products/forage/FODDER BEET IMAGE.jpg",
       features: [
         "Extremely high yields",
         "High energy content",
@@ -370,7 +373,7 @@ export default function ForageCategoryPage() {
       unit: "per kg",
       minOrder: "5kg",
       availability: "In Stock",
-      image: "/placeholder.svg?height=600&width=600&text=Rhodes+Grass",
+      image: "/products/forage/1-27.jpeg.jpg",
       features: [
         "Exceptional drought resistance",
         "Salt tolerance",
@@ -806,7 +809,7 @@ export default function ForageCategoryPage() {
         {/* Background with gradient overlay */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/placeholder.svg?height=1080&width=1920&text=Forage+Field"
+            src="/products/forage/banner.avif"
             alt="Forage field"
             fill
             className="object-cover opacity-40"
@@ -864,14 +867,14 @@ export default function ForageCategoryPage() {
                 <ChevronDown className="ml-2 h-5 w-5 transition-transform group-hover:translate-y-1" />
               </Button>
 
-              <Button
+              {/* <Button
                 variant="outline"
                 size="lg"
                 className="border-emerald-700 text-emerald-400 hover:bg-emerald-900/30 rounded-full px-8 py-6 text-lg"
               >
                 <span>Download Catalog</span>
                 <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
+              </Button> */}
             </motion.div>
           </motion.div>
         </div>
@@ -978,7 +981,7 @@ export default function ForageCategoryPage() {
                     </div>
 
                     {/* Price and Actions */}
-                    <div className="flex flex-wrap items-center justify-between gap-4">
+                    <div className="flex scale-0 flex-wrap items-center justify-between gap-4">
                       <div>
                         <span className="text-3xl font-bold text-white">${product.price.toFixed(2)}</span>
                         <span className="text-gray-400 ml-2">{product.unit}</span>
@@ -1250,20 +1253,22 @@ export default function ForageCategoryPage() {
             </motion.p>
 
             <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row justify-center gap-4">
-              <Button
+              {/* <Button
                 size="lg"
                 className="bg-emerald-600 hover:bg-emerald-700 text-white border-0 rounded-full px-8 py-6 text-lg shadow-lg shadow-emerald-900/50 group"
               >
                 <span>Request a Quote</span>
                 <ArrowUpRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-              </Button>
+              </Button> */}
 
               <Button
                 variant="outline"
                 size="lg"
+                onClick={() => router.push("/contact")}
+                // onClick={() => window.location.href = "/contact"}
                 className="border-emerald-700 text-emerald-400 hover:bg-emerald-900/30 rounded-full px-8 py-6 text-lg"
               >
-                <span>Download Growing Guide</span>
+                <span>Contact us</span>
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </motion.div>
