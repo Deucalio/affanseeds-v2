@@ -77,11 +77,11 @@ export default function HomePage() {
   const featuredProducts = [
     {
       id: 1,
-      name: "Purple Basil",
+      name: "Stamina Alfalfa Seeds",
       category: "herbs",
       description: "Aromatic purple leaves with a sweet, spicy flavor",
       price: 4.99,
-      image: "/placeholder.svg?height=500&width=500&text=Purple+Basil",
+      image: "/products/forage/STAMINA ALFALFA SEEDS POUCH.png",
       rating: 4.8,
       reviews: 124,
       tags: ["Culinary", "Aromatic", "Ornamental"],
@@ -90,11 +90,11 @@ export default function HomePage() {
     },
     {
       id: 2,
-      name: "Ghost Pepper",
+      name: "Fodder Beet",
       category: "vegetables",
       description: "One of the world's hottest peppers, extreme heat",
       price: 6.99,
-      image: "/placeholder.svg?height=500&width=500&text=Ghost+Pepper",
+      image: "/products/forage/FODDER BEET IMAGE.jpg",
       rating: 4.9,
       reviews: 89,
       tags: ["Spicy", "Rare", "Extreme Heat"],
@@ -103,11 +103,11 @@ export default function HomePage() {
     },
     {
       id: 3,
-      name: "Black Nebula Carrot",
+      name: "Titan Mustard Seeds",
       category: "vegetables",
       description: "Deep purple-black carrots with cosmic appearance",
       price: 5.49,
-      image: "/placeholder.svg?height=500&width=500&text=Black+Nebula+Carrot",
+      image: "/products/seeds/TITAN MUSTRAD SEEDS POUCH.png",
       rating: 4.7,
       reviews: 56,
       tags: ["Rare", "Heirloom", "Colorful"],
@@ -116,11 +116,11 @@ export default function HomePage() {
     },
     {
       id: 4,
-      name: "Dragon's Breath Chili",
+      name: "Sunflower Seeds",
       category: "vegetables",
       description: "Extremely hot pepper, not for the faint of heart",
       price: 8.99,
-      image: "/placeholder.svg?height=500&width=500&text=Dragon's+Breath+Chili",
+      image: "/products/seeds/sunflowerseeds.jpg",
       rating: 4.9,
       reviews: 42,
       tags: ["Super Hot", "Rare", "Collector's Item"],
@@ -322,7 +322,7 @@ export default function HomePage() {
           {/* Background with gradient overlay */}
           <div className="absolute inset-0 z-0">
             <Image
-              src="/placeholder.svg?height=1080&width=1920&text=Dark+Garden+Background"
+              src="/slideshow-2.avif"
               alt="Dark garden background"
               fill
               className="object-cover opacity-40"
@@ -356,13 +356,13 @@ export default function HomePage() {
               animate="visible"
               variants={staggerContainer}
             >
-              <motion.div
+              {/* <motion.div
                 variants={fadeInUp}
                 className="inline-flex items-center px-4 py-2 rounded-full bg-emerald-900/30 border border-emerald-700/50 text-emerald-300 text-sm font-medium mb-6 backdrop-blur-sm"
               >
                 <Sparkles className="h-4 w-4 mr-2" />
                 <span>Discover Rare & Exotic Seeds</span>
-              </motion.div>
+              </motion.div> */}
 
               <motion.h1
                 variants={fadeInUp}
@@ -384,13 +384,13 @@ export default function HomePage() {
                   <ChevronRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Button>
 
-                <Button
+                {/* <Button
                   variant="outline"
                   size="lg"
                   className="border-emerald-700 text-emerald-400 hover:bg-emerald-900/30 rounded-full px-8 py-6 text-lg"
                 >
                   Explore Categories
-                </Button>
+                </Button> */}
               </motion.div>
 
               <motion.div variants={fadeInUp} className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -503,7 +503,7 @@ export default function HomePage() {
                 <div className="absolute -inset-4 rounded-2xl bg-emerald-600/10 opacity-20 blur-lg"></div>
                 <div className="relative rounded-2xl overflow-hidden shadow-lg">
                   <Image
-                    src="/placeholder.svg?height=600&width=800&text=Our+Team"
+                    src="/about-us.avif"
                     alt="Our Team"
                     width={800}
                     height={600}
@@ -648,7 +648,7 @@ export default function HomePage() {
                           <span className="text-gray-400 text-xs ml-2">({product.reviews})</span>
                         </div>
 
-                        <div className="flex items-center justify-between">
+                        <div className="flex items-center justify-between scale-0">
                           <span className="text-2xl font-bold text-white">${product.price.toFixed(2)}</span>
                           <Button
                             size="sm"
