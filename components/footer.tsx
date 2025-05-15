@@ -1,11 +1,19 @@
-import Link from "next/link"
-import Image from "next/image"
-import { Facebook, Instagram, Twitter, Youtube, Mail, Phone, MapPin } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import Link from "next/link";
+import Image from "next/image";
+import {
+  Facebook,
+  Instagram,
+  Twitter,
+  Youtube,
+  Mail,
+  Phone,
+  MapPin,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 export default function Footer() {
-  const currentYear = new Date().getFullYear()
+  const currentYear = new Date().getFullYear();
 
   return (
     <footer className="bg-gray-900 border-t border-gray-800">
@@ -24,20 +32,33 @@ export default function Footer() {
               />
             </div>
             <p className="text-gray-400 mb-6">
-              Discover rare, exotic, and heirloom seeds for the adventurous gardener. We source unique varieties from
-              around the world to help you grow something extraordinary.
+              Discover rare, exotic, and heirloom seeds for the adventurous
+              gardener. We source unique varieties from around the world to help
+              you grow something extraordinary.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-emerald-400 transition-colors">
+              <a
+                href="#"
+                className="text-gray-400 hover:text-emerald-400 transition-colors"
+              >
                 <Facebook className="h-5 w-5" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-emerald-400 transition-colors">
+              <a
+                href="#"
+                className="text-gray-400 hover:text-emerald-400 transition-colors"
+              >
                 <Instagram className="h-5 w-5" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-emerald-400 transition-colors">
+              <a
+                href="#"
+                className="text-gray-400 hover:text-emerald-400 transition-colors"
+              >
                 <Twitter className="h-5 w-5" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-emerald-400 transition-colors">
+              <a
+                href="#"
+                className="text-gray-400 hover:text-emerald-400 transition-colors"
+              >
                 <Youtube className="h-5 w-5" />
               </a>
             </div>
@@ -56,7 +77,10 @@ export default function Footer() {
                 { name: "FAQs", href: "/faqs" },
               ].map((link) => (
                 <li key={link.name}>
-                  <Link href={link.href} className="text-gray-400 hover:text-emerald-400 transition-colors">
+                  <Link
+                    href={link.href}
+                    className="text-gray-400 hover:text-emerald-400 transition-colors"
+                  >
                     {link.name}
                   </Link>
                 </li>
@@ -70,18 +94,27 @@ export default function Footer() {
             <ul className="space-y-4">
               <li className="flex items-start">
                 <MapPin className="h-5 w-5 text-emerald-400 mr-3 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-400">123 Seed Street, Botanical Gardens, Greenville, 12345</span>
+                <span className="text-gray-400">
+                  Affan Agro Seeds LLP Office # 522-B, 10th Floor Dawood Center,
+                  Auto Bhan Road Hyderabad
+                </span>
               </li>
               <li className="flex items-center">
                 <Phone className="h-5 w-5 text-emerald-400 mr-3 flex-shrink-0" />
-                <a href="tel:+11234567890" className="text-gray-400 hover:text-emerald-400 transition-colors">
-                  +1 (123) 456-7890
+                <a
+                  href="tel:+0223411135"
+                  className="text-gray-400 hover:text-emerald-400 transition-colors"
+                >
+                  0223411135
                 </a>
               </li>
               <li className="flex items-center">
                 <Mail className="h-5 w-5 text-emerald-400 mr-3 flex-shrink-0" />
-                <a href="mailto:info@seedvault.com" className="text-gray-400 hover:text-emerald-400 transition-colors">
-                  info@seedvault.com
+                <a
+                  href="mailto:info@affanagroseeds.com"
+                  className="text-gray-400 hover:text-emerald-400 transition-colors"
+                >
+                 info@affanagroseeds.com 
                 </a>
               </li>
             </ul>
@@ -106,23 +139,37 @@ export default function Footer() {
       {/* Bottom Footer */}
       <div className="border-t border-gray-800 py-6">
         <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-gray-500 text-sm mb-4 md:mb-0">&copy; {currentYear} SeedVault. All rights reserved.</p>
+          <p className="text-gray-500 text-sm mb-4 md:mb-0">
+            &copy; {currentYear} SeedVault. All rights reserved.
+          </p>
           <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-500">
-            <Link href="/privacy-policy" className="hover:text-emerald-400 transition-colors">
+            <Link
+              href="/privacy-policy"
+              className="hover:text-emerald-400 transition-colors"
+            >
               Privacy Policy
             </Link>
-            <Link href="/terms-of-service" className="hover:text-emerald-400 transition-colors">
+            <Link
+              href="/terms-of-service"
+              className="hover:text-emerald-400 transition-colors"
+            >
               Terms of Service
             </Link>
-            <Link href="/shipping-policy" className="hover:text-emerald-400 transition-colors">
+            <Link
+              href="/shipping-policy"
+              className="hover:text-emerald-400 transition-colors"
+            >
               Shipping Policy
             </Link>
-            <Link href="/refund-policy" className="hover:text-emerald-400 transition-colors">
+            <Link
+              href="/refund-policy"
+              className="hover:text-emerald-400 transition-colors"
+            >
               Refund Policy
             </Link>
           </div>
         </div>
       </div>
     </footer>
-  )
+  );
 }
