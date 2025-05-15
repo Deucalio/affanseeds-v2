@@ -117,7 +117,7 @@ export default function Header() {
               onMouseEnter={() => setShowTooltip(true)}
               onClick={() => setShowTooltip(!showTooltip)}
             >
-              Explore Products
+              Products
               <ChevronDown
                 className={cn("ml-1 h-4 w-4 transition-transform duration-200", showTooltip ? "rotate-180" : "")}
               />

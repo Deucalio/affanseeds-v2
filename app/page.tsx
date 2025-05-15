@@ -320,7 +320,7 @@ export default function HomePage() {
               className="object-cover opacity-40"
               priority
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-gray-950/80 via-gray-900/50 to-gray-950"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-gray-950/8 0 via-gray-900/50 to-gray-950"></div>
 
             {/* Animated particles */}
             <div className="absolute inset-0 overflow-hidden">
