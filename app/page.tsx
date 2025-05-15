@@ -1108,7 +1108,7 @@ export default function HomePage() {
 
         {/* Floating Cart Button */}
         <div
-          className={`fixed bottom-8 right-8 z-40 transition-all duration-300 ${isScrolled ? "opacity-100 scale-100" : "opacity-0 scale-50"}`}
+          className={`scale-0 bottom-8 right-8 z-40 transition-all duration-300 ${isScrolled ? "opacity-100 scale-100" : "opacity-0 scale-50"}`}
         >
           <Button
             className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-full h-14 w-14 p-0 shadow-lg shadow-emerald-900/50 relative"
