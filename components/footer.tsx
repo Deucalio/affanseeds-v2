@@ -24,7 +24,7 @@ export default function Footer() {
           <div>
             <div className="mb-6">
               <Image
-                src="/placeholder.svg?height=40&width=160&text=SeedVault"
+                src="/logo.svg"
                 alt="SeedVault Logo"
                 width={160}
                 height={40}
