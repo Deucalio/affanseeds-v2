@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button"
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [showTooltip, setShowTooltip] = useState(false)
-  const tooltipRef = useRef(null)
+  const tooltipRef = useRef<HTMLDivElement | null>(null)
   const pathname = usePathname()
 
   // Handle scroll events
@@ -26,8 +26,8 @@ export default function Header() {
 
   // Close tooltip when clicking outside
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (tooltipRef.current && !tooltipRef.current.contains(event.target)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (tooltipRef.current && !tooltipRef.current.contains(event.target as Node)) {
         setShowTooltip(false)
       }
     }
@@ -75,7 +75,7 @@ export default function Header() {
         <Link href="/" className="flex items-center space-x-2 z-10">
           <div className="relative h-10 w-40">
             <Image
-              src="/placeholder.svg?height=40&width=160&text=SeedVault"
+              src="/logo.svg"
               alt="SeedVault Logo"
               width={160}
               height={40}

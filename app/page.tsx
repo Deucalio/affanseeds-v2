@@ -302,7 +302,7 @@ export default function HomePage() {
         {/* Background with gradient overlay */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/placeholder.svg?height=1080&width=1920&text=Dark+Garden+Background"
+            src="/slideshow-1.jpg"
             alt="Dark garden background"
             fill
             className="object-cover opacity-40"
@@ -479,7 +479,7 @@ export default function HomePage() {
               <div className="absolute -inset-4 rounded-2xl bg-emerald-600/10 opacity-20 blur-lg"></div>
               <div className="relative rounded-2xl overflow-hidden shadow-lg">
                 <Image
-                  src="/placeholder.svg?height=600&width=800&text=Our+Team"
+                  src="/about-us.avif"
                   alt="Our Team"
                   width={800}
                   height={600}
