@@ -1,10 +1,11 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState, useEffect, useRef } from "react"
-import Image from "next/image"
-import { motion } from "framer-motion"
+import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
 import {
   ShoppingCart,
   Heart,
@@ -24,112 +25,119 @@ import {
   Shield,
   Sprout,
   X,
-} from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import Breadcrumb from "@/components/breadcrumb"
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import Breadcrumb from "@/components/breadcrumb";
 
 // Define types
 interface ProductSpecifications {
-  seedingRate: string
-  germinationRate: string
-  daysToGermination: string
-  harvestTime: string
-  yieldPotential: string
+  seedingRate: string;
+  germinationRate: string;
+  daysToGermination: string;
+  harvestTime: string;
+  yieldPotential: string;
 }
 
 interface GrowingConditions {
-  soilType: string
-  soilPH: string
-  climate: string
-  waterRequirements: string
-  sunlight: string
-  growingSeason: string
+  soilType: string;
+  soilPH: string;
+  climate: string;
+  waterRequirements: string;
+  sunlight: string;
+  growingSeason: string;
 }
 
 interface Product {
-  id: number
-  name: string
-  scientificName: string
-  description: string
-  longDescription: string
-  price: number
-  unit: string
-  minOrder: string
-  availability: string
-  image: string
-  features: string[]
-  specifications: ProductSpecifications
-  growingConditions: GrowingConditions
-  badge?: string
-  badgeColor?: string
-  rating: number
-  reviews: number
+  id: number;
+  name: string;
+  scientificName: string;
+  description: string;
+  longDescription: string;
+  price: number;
+  unit: string;
+  minOrder: string;
+  availability: string;
+  image: string;
+  features: string[];
+  specifications: ProductSpecifications;
+  growingConditions: GrowingConditions;
+  badge?: string;
+  badgeColor?: string;
+  rating: number;
+  reviews: number;
 }
 
 interface Feature {
-  icon: React.ReactNode
-  title: string
-  description: string
+  icon: React.ReactNode;
+  title: string;
+  description: string;
 }
 
 export default function OilSeedsPage() {
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [cartCount, setCartCount] = useState(0)
-  const [wishlistCount, setWishlistCount] = useState(0)
-  const [activeProduct, setActiveProduct] = useState<number | null>(null)
-  const [showScrollTop, setShowScrollTop] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
+  const [wishlistCount, setWishlistCount] = useState(0);
+  const [activeProduct, setActiveProduct] = useState<number | null>(null);
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
   // Refs for scroll sections
-  const heroRef = useRef<HTMLElement>(null)
-  const productsRef = useRef<HTMLElement>(null)
+  const heroRef = useRef<HTMLElement>(null);
+  const productsRef = useRef<HTMLElement>(null);
 
   // State for scroll position
-  const [scrollY, setScrollY] = useState(0)
+  const [scrollY, setScrollY] = useState(0);
 
   // State for product interactions
-  const [hoveredProduct, setHoveredProduct] = useState<number | null>(null)
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
-  const [modalOpen, setModalOpen] = useState(false)
+  const [hoveredProduct, setHoveredProduct] = useState<number | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [modalOpen, setModalOpen] = useState(false);
 
   // Handle scroll events
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
-      setShowScrollTop(window.scrollY > 300)
-      setScrollY(window.scrollY)
-    }
+      setIsScrolled(window.scrollY > 50);
+      setShowScrollTop(window.scrollY > 300);
+      setScrollY(window.scrollY);
+    };
 
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Scroll to products section
   const scrollToContent = () => {
-    const productsElement = document.getElementById("products")
+    const productsElement = document.getElementById("products");
     if (productsElement) {
-      productsElement.scrollIntoView({ behavior: "smooth" })
+      productsElement.scrollIntoView({ behavior: "smooth" });
     }
-  }
+  };
 
   // Modal functions
   const openProductModal = (product: Product) => {
-    setSelectedProduct(product)
-    setModalOpen(true)
-    document.body.style.overflow = "hidden"
-  }
+    setSelectedProduct(product);
+    setModalOpen(true);
+    document.body.style.overflow = "hidden";
+  };
 
   const closeProductModal = () => {
-    setModalOpen(false)
-    document.body.style.overflow = "auto"
-  }
+    setModalOpen(false);
+    document.body.style.overflow = "auto";
+  };
 
   // Scroll to top
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" })
-  }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const router = useRouter();
 
   // Animation on scroll
   useEffect(() => {
@@ -137,22 +145,22 @@ export default function OilSeedsPage() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add("animate-fade-in")
-            entry.target.classList.add("opacity-100")
+            entry.target.classList.add("animate-fade-in");
+            entry.target.classList.add("opacity-100");
           }
-        })
+        });
       },
       {
         threshold: 0.1,
         rootMargin: "0px 0px -100px 0px",
-      },
-    )
+      }
+    );
 
-    const elements = document.querySelectorAll(".reveal")
-    elements.forEach((el) => observer.observe(el))
+    const elements = document.querySelectorAll(".reveal");
+    elements.forEach((el) => observer.observe(el));
 
-    return () => elements.forEach((el) => observer.unobserve(el))
-  }, [])
+    return () => elements.forEach((el) => observer.unobserve(el));
+  }, []);
 
   // Oil Seeds products data
   const oilSeedsProducts: Product[] = [
@@ -168,7 +176,7 @@ export default function OilSeedsPage() {
       unit: "per kg",
       minOrder: "5kg",
       availability: "In Stock",
-      image: "/placeholder.svg?height=600&width=600&text=Sunflower+Seeds",
+      image: "/products/seeds/sunflowerseeds.jpg",
       features: [
         "High oil content (40-45%)",
         "Large seed heads",
@@ -197,47 +205,7 @@ export default function OilSeedsPage() {
       rating: 4.8,
       reviews: 124,
     },
-    {
-      id: 2,
-      name: "Canola Seeds",
-      scientificName: "Brassica napus",
-      description:
-        "Premium canola seeds with exceptional oil content and quality. Bred for disease resistance and high yields in various growing conditions.",
-      longDescription:
-        "Canola Seeds (Brassica napus) are a premium oilseed crop known for their high oil content and nutritional profile. Our canola varieties are specifically bred for disease resistance, particularly against blackleg and white rust. These seeds produce plants with vigorous growth, uniform flowering, and consistent maturity, making them ideal for commercial production.",
-      price: 22.99,
-      unit: "per kg",
-      minOrder: "5kg",
-      availability: "In Stock",
-      image: "/placeholder.svg?height=600&width=600&text=Canola+Seeds",
-      features: [
-        "High oil content (40-45%)",
-        "Disease resistant varieties",
-        "Cold tolerant",
-        "Early maturing options",
-        "Uniform pod development",
-        "Excellent standability",
-      ],
-      specifications: {
-        seedingRate: "3-5 kg/hectare",
-        germinationRate: "90-95%",
-        daysToGermination: "4-10 days",
-        harvestTime: "90-120 days after planting",
-        yieldPotential: "2-3 tons/hectare",
-      },
-      growingConditions: {
-        soilType: "Well-drained loam to clay loam",
-        soilPH: "5.5-7.0",
-        climate: "Cool to temperate",
-        waterRequirements: "Medium",
-        sunlight: "Full sun",
-        growingSeason: "Winter to spring in warmer regions",
-      },
-      badge: "Disease Resistant",
-      badgeColor: "green",
-      rating: 4.7,
-      reviews: 98,
-    },
+
     {
       id: 3,
       name: "Sesame Seeds",
@@ -250,7 +218,7 @@ export default function OilSeedsPage() {
       unit: "per kg",
       minOrder: "5kg",
       availability: "In Stock",
-      image: "/placeholder.svg?height=600&width=600&text=Sesame+Seeds",
+      image: "/products/seeds/SESOME OIL SEEDS.jpg",
       features: [
         "High oil content (50-55%)",
         "Exceptional drought tolerance",
@@ -281,7 +249,7 @@ export default function OilSeedsPage() {
     },
     {
       id: 4,
-      name: "Mustard Seeds",
+      name: "Titan Mustard Seeds",
       scientificName: "Brassica juncea",
       description:
         "Premium mustard seeds for oil production and condiment manufacturing. Fast-growing crop with excellent adaptability to various soils.",
@@ -291,7 +259,7 @@ export default function OilSeedsPage() {
       unit: "per kg",
       minOrder: "5kg",
       availability: "In Stock",
-      image: "/placeholder.svg?height=600&width=600&text=Mustard+Seeds",
+      image: "/products/seeds/TITAN MUSTRAD SEEDS POUCH.png",
       features: [
         "Oil content (35-40%)",
         "Fast growing cycle",
@@ -320,161 +288,83 @@ export default function OilSeedsPage() {
       rating: 4.6,
       reviews: 87,
     },
-    {
-      id: 5,
-      name: "Soybean Seeds",
-      scientificName: "Glycine max",
-      description:
-        "High-protein soybean seeds for oil production and protein extraction. Disease-resistant varieties with excellent yield potential.",
-      longDescription:
-        "Soybean Seeds (Glycine max) are dual-purpose crops valued for both their oil and protein content. Our soybean varieties are specifically selected for their high oil quality, protein levels, and resistance to common diseases. These seeds produce plants with strong vigor, good standability, and consistent pod development, making them ideal for commercial production.",
-      price: 20.99,
-      unit: "per kg",
-      minOrder: "5kg",
-      availability: "In Stock",
-      image: "/placeholder.svg?height=600&width=600&text=Soybean+Seeds",
-      features: [
-        "High protein content (35-40%)",
-        "Oil content (18-22%)",
-        "Nitrogen fixing ability",
-        "Disease resistant",
-        "Uniform maturity",
-        "Adaptable to various soils",
-      ],
-      specifications: {
-        seedingRate: "60-80 kg/hectare",
-        germinationRate: "85-90%",
-        daysToGermination: "5-7 days",
-        harvestTime: "100-120 days after planting",
-        yieldPotential: "2.5-3.5 tons/hectare",
-      },
-      growingConditions: {
-        soilType: "Well-drained loam",
-        soilPH: "6.0-7.0",
-        climate: "Warm, temperate to subtropical",
-        waterRequirements: "Medium to high",
-        sunlight: "Full sun",
-        growingSeason: "Spring through summer",
-      },
-      badge: "High Protein",
-      badgeColor: "rose",
-      rating: 4.8,
-      reviews: 112,
-    },
-    {
-      id: 6,
-      name: "Flaxseed",
-      scientificName: "Linum usitatissimum",
-      description:
-        "Premium flaxseed varieties rich in omega-3 fatty acids and dietary fiber. Ideal for health food markets and oil production.",
-      longDescription:
-        "Flaxseed (Linum usitatissimum) is a versatile oilseed crop valued for its exceptional nutritional profile. Our flaxseed varieties are selected for their high omega-3 fatty acid content, dietary fiber, and oil quality. These seeds produce plants with good standability, uniform flowering, and consistent seed development, making them suitable for both commercial production and specialty health food markets.",
-      price: 19.99,
-      unit: "per kg",
-      minOrder: "5kg",
-      availability: "In Stock",
-      image: "/placeholder.svg?height=600&width=600&text=Flaxseed",
-      features: [
-        "High omega-3 fatty acid content",
-        "Oil content (35-45%)",
-        "Rich in dietary fiber",
-        "Cold tolerant",
-        "Drought resistant once established",
-        "Excellent rotation crop",
-      ],
-      specifications: {
-        seedingRate: "30-40 kg/hectare",
-        germinationRate: "85-90%",
-        daysToGermination: "7-10 days",
-        harvestTime: "90-110 days after planting",
-        yieldPotential: "1-1.5 tons/hectare",
-      },
-      growingConditions: {
-        soilType: "Well-drained loam to clay loam",
-        soilPH: "6.0-7.0",
-        climate: "Cool to temperate",
-        waterRequirements: "Medium",
-        sunlight: "Full sun",
-        growingSeason: "Spring through summer",
-      },
-      badge: "Omega-3 Rich",
-      badgeColor: "emerald",
-      rating: 4.7,
-      reviews: 92,
-    },
-  ]
+  ];
 
   // Features data
   const features: Feature[] = [
     {
       icon: <Leaf className="h-6 w-6 text-amber-600" />,
       title: "Premium Quality",
-      description: "Our oil seeds are carefully selected for optimal oil content and extraction efficiency.",
+      description:
+        "Our oil seeds are carefully selected for optimal oil content and extraction efficiency.",
     },
     {
       icon: <Shield className="h-6 w-6 text-amber-600" />,
       title: "Disease Resistant",
-      description: "Varieties chosen for their natural resistance to common diseases.",
+      description:
+        "Varieties chosen for their natural resistance to common diseases.",
     },
     {
       icon: <Droplets className="h-6 w-6 text-amber-600" />,
       title: "Drought Tolerant",
-      description: "Selected for performance even in challenging water conditions.",
+      description:
+        "Selected for performance even in challenging water conditions.",
     },
     {
       icon: <Sprout className="h-6 w-6 text-amber-600" />,
       title: "High Yield",
-      description: "Maximize your harvest with our high-performing seed varieties.",
+      description:
+        "Maximize your harvest with our high-performing seed varieties.",
     },
-  ]
+  ];
 
   // Helper function for badge colors
   const getBadgeColor = (color?: string) => {
     switch (color) {
       case "red":
-        return "bg-red-900/80 text-red-100 border-red-700"
+        return "bg-red-900/80 text-red-100 border-red-700";
       case "amber":
-        return "bg-amber-900/80 text-amber-100 border-amber-700"
+        return "bg-amber-900/80 text-amber-100 border-amber-700";
       case "green":
-        return "bg-emerald-900/80 text-emerald-100 border-emerald-700"
+        return "bg-emerald-900/80 text-emerald-100 border-emerald-700";
       case "blue":
-        return "bg-blue-900/80 text-blue-100 border-blue-700"
+        return "bg-blue-900/80 text-blue-100 border-blue-700";
       case "purple":
-        return "bg-purple-900/80 text-purple-100 border-purple-700"
+        return "bg-purple-900/80 text-purple-100 border-purple-700";
       case "violet":
-        return "bg-violet-900/80 text-violet-100 border-violet-700"
+        return "bg-violet-900/80 text-violet-100 border-violet-700";
       case "lime":
-        return "bg-lime-900/80 text-lime-100 border-lime-700"
+        return "bg-lime-900/80 text-lime-100 border-lime-700";
       case "teal":
-        return "bg-teal-900/80 text-teal-100 border-teal-700"
+        return "bg-teal-900/80 text-teal-100 border-teal-700";
       case "emerald":
-        return "bg-emerald-900/80 text-emerald-100 border-emerald-700"
+        return "bg-emerald-900/80 text-emerald-100 border-emerald-700";
       case "rose":
-        return "bg-rose-900/80 text-rose-100 border-rose-700"
+        return "bg-rose-900/80 text-rose-100 border-rose-700";
       default:
-        return "bg-amber-900/80 text-amber-100 border-amber-700"
+        return "bg-amber-900/80 text-amber-100 border-amber-700";
     }
-  }
+  };
 
   // Add to cart function
   const addToCart = (e: React.MouseEvent, productId: number) => {
-    e.preventDefault()
-    setCartCount((prev) => prev + 1)
+    e.preventDefault();
+    setCartCount((prev) => prev + 1);
     // Here you would add actual cart functionality
-  }
+  };
 
   // Add to wishlist function
   const addToWishlist = (e: React.MouseEvent, productId: number) => {
-    e.preventDefault()
-    setWishlistCount((prev) => prev + 1)
+    e.preventDefault();
+    setWishlistCount((prev) => prev + 1);
     // Here you would add actual wishlist functionality
-  }
+  };
 
   // Animation variants
   const fadeInUp = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-  }
+  };
 
   const staggerContainer = {
     hidden: { opacity: 0 },
@@ -484,12 +374,12 @@ export default function OilSeedsPage() {
         staggerChildren: 0.1,
       },
     },
-  }
+  };
 
   const scaleIn = {
     hidden: { opacity: 0, scale: 0.8 },
     visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } },
-  }
+  };
 
   return (
     <main className="min-h-screen bg-gray-950 text-gray-100 pt-20">
@@ -497,11 +387,14 @@ export default function OilSeedsPage() {
       {/* <Breadcrumb /> */}
 
       {/* Hero Section */}
-      <section ref={heroRef} className="relative py-16 md:py-24 overflow-hidden">
+      <section
+        ref={heroRef}
+        className="relative py-16 md:py-24 overflow-hidden"
+      >
         {/* Background with gradient overlay */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/placeholder.svg?height=1080&width=1920&text=Oil+Seeds+Field"
+            src="/products/seeds/banner.avif"
             alt="Oil seeds field"
             fill
             className="object-cover opacity-40"
@@ -511,7 +404,12 @@ export default function OilSeedsPage() {
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
-          <motion.div className="max-w-4xl mx-auto" initial="hidden" animate="visible" variants={staggerContainer}>
+          <motion.div
+            className="max-w-4xl mx-auto"
+            initial="hidden"
+            animate="visible"
+            variants={staggerContainer}
+          >
             <motion.div
               variants={fadeInUp}
               className="inline-flex items-center px-4 py-2 rounded-full bg-amber-900/30 border border-amber-700/50 text-amber-300 text-sm font-medium mb-6 backdrop-blur-sm"
@@ -527,46 +425,72 @@ export default function OilSeedsPage() {
               Premium Oil Seeds for Maximum Yield
             </motion.h1>
 
-            <motion.p variants={fadeInUp} className="text-xl text-gray-300 mb-10">
-              High-quality seeds for oil production, carefully selected for optimal oil content and extraction
-              efficiency. Our oil seeds are sourced from the best producers worldwide.
+            <motion.p
+              variants={fadeInUp}
+              className="text-xl text-gray-300 mb-10"
+            >
+              High-quality seeds for oil production, carefully selected for
+              optimal oil content and extraction efficiency. Our oil seeds are
+              sourced from the best producers worldwide.
             </motion.p>
 
-            <motion.div variants={fadeInUp} className="flex flex-wrap gap-4 mb-8">
+            <motion.div
+              variants={fadeInUp}
+              className="flex flex-wrap gap-4 mb-8"
+            >
               {[
-                { icon: <Check className="h-5 w-5 text-amber-400" />, text: "High Oil Content" },
-                { icon: <Check className="h-5 w-5 text-amber-400" />, text: "Disease Resistant Varieties" },
-                { icon: <Check className="h-5 w-5 text-amber-400" />, text: "Drought Tolerant" },
-                { icon: <Check className="h-5 w-5 text-amber-400" />, text: "Expert Growing Support" },
+                {
+                  icon: <Check className="h-5 w-5 text-amber-400" />,
+                  text: "High Oil Content",
+                },
+                {
+                  icon: <Check className="h-5 w-5 text-amber-400" />,
+                  text: "Disease Resistant Varieties",
+                },
+                {
+                  icon: <Check className="h-5 w-5 text-amber-400" />,
+                  text: "Drought Tolerant",
+                },
+                {
+                  icon: <Check className="h-5 w-5 text-amber-400" />,
+                  text: "Expert Growing Support",
+                },
               ].map((item, i) => (
                 <div
                   key={i}
                   className="flex items-center px-4 py-2 bg-gray-800/50 backdrop-blur-sm rounded-full border border-gray-700"
                 >
                   {item.icon}
-                  <span className="ml-2 text-sm text-gray-200">{item.text}</span>
+                  <span className="ml-2 text-sm text-gray-200">
+                    {item.text}
+                  </span>
                 </div>
               ))}
             </motion.div>
 
-            <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4">
+            <motion.div
+              variants={fadeInUp}
+              className="flex flex-col sm:flex-row gap-4"
+            >
               <Button
                 size="lg"
                 className="bg-amber-600 hover:bg-amber-700 text-white border-0 rounded-full px-8 py-6 text-lg shadow-lg shadow-amber-900/50 group"
-                onClick={() => productsRef.current?.scrollIntoView({ behavior: "smooth" })}
+                onClick={() =>
+                  productsRef.current?.scrollIntoView({ behavior: "smooth" })
+                }
               >
                 <span>Explore Products</span>
                 <ChevronDown className="ml-2 h-5 w-5 transition-transform group-hover:translate-y-1" />
               </Button>
 
-              <Button
+              {/* <Button
                 variant="outline"
                 size="lg"
                 className="border-amber-700 text-amber-400 hover:bg-amber-900/30 rounded-full px-8 py-6 text-lg"
               >
                 <span>Download Catalog</span>
                 <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
+              </Button> */}
             </motion.div>
           </motion.div>
         </div>
@@ -584,13 +508,22 @@ export default function OilSeedsPage() {
             variants={staggerContainer}
             className="text-center mb-16"
           >
-            <motion.h2 variants={fadeInUp} className="text-3xl md:text-5xl font-bold mb-4 inline-block">
+            <motion.h2
+              variants={fadeInUp}
+              className="text-3xl md:text-5xl font-bold mb-4 inline-block"
+            >
               Our <span className="text-amber-400">Oil Seeds</span>
             </motion.h2>
-            <motion.div variants={fadeInUp} className="w-24 h-1 bg-amber-500 mx-auto mb-6 rounded-full" />
-            <motion.p variants={fadeInUp} className="text-lg text-gray-400 max-w-2xl mx-auto">
-              Discover our premium selection of oil seeds, perfect for farmers looking to maximize oil production and
-              quality.
+            <motion.div
+              variants={fadeInUp}
+              className="w-24 h-1 bg-amber-500 mx-auto mb-6 rounded-full"
+            />
+            <motion.p
+              variants={fadeInUp}
+              className="text-lg text-gray-400 max-w-2xl mx-auto"
+            >
+              Discover our premium selection of oil seeds, perfect for farmers
+              looking to maximize oil production and quality.
             </motion.p>
           </motion.div>
 
@@ -602,11 +535,20 @@ export default function OilSeedsPage() {
                 whileInView="visible"
                 viewport={{ once: true, margin: "-100px" }}
                 variants={staggerContainer}
-                className={`relative ${index % 2 === 0 ? "" : "bg-gray-900/30 rounded-3xl py-12 px-4 md:px-8"}`}
+                className={`relative ${
+                  index % 2 === 0
+                    ? ""
+                    : "bg-gray-900/30 rounded-3xl py-12 px-4 md:px-8"
+                }`}
               >
                 <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
                   {/* Product Image - Always on left for mobile, alternating for desktop */}
-                  <motion.div variants={scaleIn} className={`order-1 ${index % 2 === 0 ? "md:order-1" : "md:order-2"}`}>
+                  <motion.div
+                    variants={scaleIn}
+                    className={`order-1 ${
+                      index % 2 === 0 ? "md:order-1" : "md:order-2"
+                    }`}
+                  >
                     <div className="relative mx-auto">
                       <div className="relative w-64 h-64 md:w-80 md:h-80 mx-auto rounded-full overflow-hidden border-8 border-gray-800 group-hover:border-amber-900 transition-all duration-300">
                         <Image
@@ -620,7 +562,9 @@ export default function OilSeedsPage() {
                       {/* Badge */}
                       {product.badge && (
                         <div
-                          className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-medium border ${getBadgeColor(product.badgeColor)}`}
+                          className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-medium border ${getBadgeColor(
+                            product.badgeColor
+                          )}`}
                         >
                           {product.badge}
                         </div>
@@ -631,10 +575,16 @@ export default function OilSeedsPage() {
                   {/* Product Content */}
                   <motion.div
                     variants={fadeInUp}
-                    className={`order-2 ${index % 2 === 0 ? "md:order-2" : "md:order-1"}`}
+                    className={`order-2 ${
+                      index % 2 === 0 ? "md:order-2" : "md:order-1"
+                    }`}
                   >
-                    <h3 className="text-3xl font-bold text-white mb-2">{product.name}</h3>
-                    <p className="text-amber-400 italic mb-4">{product.scientificName}</p>
+                    <h3 className="text-3xl font-bold text-white mb-2">
+                      {product.name}
+                    </h3>
+                    <p className="text-amber-400 italic mb-4">
+                      {product.scientificName}
+                    </p>
                     <p className="text-gray-300 mb-6">{product.description}</p>
 
                     {/* Features */}
@@ -642,7 +592,9 @@ export default function OilSeedsPage() {
                       {product.features.slice(0, 6).map((feature, idx) => (
                         <div key={idx} className="flex items-start">
                           <Check className="h-5 w-5 text-amber-400 mt-0.5 mr-2 flex-shrink-0" />
-                          <span className="text-gray-300 text-sm">{feature}</span>
+                          <span className="text-gray-300 text-sm">
+                            {feature}
+                          </span>
                         </div>
                       ))}
                     </div>
@@ -650,12 +602,20 @@ export default function OilSeedsPage() {
                     {/* Specifications Preview */}
                     <div className="grid grid-cols-2 gap-4 mb-6">
                       <div className="bg-gray-800/50 rounded-xl p-4">
-                        <h4 className="text-sm font-medium text-amber-400 mb-2">Seeding Rate</h4>
-                        <p className="text-white">{product.specifications.seedingRate}</p>
+                        <h4 className="text-sm font-medium text-amber-400 mb-2">
+                          Seeding Rate
+                        </h4>
+                        <p className="text-white">
+                          {product.specifications.seedingRate}
+                        </p>
                       </div>
                       <div className="bg-gray-800/50 rounded-xl p-4">
-                        <h4 className="text-sm font-medium text-amber-400 mb-2">Germination</h4>
-                        <p className="text-white">{product.specifications.germinationRate}</p>
+                        <h4 className="text-sm font-medium text-amber-400 mb-2">
+                          Germination
+                        </h4>
+                        <p className="text-white">
+                          {product.specifications.germinationRate}
+                        </p>
                       </div>
                     </div>
 
@@ -665,19 +625,31 @@ export default function OilSeedsPage() {
                         {[...Array(5)].map((_, i) => (
                           <Star
                             key={i}
-                            className={`h-5 w-5 ${i < Math.floor(product.rating) ? "text-amber-400 fill-amber-400" : "text-gray-600"}`}
+                            className={`h-5 w-5 ${
+                              i < Math.floor(product.rating)
+                                ? "text-amber-400 fill-amber-400"
+                                : "text-gray-600"
+                            }`}
                           />
                         ))}
                       </div>
-                      <span className="text-gray-400 text-sm ml-2">({product.reviews} reviews)</span>
+                      <span className="text-gray-400 text-sm ml-2">
+                        ({product.reviews} reviews)
+                      </span>
                     </div>
 
                     {/* Price and Actions */}
-                    <div className="flex flex-wrap items-center justify-between gap-4">
+                    <div className="flex scale-0 flex-wrap items-center justify-between gap-4">
                       <div>
-                        <span className="text-3xl font-bold text-white">${product.price.toFixed(2)}</span>
-                        <span className="text-gray-400 ml-2">{product.unit}</span>
-                        <p className="text-sm text-gray-500">Min. Order: {product.minOrder}</p>
+                        <span className="text-3xl font-bold text-white">
+                          ${product.price.toFixed(2)}
+                        </span>
+                        <span className="text-gray-400 ml-2">
+                          {product.unit}
+                        </span>
+                        <p className="text-sm text-gray-500">
+                          Min. Order: {product.minOrder}
+                        </p>
                       </div>
                       <div className="flex gap-3">
                         <Button
@@ -702,9 +674,17 @@ export default function OilSeedsPage() {
                       <Button
                         variant="ghost"
                         className="text-amber-400 hover:text-amber-300 hover:bg-transparent p-0 flex items-center"
-                        onClick={() => setActiveProduct(activeProduct === product.id ? null : product.id)}
+                        onClick={() =>
+                          setActiveProduct(
+                            activeProduct === product.id ? null : product.id
+                          )
+                        }
                       >
-                        <span>{activeProduct === product.id ? "Hide Details" : "View Full Details"}</span>
+                        <span>
+                          {activeProduct === product.id
+                            ? "Hide Details"
+                            : "View Full Details"}
+                        </span>
                         {activeProduct === product.id ? (
                           <ChevronUp className="ml-2 h-5 w-5" />
                         ) : (
@@ -727,15 +707,23 @@ export default function OilSeedsPage() {
                     <Tabs defaultValue="details" className="w-full">
                       <TabsList className="bg-gray-800 border border-gray-700">
                         <TabsTrigger value="details">Details</TabsTrigger>
-                        <TabsTrigger value="specifications">Specifications</TabsTrigger>
+                        <TabsTrigger value="specifications">
+                          Specifications
+                        </TabsTrigger>
                         <TabsTrigger value="growing">Growing Guide</TabsTrigger>
                       </TabsList>
                       <TabsContent value="details" className="mt-6">
                         <div className="prose prose-invert max-w-none">
-                          <h4 className="text-xl font-bold text-white mb-4">Product Description</h4>
-                          <p className="text-gray-300">{product.longDescription}</p>
+                          <h4 className="text-xl font-bold text-white mb-4">
+                            Product Description
+                          </h4>
+                          <p className="text-gray-300">
+                            {product.longDescription}
+                          </p>
 
-                          <h4 className="text-xl font-bold text-white mt-6 mb-4">Key Benefits</h4>
+                          <h4 className="text-xl font-bold text-white mt-6 mb-4">
+                            Key Benefits
+                          </h4>
                           <ul className="space-y-2">
                             {product.features.map((feature, idx) => (
                               <li key={idx} className="flex items-start">
@@ -749,40 +737,67 @@ export default function OilSeedsPage() {
                       <TabsContent value="specifications" className="mt-6">
                         <div className="grid md:grid-cols-2 gap-8">
                           <div>
-                            <h4 className="text-xl font-bold text-white mb-4">Technical Specifications</h4>
+                            <h4 className="text-xl font-bold text-white mb-4">
+                              Technical Specifications
+                            </h4>
                             <div className="space-y-4">
-                              {Object.entries(product.specifications).map(([key, value]) => (
-                                <div key={key} className="flex justify-between border-b border-gray-800 pb-2">
-                                  <span className="text-gray-400">
-                                    {key.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase())}
-                                  </span>
-                                  <span className="text-white font-medium">{value}</span>
-                                </div>
-                              ))}
+                              {Object.entries(product.specifications).map(
+                                ([key, value]) => (
+                                  <div
+                                    key={key}
+                                    className="flex justify-between border-b border-gray-800 pb-2"
+                                  >
+                                    <span className="text-gray-400">
+                                      {key
+                                        .replace(/([A-Z])/g, " $1")
+                                        .replace(/^./, (str) =>
+                                          str.toUpperCase()
+                                        )}
+                                    </span>
+                                    <span className="text-white font-medium">
+                                      {value}
+                                    </span>
+                                  </div>
+                                )
+                              )}
                             </div>
                           </div>
                           <div>
-                            <h4 className="text-xl font-bold text-white mb-4">Shipping Information</h4>
+                            <h4 className="text-xl font-bold text-white mb-4">
+                              Shipping Information
+                            </h4>
                             <div className="space-y-4">
                               <div className="flex items-start">
                                 <Truck className="h-5 w-5 text-amber-400 mt-0.5 mr-3 flex-shrink-0" />
                                 <div>
-                                  <p className="text-white font-medium">Free Shipping</p>
-                                  <p className="text-gray-400 text-sm">On orders over $100</p>
+                                  <p className="text-white font-medium">
+                                    Free Shipping
+                                  </p>
+                                  <p className="text-gray-400 text-sm">
+                                    On orders over $100
+                                  </p>
                                 </div>
                               </div>
                               <div className="flex items-start">
                                 <Clock className="h-5 w-5 text-amber-400 mt-0.5 mr-3 flex-shrink-0" />
                                 <div>
-                                  <p className="text-white font-medium">Processing Time</p>
-                                  <p className="text-gray-400 text-sm">1-2 business days</p>
+                                  <p className="text-white font-medium">
+                                    Processing Time
+                                  </p>
+                                  <p className="text-gray-400 text-sm">
+                                    1-2 business days
+                                  </p>
                                 </div>
                               </div>
                               <div className="flex items-start">
                                 <Info className="h-5 w-5 text-amber-400 mt-0.5 mr-3 flex-shrink-0" />
                                 <div>
-                                  <p className="text-white font-medium">Availability</p>
-                                  <p className="text-amber-400 text-sm">{product.availability}</p>
+                                  <p className="text-white font-medium">
+                                    Availability
+                                  </p>
+                                  <p className="text-amber-400 text-sm">
+                                    {product.availability}
+                                  </p>
                                 </div>
                               </div>
                             </div>
@@ -791,49 +806,80 @@ export default function OilSeedsPage() {
                       </TabsContent>
                       <TabsContent value="growing" className="mt-6">
                         <div className="prose prose-invert max-w-none">
-                          <h4 className="text-xl font-bold text-white mb-4">Growing Conditions</h4>
+                          <h4 className="text-xl font-bold text-white mb-4">
+                            Growing Conditions
+                          </h4>
                           <div className="grid md:grid-cols-2 gap-6">
-                            {Object.entries(product.growingConditions).map(([key, value]) => (
-                              <div key={key} className="bg-gray-800/50 rounded-xl p-4">
-                                <h5 className="text-amber-400 font-medium mb-2">
-                                  {key.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase())}
-                                </h5>
-                                <p className="text-gray-300">{value}</p>
-                              </div>
-                            ))}
+                            {Object.entries(product.growingConditions).map(
+                              ([key, value]) => (
+                                <div
+                                  key={key}
+                                  className="bg-gray-800/50 rounded-xl p-4"
+                                >
+                                  <h5 className="text-amber-400 font-medium mb-2">
+                                    {key
+                                      .replace(/([A-Z])/g, " $1")
+                                      .replace(/^./, (str) =>
+                                        str.toUpperCase()
+                                      )}
+                                  </h5>
+                                  <p className="text-gray-300">{value}</p>
+                                </div>
+                              )
+                            )}
                           </div>
 
-                          <h4 className="text-xl font-bold text-white mt-8 mb-4">Planting Guide</h4>
-                          <Accordion type="single" collapsible className="w-full">
-                            <AccordionItem value="item-1" className="border-gray-800">
+                          <h4 className="text-xl font-bold text-white mt-8 mb-4">
+                            Planting Guide
+                          </h4>
+                          <Accordion
+                            type="single"
+                            collapsible
+                            className="w-full"
+                          >
+                            <AccordionItem
+                              value="item-1"
+                              className="border-gray-800"
+                            >
                               <AccordionTrigger className="text-white hover:text-amber-400">
                                 Soil Preparation
                               </AccordionTrigger>
                               <AccordionContent className="text-gray-300">
-                                Prepare a well-tilled seedbed free of weeds and large clods. For best results, conduct a
-                                soil test and adjust pH and nutrients according to recommendations for this specific oil
-                                seed crop.
+                                Prepare a well-tilled seedbed free of weeds and
+                                large clods. For best results, conduct a soil
+                                test and adjust pH and nutrients according to
+                                recommendations for this specific oil seed crop.
                               </AccordionContent>
                             </AccordionItem>
-                            <AccordionItem value="item-2" className="border-gray-800">
+                            <AccordionItem
+                              value="item-2"
+                              className="border-gray-800"
+                            >
                               <AccordionTrigger className="text-white hover:text-amber-400">
                                 Seeding Methods
                               </AccordionTrigger>
                               <AccordionContent className="text-gray-300">
-                                Broadcast or drill seeds at the recommended seeding rate. When broadcasting, ensure good
-                                seed-to-soil contact by rolling or cultipacking after seeding. For drilling, place seeds
-                                at the appropriate depth (usually 1/4 to 1/2 inch).
+                                Broadcast or drill seeds at the recommended
+                                seeding rate. When broadcasting, ensure good
+                                seed-to-soil contact by rolling or cultipacking
+                                after seeding. For drilling, place seeds at the
+                                appropriate depth (usually 1/4 to 1/2 inch).
                               </AccordionContent>
                             </AccordionItem>
-                            <AccordionItem value="item-3" className="border-gray-800">
+                            <AccordionItem
+                              value="item-3"
+                              className="border-gray-800"
+                            >
                               <AccordionTrigger className="text-white hover:text-amber-400">
                                 Irrigation & Maintenance
                               </AccordionTrigger>
                               <AccordionContent className="text-gray-300">
-                                Keep soil moist but not waterlogged during germination. Once established, follow
-                                recommended irrigation schedules based on your climate and soil conditions. Regular
-                                maintenance includes weed control, proper fertilization, and monitoring for pests and
-                                diseases.
+                                Keep soil moist but not waterlogged during
+                                germination. Once established, follow
+                                recommended irrigation schedules based on your
+                                climate and soil conditions. Regular maintenance
+                                includes weed control, proper fertilization, and
+                                monitoring for pests and diseases.
                               </AccordionContent>
                             </AccordionItem>
                           </Accordion>
@@ -868,13 +914,23 @@ export default function OilSeedsPage() {
               <span>Our Commitment</span>
             </motion.div>
 
-            <motion.h2 variants={fadeInUp} className="text-3xl md:text-5xl font-bold mb-4 inline-block">
-              Sustainable <span className="text-amber-400">Oil Seed Production</span>
+            <motion.h2
+              variants={fadeInUp}
+              className="text-3xl md:text-5xl font-bold mb-4 inline-block"
+            >
+              Sustainable{" "}
+              <span className="text-amber-400">Oil Seed Production</span>
             </motion.h2>
-            <motion.div variants={fadeInUp} className="w-24 h-1 bg-amber-500 mx-auto mb-6 rounded-full" />
-            <motion.p variants={fadeInUp} className="text-lg text-gray-400 max-w-2xl mx-auto">
-              We're dedicated to promoting sustainable agriculture through our ethical seed sourcing and growing
-              practices.
+            <motion.div
+              variants={fadeInUp}
+              className="w-24 h-1 bg-amber-500 mx-auto mb-6 rounded-full"
+            />
+            <motion.p
+              variants={fadeInUp}
+              className="text-lg text-gray-400 max-w-2xl mx-auto"
+            >
+              We're dedicated to promoting sustainable agriculture through our
+              ethical seed sourcing and growing practices.
             </motion.p>
           </motion.div>
 
@@ -913,7 +969,9 @@ export default function OilSeedsPage() {
                 <div className="p-3 bg-amber-900/30 rounded-full w-fit mb-6 border border-amber-700/30">
                   {item.icon}
                 </div>
-                <h3 className="text-xl font-bold text-white mb-4">{item.title}</h3>
+                <h3 className="text-xl font-bold text-white mb-4">
+                  {item.title}
+                </h3>
                 <p className="text-gray-300">{item.description}</p>
               </motion.div>
             ))}
@@ -937,28 +995,40 @@ export default function OilSeedsPage() {
             variants={staggerContainer}
             className="max-w-3xl mx-auto text-center"
           >
-            <motion.h2 variants={fadeInUp} className="text-3xl md:text-4xl font-bold mb-4">
-              Ready to <span className="text-amber-400">Grow Better Oil Seeds?</span>
+            <motion.h2
+              variants={fadeInUp}
+              className="text-3xl md:text-4xl font-bold mb-4"
+            >
+              Ready to{" "}
+              <span className="text-amber-400">Grow Better Oil Seeds?</span>
             </motion.h2>
-            <motion.p variants={fadeInUp} className="text-lg text-gray-400 mb-8">
-              Contact our team of agricultural experts for personalized recommendations and bulk order inquiries.
+            <motion.p
+              variants={fadeInUp}
+              className="text-lg text-gray-400 mb-8"
+            >
+              Contact our team of agricultural experts for personalized
+              recommendations and bulk order inquiries.
             </motion.p>
 
-            <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row justify-center gap-4">
-              <Button
+            <motion.div
+              variants={fadeInUp}
+              className="flex flex-col sm:flex-row justify-center gap-4"
+            >
+              {/* <Button
                 size="lg"
                 className="bg-amber-600 hover:bg-amber-700 text-white border-0 rounded-full px-8 py-6 text-lg shadow-lg shadow-amber-900/50 group"
               >
                 <span>Request a Quote</span>
                 <ArrowUpRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-              </Button>
+              </Button> */}
 
               <Button
+                onClick={() => router.push("/contact")}
                 variant="outline"
                 size="lg"
                 className="border-amber-700 text-amber-400 hover:bg-amber-900/30 rounded-full px-8 py-6 text-lg"
               >
-                <span>Download Growing Guide</span>
+                <span>Contact Us</span>
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </motion.div>
@@ -968,7 +1038,11 @@ export default function OilSeedsPage() {
 
       {/* Floating Back to Top Button */}
       <div
-        className={`fixed bottom-8 right-8 z-40 transition-all duration-300 ${showScrollTop ? "opacity-100 scale-100" : "opacity-0 scale-50 pointer-events-none"}`}
+        className={`fixed bottom-8 right-8 z-40 transition-all duration-300 ${
+          showScrollTop
+            ? "opacity-100 scale-100"
+            : "opacity-0 scale-50 pointer-events-none"
+        }`}
       >
         <Button
           onClick={scrollToTop}
@@ -982,7 +1056,10 @@ export default function OilSeedsPage() {
       {/* Product Detail Modal */}
       {modalOpen && selectedProduct && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8 animate-fade-in">
-          <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={closeProductModal}></div>
+          <div
+            className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+            onClick={closeProductModal}
+          ></div>
 
           <div className="relative bg-white rounded-2xl w-full max-w-5xl max-h-[90vh] overflow-y-auto shadow-2xl animate-scale-in">
             <Button
@@ -1009,8 +1086,12 @@ export default function OilSeedsPage() {
                 >
                   {selectedProduct.badge}
                 </span>
-                <h2 className="text-3xl md:text-5xl font-serif font-bold text-white mb-2">{selectedProduct.name}</h2>
-                <p className="text-white/80 text-lg">{selectedProduct.scientificName}</p>
+                <h2 className="text-3xl md:text-5xl font-serif font-bold text-white mb-2">
+                  {selectedProduct.name}
+                </h2>
+                <p className="text-white/80 text-lg">
+                  {selectedProduct.scientificName}
+                </p>
               </div>
             </div>
 
@@ -1018,21 +1099,35 @@ export default function OilSeedsPage() {
             <div className="p-6 md:p-8">
               <div className="grid md:grid-cols-2 gap-8 mb-8">
                 <div>
-                  <h3 className="text-2xl font-serif font-bold text-gray-900 mb-4">Overview</h3>
-                  <p className="text-gray-700 mb-6">{selectedProduct.longDescription}</p>
+                  <h3 className="text-2xl font-serif font-bold text-gray-900 mb-4">
+                    Overview
+                  </h3>
+                  <p className="text-gray-700 mb-6">
+                    {selectedProduct.longDescription}
+                  </p>
 
                   <div className="flex items-baseline mb-4">
-                    <span className={`text-3xl font-bold text-amber-600`}>${selectedProduct.price.toFixed(2)}</span>
-                    <span className="text-gray-500 ml-2">{selectedProduct.unit}</span>
+                    <span className={`text-3xl font-bold text-amber-600`}>
+                      ${selectedProduct.price.toFixed(2)}
+                    </span>
+                    <span className="text-gray-500 ml-2">
+                      {selectedProduct.unit}
+                    </span>
                     <Badge variant="outline" className="ml-4">
                       Min. Order: {selectedProduct.minOrder}
                     </Badge>
                   </div>
 
                   <div className="bg-gray-50 p-4 rounded-lg mb-6">
-                    <h4 className="font-medium text-gray-700 mb-2">Availability</h4>
+                    <h4 className="font-medium text-gray-700 mb-2">
+                      Availability
+                    </h4>
                     <p
-                      className={`flex items-center ${selectedProduct.availability === "In Stock" ? "text-green-600" : "text-red-600"}`}
+                      className={`flex items-center ${
+                        selectedProduct.availability === "In Stock"
+                          ? "text-green-600"
+                          : "text-red-600"
+                      }`}
                     >
                       {selectedProduct.availability === "In Stock" ? (
                         <Check className="h-4 w-4 mr-1" />
@@ -1045,11 +1140,15 @@ export default function OilSeedsPage() {
                 </div>
 
                 <div>
-                  <h3 className="text-2xl font-serif font-bold text-gray-900 mb-4">Key Features</h3>
+                  <h3 className="text-2xl font-serif font-bold text-gray-900 mb-4">
+                    Key Features
+                  </h3>
                   <ul className="space-y-2">
                     {selectedProduct.features.map((feature, idx) => (
                       <li key={idx} className="flex items-start">
-                        <Check className={`h-5 w-5 text-amber-600 mt-0.5 mr-2 flex-shrink-0`} />
+                        <Check
+                          className={`h-5 w-5 text-amber-600 mt-0.5 mr-2 flex-shrink-0`}
+                        />
                         <span className="text-gray-700">{feature}</span>
                       </li>
                     ))}
@@ -1058,32 +1157,56 @@ export default function OilSeedsPage() {
               </div>
 
               <div className="border-t border-gray-200 pt-8 mb-8">
-                <h3 className="text-2xl font-serif font-bold text-gray-900 mb-4">Technical Specifications</h3>
+                <h3 className="text-2xl font-serif font-bold text-gray-900 mb-4">
+                  Technical Specifications
+                </h3>
                 <div className="grid md:grid-cols-2 gap-8">
                   <div>
-                    <h4 className="font-medium text-gray-900 mb-4">Seed Specifications</h4>
+                    <h4 className="font-medium text-gray-900 mb-4">
+                      Seed Specifications
+                    </h4>
                     <ul className="space-y-3">
-                      {Object.entries(selectedProduct.specifications).map(([key, value]) => (
-                        <li key={key} className="flex justify-between border-b border-gray-100 pb-2">
-                          <span className="text-gray-600">
-                            {key.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase())}
-                          </span>
-                          <span className="font-medium text-gray-900">{value}</span>
-                        </li>
-                      ))}
+                      {Object.entries(selectedProduct.specifications).map(
+                        ([key, value]) => (
+                          <li
+                            key={key}
+                            className="flex justify-between border-b border-gray-100 pb-2"
+                          >
+                            <span className="text-gray-600">
+                              {key
+                                .replace(/([A-Z])/g, " $1")
+                                .replace(/^./, (str) => str.toUpperCase())}
+                            </span>
+                            <span className="font-medium text-gray-900">
+                              {value}
+                            </span>
+                          </li>
+                        )
+                      )}
                     </ul>
                   </div>
                   <div>
-                    <h4 className="font-medium text-gray-900 mb-4">Growing Conditions</h4>
+                    <h4 className="font-medium text-gray-900 mb-4">
+                      Growing Conditions
+                    </h4>
                     <ul className="space-y-3">
-                      {Object.entries(selectedProduct.growingConditions).map(([key, value]) => (
-                        <li key={key} className="flex justify-between border-b border-gray-100 pb-2">
-                          <span className="text-gray-600">
-                            {key.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase())}
-                          </span>
-                          <span className="font-medium text-gray-900">{value}</span>
-                        </li>
-                      ))}
+                      {Object.entries(selectedProduct.growingConditions).map(
+                        ([key, value]) => (
+                          <li
+                            key={key}
+                            className="flex justify-between border-b border-gray-100 pb-2"
+                          >
+                            <span className="text-gray-600">
+                              {key
+                                .replace(/([A-Z])/g, " $1")
+                                .replace(/^./, (str) => str.toUpperCase())}
+                            </span>
+                            <span className="font-medium text-gray-900">
+                              {value}
+                            </span>
+                          </li>
+                        )
+                      )}
                     </ul>
                   </div>
                 </div>
@@ -1091,15 +1214,22 @@ export default function OilSeedsPage() {
 
               <div className="border-t border-gray-200 pt-8">
                 <div className="flex justify-between items-center">
-                  <h3 className="text-2xl font-serif font-bold text-gray-900">Planting Tips</h3>
-                  <Button className={`bg-amber-600 hover:bg-amber-700 text-white`} onClick={closeProductModal}>
+                  <h3 className="text-2xl font-serif font-bold text-gray-900">
+                    Planting Tips
+                  </h3>
+                  <Button
+                    className={`bg-amber-600 hover:bg-amber-700 text-white`}
+                    onClick={closeProductModal}
+                  >
                     Contact For More Info
                   </Button>
                 </div>
                 <p className="text-gray-700 mt-4">
-                  For best results, plant {selectedProduct.name.toLowerCase()} during the recommended planting season.
-                  Ensure proper soil preparation and follow the recommended seeding rate. Contact our agricultural
-                  experts for personalized advice specific to your region and farming conditions.
+                  For best results, plant {selectedProduct.name.toLowerCase()}{" "}
+                  during the recommended planting season. Ensure proper soil
+                  preparation and follow the recommended seeding rate. Contact
+                  our agricultural experts for personalized advice specific to
+                  your region and farming conditions.
                 </p>
               </div>
             </div>
@@ -1107,5 +1237,5 @@ export default function OilSeedsPage() {
         </div>
       )}
     </main>
-  )
+  );
 }

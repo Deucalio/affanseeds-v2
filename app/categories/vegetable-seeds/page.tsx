@@ -4,6 +4,7 @@ import type React from "react"
 
 import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
+import {useRouter } from "next/navigation"
 import { motion } from "framer-motion"
 import {
   ShoppingCart,
@@ -105,6 +106,9 @@ export default function VegetableSeedsPage() {
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
+
+
+  const router = useRouter()
 
   // Scroll to products section
   const scrollToContent = () => {
@@ -673,7 +677,7 @@ export default function VegetableSeedsPage() {
                     </div>
 
                     {/* Price and Actions */}
-                    <div className="flex flex-wrap items-center justify-between gap-4">
+                    <div className="flex scale-0 flex-wrap items-center justify-between gap-4">
                       <div>
                         <span className="text-3xl font-bold text-white">${product.price.toFixed(2)}</span>
                         <span className="text-gray-400 ml-2">{product.unit}</span>
@@ -945,20 +949,21 @@ export default function VegetableSeedsPage() {
             </motion.p>
 
             <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row justify-center gap-4">
-              <Button
+              {/* <Button
                 size="lg"
                 className="bg-emerald-600 hover:bg-emerald-700 text-white border-0 rounded-full px-8 py-6 text-lg shadow-lg shadow-emerald-900/50 group"
               >
                 <span>Request a Quote</span>
                 <ArrowUpRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-              </Button>
+              </Button> */}
 
               <Button
+              onClick={() => router.push("/contact")}
                 variant="outline"
                 size="lg"
                 className="border-emerald-700 text-emerald-400 hover:bg-emerald-900/30 rounded-full px-8 py-6 text-lg"
               >
-                <span>Download Growing Guide</span>
+                <span>Contact Us</span>
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </motion.div>
