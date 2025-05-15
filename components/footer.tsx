@@ -88,7 +88,7 @@ export default function Footer() {
           </div>
 
           {/* Column 4: Newsletter */}
-          <div>
+          {/* <div>
             <h3 className="text-white text-lg font-bold mb-6">Newsletter</h3>
             <p className="text-gray-400 mb-4">Subscribe to receive updates, access to exclusive deals, and more.</p>
             <div className="flex flex-col space-y-3">
@@ -99,7 +99,7 @@ export default function Footer() {
               />
               <Button className="bg-emerald-600 hover:bg-emerald-700 text-white w-full">Subscribe</Button>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 
