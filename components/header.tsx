@@ -216,7 +216,7 @@ export default function Header() {
                   className="flex items-center justify-between w-full text-xl font-medium text-gray-200 hover:text-emerald-400 transition-colors py-2"
                   onClick={() => toggleCategory("explore")}
                 >
-                  <span>Explore Products</span>
+                  <span>Products</span>
                   <ChevronDown
                     className={cn(
                       "h-5 w-5 transition-transform duration-200",
