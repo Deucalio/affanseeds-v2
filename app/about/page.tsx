@@ -64,7 +64,7 @@ export default function AboutPage() {
   return (
     <main className="pt-16 bg-gray-950 text-gray-200">
       {/* Breadcrumb */}
-      <Breadcrumb />
+      {/* <Breadcrumb /> */}
 
       {/* Hero Section */}
       <section className="relative bg-green-900 py-16 md:py-24 overflow-hidden">

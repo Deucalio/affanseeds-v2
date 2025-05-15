@@ -134,7 +134,7 @@ export default function Products() {
   return (
     <main className="pt-16">
       {/* Breadcrumb */}
-      <Breadcrumb />
+      {/* <Breadcrumb /> */}
 
       <div className="container mx-auto px-4 py-12">
         <div className="mb-8 text-center">

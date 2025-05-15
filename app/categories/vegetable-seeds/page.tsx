@@ -1,745 +1,1111 @@
 "use client"
 
+import type React from "react"
+
 import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
-import { ArrowRight, ShoppingCart, Heart, Eye, Leaf, Shield, Droplets, Sun, X } from "lucide-react"
+import { motion } from "framer-motion"
+import {
+  ShoppingCart,
+  Heart,
+  Star,
+  Leaf,
+  Droplets,
+  Sun,
+  ArrowRight,
+  Check,
+  Info,
+  Award,
+  Truck,
+  Clock,
+  ChevronDown,
+  ChevronUp,
+  ArrowUpRight,
+  Shield,
+  Sprout,
+  X,
+} from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import Breadcrumb from "@/components/breadcrumb"
 
-export default function VegetableSeedsPage() {
-  const [activeProduct, setActiveProduct] = useState(null)
-  const [showModal, setShowModal] = useState(false)
-  const [showScrollTop, setShowScrollTop] = useState(false)
-  const modalRef = useRef(null)
+// Define types
+interface ProductSpecifications {
+  seedingRate: string
+  germinationRate: string
+  daysToGermination: string
+  harvestTime: string
+  yieldPotential: string
+}
 
-  // Products data
-  const products = [
-    {
-      id: 1,
-      name: "Vegetables Seeds",
-      description:
-        "A premium mix of vegetable seeds for home gardens, including a variety of popular vegetables for a balanced harvest.",
-      price: 450,
-      unit: "100g packet",
-      image: "/placeholder.svg?height=400&width=400&text=Vegetables+Seeds",
-      badge: "Bestseller",
-      features: [
-        "Contains 10+ vegetable varieties",
-        "High germination rate",
-        "Disease resistant",
-        "Suitable for all growing zones",
-      ],
-    },
-    {
-      id: 2,
-      name: "Okra Seeds",
-      description:
-        "High-yield okra seeds that produce tender, flavorful pods. Ideal for hot climates and resistant to common pests.",
-      price: 350,
-      unit: "50g packet",
-      image: "/placeholder.svg?height=400&width=400&text=Okra+Seeds",
-      badge: "Organic",
-      features: ["Early maturing variety", "Heat tolerant", "High yielding", "Spineless pods for easy harvesting"],
-    },
-    {
-      id: 3,
-      name: "Tomato Seeds",
-      description:
-        "Premium tomato seeds that produce juicy, flavorful fruits. Varieties selected for disease resistance and productivity.",
-      price: 400,
-      unit: "25g packet",
-      image: "/placeholder.svg?height=400&width=400&text=Tomato+Seeds",
-      badge: "Premium",
-      features: [
-        "Disease resistant varieties",
-        "High yielding",
-        "Extended harvest period",
-        "Suitable for container growing",
-      ],
-    },
-    {
-      id: 4,
-      name: "Hot Pepper Seeds",
-      description:
-        "Spicy hot pepper seeds for growing various heat levels of peppers. Perfect for adding flavor to your dishes.",
-      price: 380,
-      unit: "20g packet",
-      image: "/placeholder.svg?height=400&width=400&text=Hot+Pepper+Seeds",
-      badge: "Spicy",
-      features: [
-        "Multiple heat levels available",
-        "High vitamin content",
-        "Compact growing habit",
-        "Suitable for containers and gardens",
-      ],
-    },
-    {
-      id: 5,
-      name: "Onion Seeds",
-      description:
-        "Quality onion seeds for growing flavorful bulbs. Selected for storage quality and disease resistance.",
-      price: 320,
-      unit: "30g packet",
-      image: "/placeholder.svg?height=400&width=400&text=Onion+Seeds",
-      badge: "Long-storing",
-      features: ["Long storage life", "Disease resistant", "High yield potential", "Adaptable to various soils"],
-    },
-  ]
+interface GrowingConditions {
+  soilType: string
+  soilPH: string
+  climate: string
+  waterRequirements: string
+  sunlight: string
+  growingSeason: string
+}
+
+interface Product {
+  id: number
+  name: string
+  scientificName: string
+  description: string
+  longDescription: string
+  price: number
+  unit: string
+  minOrder: string
+  availability: string
+  image: string
+  features: string[]
+  specifications: ProductSpecifications
+  growingConditions: GrowingConditions
+  badge?: string
+  badgeColor?: string
+  rating: number
+  reviews: number
+}
+
+interface Feature {
+  icon: React.ReactNode
+  title: string
+  description: string
+}
+
+export default function VegetableSeedsPage() {
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [cartCount, setCartCount] = useState(0)
+  const [wishlistCount, setWishlistCount] = useState(0)
+  const [activeProduct, setActiveProduct] = useState<number | null>(null)
+  const [showScrollTop, setShowScrollTop] = useState(false)
+
+  // Refs for scroll sections
+  const heroRef = useRef<HTMLElement>(null)
+  const productsRef = useRef<HTMLElement>(null)
+
+  // State for scroll position
+  const [scrollY, setScrollY] = useState(0)
+
+  // State for product interactions
+  const [hoveredProduct, setHoveredProduct] = useState<number | null>(null)
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
+  const [modalOpen, setModalOpen] = useState(false)
 
   // Handle scroll events
   useEffect(() => {
     const handleScroll = () => {
-      setShowScrollTop(window.scrollY > 500)
+      setIsScrolled(window.scrollY > 50)
+      setShowScrollTop(window.scrollY > 300)
+      setScrollY(window.scrollY)
     }
 
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  // Close modal when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (modalRef.current && !modalRef.current.contains(event.target)) {
-        setShowModal(false)
-      }
+  // Scroll to products section
+  const scrollToContent = () => {
+    const productsElement = document.getElementById("products")
+    if (productsElement) {
+      productsElement.scrollIntoView({ behavior: "smooth" })
     }
-
-    document.addEventListener("mousedown", handleClickOutside)
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
-    }
-  }, [])
-
-  // Scroll to top function
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    })
   }
 
-  // Open product modal
-  const openProductModal = (product) => {
-    setActiveProduct(product)
-    setShowModal(true)
+  // Modal functions
+  const openProductModal = (product: Product) => {
+    setSelectedProduct(product)
+    setModalOpen(true)
     document.body.style.overflow = "hidden"
   }
 
-  // Close product modal
   const closeProductModal = () => {
-    setShowModal(false)
-    document.body.style.overflow = "unset"
+    setModalOpen(false)
+    document.body.style.overflow = "auto"
+  }
+
+  // Scroll to top
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" })
+  }
+
+  // Animation on scroll
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate-fade-in")
+            entry.target.classList.add("opacity-100")
+          }
+        })
+      },
+      {
+        threshold: 0.1,
+        rootMargin: "0px 0px -100px 0px",
+      },
+    )
+
+    const elements = document.querySelectorAll(".reveal")
+    elements.forEach((el) => observer.observe(el))
+
+    return () => elements.forEach((el) => observer.unobserve(el))
+  }, [])
+
+  // Vegetable Seeds products data
+  const vegetableProducts: Product[] = [
+    {
+      id: 1,
+      name: "Premium Tomato Seeds",
+      scientificName: "Solanum lycopersicum",
+      description:
+        "High-yielding tomato seeds that produce flavorful, disease-resistant fruits. Ideal for both commercial growers and home gardeners.",
+      longDescription:
+        "Premium Tomato Seeds (Solanum lycopersicum) are specially selected for their exceptional flavor, disease resistance, and productivity. These seeds produce plants with vigorous growth, excellent fruit set, and extended harvest periods. Our tomato varieties have been bred to resist common diseases like early blight, late blight, and fusarium wilt, ensuring a successful growing experience.",
+      price: 12.99,
+      unit: "per 50g",
+      minOrder: "50g",
+      availability: "In Stock",
+      image: "/placeholder.svg?height=600&width=600&text=Tomato+Seeds",
+      features: [
+        "Disease resistant varieties",
+        "High yielding plants",
+        "Extended harvest period",
+        "Excellent flavor profile",
+        "Uniform fruit size",
+        "Heat tolerant varieties available",
+      ],
+      specifications: {
+        seedingRate: "25-30g per hectare (transplanting)",
+        germinationRate: "90-95%",
+        daysToGermination: "5-10 days",
+        harvestTime: "70-85 days after transplanting",
+        yieldPotential: "40-60 tons/hectare",
+      },
+      growingConditions: {
+        soilType: "Well-drained, fertile loam",
+        soilPH: "6.0-6.8",
+        climate: "Warm, temperate to subtropical",
+        waterRequirements: "Medium to high, consistent moisture",
+        sunlight: "Full sun (6-8 hours daily)",
+        growingSeason: "Spring through summer",
+      },
+      badge: "Bestseller",
+      badgeColor: "amber",
+      rating: 4.8,
+      reviews: 156,
+    },
+    {
+      id: 2,
+      name: "Hybrid Cucumber Seeds",
+      scientificName: "Cucumis sativus",
+      description:
+        "High-yielding cucumber seeds that produce crisp, uniform fruits with excellent disease resistance and extended harvest periods.",
+      longDescription:
+        "Hybrid Cucumber Seeds (Cucumis sativus) are bred for exceptional productivity, disease resistance, and fruit quality. These seeds produce plants with vigorous growth, multiple fruiting nodes, and extended harvest periods. Our cucumber varieties have been selected for their crisp texture, excellent flavor, and uniform appearance, making them ideal for both market growers and home gardeners.",
+      price: 14.99,
+      unit: "per 25g",
+      minOrder: "25g",
+      availability: "In Stock",
+      image: "/placeholder.svg?height=600&width=600&text=Cucumber+Seeds",
+      features: [
+        "High yielding varieties",
+        "Disease resistant",
+        "Extended harvest period",
+        "Uniform fruit size and shape",
+        "Excellent flavor and crispness",
+        "Heat tolerant options available",
+      ],
+      specifications: {
+        seedingRate: "1.5-2 kg/hectare",
+        germinationRate: "90-95%",
+        daysToGermination: "3-7 days",
+        harvestTime: "45-55 days after planting",
+        yieldPotential: "25-35 tons/hectare",
+      },
+      growingConditions: {
+        soilType: "Well-drained, fertile loam",
+        soilPH: "6.0-7.0",
+        climate: "Warm, temperate to subtropical",
+        waterRequirements: "Medium to high, consistent moisture",
+        sunlight: "Full sun (6-8 hours daily)",
+        growingSeason: "Spring through summer",
+      },
+      badge: "High Yield",
+      badgeColor: "green",
+      rating: 4.7,
+      reviews: 124,
+    },
+    {
+      id: 3,
+      name: "Premium Okra Seeds",
+      scientificName: "Abelmoschus esculentus",
+      description:
+        "High-yielding okra seeds that produce tender, flavorful pods. Ideal for hot climates and resistant to common pests.",
+      longDescription:
+        "Premium Okra Seeds (Abelmoschus esculentus) are specially selected for their productivity, pod quality, and heat tolerance. These seeds produce plants with vigorous growth, extended harvest periods, and resistance to common pests. Our okra varieties have been bred to produce tender, flavorful pods that maintain their quality even in challenging growing conditions.",
+      price: 10.99,
+      unit: "per 50g",
+      minOrder: "50g",
+      availability: "In Stock",
+      image: "/placeholder.svg?height=600&width=600&text=Okra+Seeds",
+      features: [
+        "Heat and drought tolerant",
+        "Extended harvest period",
+        "Tender, spineless pods",
+        "Pest resistant varieties",
+        "High yielding plants",
+        "Suitable for multiple harvests",
+      ],
+      specifications: {
+        seedingRate: "8-10 kg/hectare",
+        germinationRate: "85-90%",
+        daysToGermination: "5-10 days",
+        harvestTime: "50-60 days after planting",
+        yieldPotential: "10-15 tons/hectare",
+      },
+      growingConditions: {
+        soilType: "Well-drained, fertile soil",
+        soilPH: "6.0-7.0",
+        climate: "Warm, tropical to subtropical",
+        waterRequirements: "Medium, drought tolerant once established",
+        sunlight: "Full sun",
+        growingSeason: "Summer to early fall",
+      },
+      badge: "Heat Tolerant",
+      badgeColor: "blue",
+      rating: 4.6,
+      reviews: 98,
+    },
+    {
+      id: 4,
+      name: "Bell Pepper Seeds",
+      scientificName: "Capsicum annuum",
+      description:
+        "Premium bell pepper seeds that produce sweet, colorful fruits with thick walls. Excellent disease resistance and productivity.",
+      longDescription:
+        "Bell Pepper Seeds (Capsicum annuum) are carefully selected for their fruit quality, productivity, and disease resistance. These seeds produce plants with strong growth, multiple fruiting nodes, and extended harvest periods. Our bell pepper varieties have been bred to produce sweet, thick-walled fruits that mature from green to vibrant colors like red, yellow, and orange.",
+      price: 13.99,
+      unit: "per 25g",
+      minOrder: "25g",
+      availability: "In Stock",
+      image: "/placeholder.svg?height=600&width=600&text=Bell+Pepper+Seeds",
+      features: [
+        "Thick-walled, sweet fruits",
+        "Multiple color options",
+        "Disease resistant varieties",
+        "Extended harvest period",
+        "Uniform fruit size and shape",
+        "High vitamin C content",
+      ],
+      specifications: {
+        seedingRate: "300-400g/hectare (transplanting)",
+        germinationRate: "85-90%",
+        daysToGermination: "7-14 days",
+        harvestTime: "60-90 days after transplanting",
+        yieldPotential: "25-35 tons/hectare",
+      },
+      growingConditions: {
+        soilType: "Well-drained, fertile loam",
+        soilPH: "5.8-6.8",
+        climate: "Warm, temperate to subtropical",
+        waterRequirements: "Medium, consistent moisture",
+        sunlight: "Full sun (6-8 hours daily)",
+        growingSeason: "Spring through fall",
+      },
+      badge: "Colorful",
+      badgeColor: "teal",
+      rating: 4.8,
+      reviews: 112,
+    },
+    {
+      id: 5,
+      name: "Spinach Seeds",
+      scientificName: "Spinacia oleracea",
+      description:
+        "Premium spinach seeds that produce nutritious, dark green leaves. Fast-growing and bolt-resistant varieties for extended harvests.",
+      longDescription:
+        "Spinach Seeds (Spinacia oleracea) are selected for their leaf quality, growth rate, and bolt resistance. These seeds produce plants with rapid growth, nutritious dark green leaves, and excellent flavor. Our spinach varieties have been bred to resist premature bolting, allowing for extended harvest periods even as temperatures rise.",
+      price: 9.99,
+      unit: "per 50g",
+      minOrder: "50g",
+      availability: "In Stock",
+      image: "/placeholder.svg?height=600&width=600&text=Spinach+Seeds",
+      features: [
+        "Fast growing varieties",
+        "Bolt resistant options",
+        "High nutritional content",
+        "Dark green, tender leaves",
+        "Disease resistant",
+        "Suitable for multiple harvests",
+      ],
+      specifications: {
+        seedingRate: "10-15 kg/hectare",
+        germinationRate: "85-90%",
+        daysToGermination: "5-10 days",
+        harvestTime: "30-45 days after planting",
+        yieldPotential: "15-20 tons/hectare",
+      },
+      growingConditions: {
+        soilType: "Rich, well-drained soil",
+        soilPH: "6.0-7.0",
+        climate: "Cool to moderate temperatures",
+        waterRequirements: "Medium, consistent moisture",
+        sunlight: "Full sun to partial shade",
+        growingSeason: "Fall, winter, and spring in warmer regions",
+      },
+      badge: "Nutritious",
+      badgeColor: "emerald",
+      rating: 4.7,
+      reviews: 87,
+    },
+    {
+      id: 6,
+      name: "Eggplant Seeds",
+      scientificName: "Solanum melongena",
+      description:
+        "Premium eggplant seeds that produce glossy, tender fruits. Disease-resistant varieties with excellent productivity in warm conditions.",
+      longDescription:
+        "Eggplant Seeds (Solanum melongena) are carefully selected for their fruit quality, plant vigor, and disease resistance. These seeds produce plants with strong growth, multiple fruiting nodes, and extended harvest periods. Our eggplant varieties have been bred to produce glossy, tender fruits with minimal seeds and excellent flavor.",
+      price: 11.99,
+      unit: "per 25g",
+      minOrder: "25g",
+      availability: "In Stock",
+      image: "/placeholder.svg?height=600&width=600&text=Eggplant+Seeds",
+      features: [
+        "Glossy, tender fruits",
+        "Minimal seeds in fruit",
+        "Disease resistant varieties",
+        "Heat tolerant plants",
+        "Extended harvest period",
+        "Multiple fruit shapes and colors available",
+      ],
+      specifications: {
+        seedingRate: "300-400g/hectare (transplanting)",
+        germinationRate: "85-90%",
+        daysToGermination: "7-14 days",
+        harvestTime: "70-85 days after transplanting",
+        yieldPotential: "30-40 tons/hectare",
+      },
+      growingConditions: {
+        soilType: "Well-drained, fertile loam",
+        soilPH: "5.5-6.8",
+        climate: "Warm, tropical to subtropical",
+        waterRequirements: "Medium, consistent moisture",
+        sunlight: "Full sun (6-8 hours daily)",
+        growingSeason: "Spring through fall",
+      },
+      badge: "Heat Loving",
+      badgeColor: "rose",
+      rating: 4.6,
+      reviews: 92,
+    },
+  ]
+
+  // Features data
+  const features: Feature[] = [
+    {
+      icon: <Leaf className="h-6 w-6 text-emerald-600" />,
+      title: "Premium Quality",
+      description: "Our vegetable seeds are carefully selected for optimal flavor, yield, and disease resistance.",
+    },
+    {
+      icon: <Shield className="h-6 w-6 text-emerald-600" />,
+      title: "Disease Resistant",
+      description: "Varieties chosen for their natural resistance to common diseases.",
+    },
+    {
+      icon: <Droplets className="h-6 w-6 text-emerald-600" />,
+      title: "Water Efficient",
+      description: "Selected for performance even in challenging water conditions.",
+    },
+    {
+      icon: <Sprout className="h-6 w-6 text-emerald-600" />,
+      title: "High Yield",
+      description: "Maximize your harvest with our high-performing seed varieties.",
+    },
+  ]
+
+  // Helper function for badge colors
+  const getBadgeColor = (color?: string) => {
+    switch (color) {
+      case "red":
+        return "bg-red-900/80 text-red-100 border-red-700"
+      case "amber":
+        return "bg-amber-900/80 text-amber-100 border-amber-700"
+      case "green":
+        return "bg-emerald-900/80 text-emerald-100 border-emerald-700"
+      case "blue":
+        return "bg-blue-900/80 text-blue-100 border-blue-700"
+      case "purple":
+        return "bg-purple-900/80 text-purple-100 border-purple-700"
+      case "violet":
+        return "bg-violet-900/80 text-violet-100 border-violet-700"
+      case "lime":
+        return "bg-lime-900/80 text-lime-100 border-lime-700"
+      case "teal":
+        return "bg-teal-900/80 text-teal-100 border-teal-700"
+      case "emerald":
+        return "bg-emerald-900/80 text-emerald-100 border-emerald-700"
+      case "rose":
+        return "bg-rose-900/80 text-rose-100 border-rose-700"
+      default:
+        return "bg-emerald-900/80 text-emerald-100 border-emerald-700"
+    }
+  }
+
+  // Add to cart function
+  const addToCart = (e: React.MouseEvent, productId: number) => {
+    e.preventDefault()
+    setCartCount((prev) => prev + 1)
+    // Here you would add actual cart functionality
+  }
+
+  // Add to wishlist function
+  const addToWishlist = (e: React.MouseEvent, productId: number) => {
+    e.preventDefault()
+    setWishlistCount((prev) => prev + 1)
+    // Here you would add actual wishlist functionality
+  }
+
+  // Animation variants
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+  }
+
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  }
+
+  const scaleIn = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } },
   }
 
   return (
-    <main className="pt-16 bg-gray-950 text-gray-200 min-h-screen">
+    <main className="min-h-screen bg-gray-950 text-gray-100 pt-20">
       {/* Breadcrumb */}
-      <Breadcrumb />
+      {/* <Breadcrumb /> */}
 
       {/* Hero Section */}
-      <section className="relative bg-green-900 py-16 md:py-24 overflow-hidden">
-        <div className="absolute inset-0 bg-noise opacity-30 mix-blend-soft-light"></div>
-        <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/20 rounded-full filter blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-amber-500/20 rounded-full filter blur-3xl"></div>
-
-        <div className="container mx-auto px-4 relative">
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="font-serif text-4xl md:text-5xl font-bold text-white mb-6">Vegetable Seeds</h1>
-            <div className="w-16 h-1 bg-emerald-400 mx-auto mb-8 rounded-full"></div>
-            <p className="text-lg md:text-xl text-emerald-100 mb-8">
-              Premium quality vegetable seeds for commercial farmers and home gardeners. Our seeds are selected for
-              flavor, yield, and disease resistance.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Button className="bg-white hover:bg-gray-100 text-green-800 rounded-full px-6 py-5 text-base shadow-lg shadow-green-900/30 border-0">
-                View All Products
-              </Button>
-              <Button
-                variant="outline"
-                className="border-white/30 text-white hover:bg-white/10 rounded-full px-6 py-5 text-base backdrop-blur-sm"
-              >
-                Growing Guides
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </div>
-          </div>
+      <section ref={heroRef} className="relative py-16 md:py-24 overflow-hidden">
+        {/* Background with gradient overlay */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/placeholder.svg?height=1080&width=1920&text=Vegetable+Garden"
+            alt="Vegetable garden"
+            fill
+            className="object-cover opacity-40"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-gray-950/80 via-gray-900/50 to-gray-950"></div>
         </div>
 
-        {/* Curved bottom */}
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" className="w-full h-auto fill-gray-950">
-            <path d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"></path>
-          </svg>
+        <div className="container mx-auto px-4 relative z-10">
+          <motion.div className="max-w-4xl mx-auto" initial="hidden" animate="visible" variants={staggerContainer}>
+            <motion.div
+              variants={fadeInUp}
+              className="inline-flex items-center px-4 py-2 rounded-full bg-emerald-900/30 border border-emerald-700/50 text-emerald-300 text-sm font-medium mb-6 backdrop-blur-sm"
+            >
+              <Leaf className="h-4 w-4 mr-2" />
+              <span>Vegetable Seeds</span>
+            </motion.div>
+
+            <motion.h1
+              variants={fadeInUp}
+              className="text-4xl md:text-6xl font-bold mb-6 leading-tight bg-clip-text text-transparent bg-gradient-to-r from-emerald-300 via-green-200 to-emerald-300"
+            >
+              Premium Vegetable Seeds for Your Garden
+            </motion.h1>
+
+            <motion.p variants={fadeInUp} className="text-xl text-gray-300 mb-10">
+              High-quality seeds for growing delicious, nutritious vegetables. Our seeds are carefully selected for
+              flavor, yield, and disease resistance to ensure your gardening success.
+            </motion.p>
+
+            <motion.div variants={fadeInUp} className="flex flex-wrap gap-4 mb-8">
+              {[
+                { icon: <Check className="h-5 w-5 text-emerald-400" />, text: "Non-GMO Seeds" },
+                { icon: <Check className="h-5 w-5 text-emerald-400" />, text: "High Germination Rate" },
+                { icon: <Check className="h-5 w-5 text-emerald-400" />, text: "Disease Resistant Varieties" },
+                { icon: <Check className="h-5 w-5 text-emerald-400" />, text: "Expert Growing Support" },
+              ].map((item, i) => (
+                <div
+                  key={i}
+                  className="flex items-center px-4 py-2 bg-gray-800/50 backdrop-blur-sm rounded-full border border-gray-700"
+                >
+                  {item.icon}
+                  <span className="ml-2 text-sm text-gray-200">{item.text}</span>
+                </div>
+              ))}
+            </motion.div>
+
+            <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4">
+              <Button
+                size="lg"
+                className="bg-emerald-600 hover:bg-emerald-700 text-white border-0 rounded-full px-8 py-6 text-lg shadow-lg shadow-emerald-900/50 group"
+                onClick={() => productsRef.current?.scrollIntoView({ behavior: "smooth" })}
+              >
+                <span>Explore Products</span>
+                <ChevronDown className="ml-2 h-5 w-5 transition-transform group-hover:translate-y-1" />
+              </Button>
+
+              <Button
+                variant="outline"
+                size="lg"
+                className="border-emerald-700 text-emerald-400 hover:bg-emerald-900/30 rounded-full px-8 py-6 text-lg"
+              >
+                <span>Growing Guides</span>
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
       {/* Products Section */}
-      <section className="py-16 md:py-24 bg-gray-950">
-        <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="font-serif text-3xl font-bold text-white mb-6">Our Vegetable Seed Collection</h2>
-              <div className="w-16 h-1 bg-emerald-500 mx-auto mb-8 rounded-full"></div>
-              <p className="text-lg text-gray-300 max-w-3xl mx-auto">
-                Explore our premium selection of vegetable seeds, carefully selected for optimal growth, flavor, and
-                yield in various growing conditions.
-              </p>
-            </div>
+      <section ref={productsRef} className="py-16 md:py-24 relative">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-emerald-900/10 via-gray-900/5 to-gray-950 opacity-50"></div>
 
-            <div className="space-y-24">
-              {products.map((product, index) => (
-                <div
-                  key={product.id}
-                  className={`flex flex-col ${
-                    index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-                  } gap-8 md:gap-12 items-center`}
-                >
-                  <div className="w-full md:w-1/2 relative">
-                    <div
-                      className={`absolute -inset-4 rounded-full bg-gradient-to-br ${
-                        index % 2 === 0 ? "from-emerald-600/20 to-green-600/10" : "from-amber-600/20 to-yellow-600/10"
-                      } opacity-70 blur-2xl`}
-                    ></div>
-                    <div className="relative aspect-square overflow-hidden rounded-full border-8 border-gray-800">
-                      <Image
-                        src={product.image || "/placeholder.svg"}
-                        alt={product.name}
-                        fill
-                        className="object-cover hover:scale-110 transition-transform duration-500"
-                      />
+        <div className="container mx-auto px-4 relative">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={staggerContainer}
+            className="text-center mb-16"
+          >
+            <motion.h2 variants={fadeInUp} className="text-3xl md:text-5xl font-bold mb-4 inline-block">
+              Our <span className="text-emerald-400">Vegetable Seeds</span>
+            </motion.h2>
+            <motion.div variants={fadeInUp} className="w-24 h-1 bg-emerald-500 mx-auto mb-6 rounded-full" />
+            <motion.p variants={fadeInUp} className="text-lg text-gray-400 max-w-2xl mx-auto">
+              Discover our premium selection of vegetable seeds, perfect for home gardeners and commercial growers
+              looking to maximize flavor and yield.
+            </motion.p>
+          </motion.div>
+
+          <div className="space-y-24">
+            {vegetableProducts.map((product, index) => (
+              <motion.div
+                key={product.id}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-100px" }}
+                variants={staggerContainer}
+                className={`relative ${index % 2 === 0 ? "" : "bg-gray-900/30 rounded-3xl py-12 px-4 md:px-8"}`}
+              >
+                <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+                  {/* Product Image - Always on left for mobile, alternating for desktop */}
+                  <motion.div variants={scaleIn} className={`order-1 ${index % 2 === 0 ? "md:order-1" : "md:order-2"}`}>
+                    <div className="relative mx-auto">
+                      <div className="relative w-64 h-64 md:w-80 md:h-80 mx-auto rounded-full overflow-hidden border-8 border-gray-800 group-hover:border-emerald-900 transition-all duration-300">
+                        <Image
+                          src={product.image || "/placeholder.svg"}
+                          alt={product.name}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+
+                      {/* Badge */}
                       {product.badge && (
-                        <Badge
-                          className={`absolute top-6 right-6 ${
-                            product.badge === "Bestseller"
-                              ? "bg-amber-600"
-                              : product.badge === "Organic"
-                                ? "bg-emerald-600"
-                                : product.badge === "Premium"
-                                  ? "bg-purple-600"
-                                  : product.badge === "Spicy"
-                                    ? "bg-red-600"
-                                    : "bg-blue-600"
-                          } text-white border-0 px-3 py-1.5 text-sm font-medium`}
+                        <div
+                          className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-medium border ${getBadgeColor(product.badgeColor)}`}
                         >
                           {product.badge}
-                        </Badge>
+                        </div>
                       )}
                     </div>
-                  </div>
+                  </motion.div>
 
-                  <div className="w-full md:w-1/2">
-                    <h3 className="font-serif text-2xl md:text-3xl font-bold text-white mb-4">{product.name}</h3>
+                  {/* Product Content */}
+                  <motion.div
+                    variants={fadeInUp}
+                    className={`order-2 ${index % 2 === 0 ? "md:order-2" : "md:order-1"}`}
+                  >
+                    <h3 className="text-3xl font-bold text-white mb-2">{product.name}</h3>
+                    <p className="text-emerald-400 italic mb-4">{product.scientificName}</p>
                     <p className="text-gray-300 mb-6">{product.description}</p>
+
+                    {/* Features */}
+                    <div className="grid grid-cols-2 gap-3 mb-6">
+                      {product.features.slice(0, 6).map((feature, idx) => (
+                        <div key={idx} className="flex items-start">
+                          <Check className="h-5 w-5 text-emerald-400 mt-0.5 mr-2 flex-shrink-0" />
+                          <span className="text-gray-300 text-sm">{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Specifications Preview */}
+                    <div className="grid grid-cols-2 gap-4 mb-6">
+                      <div className="bg-gray-800/50 rounded-xl p-4">
+                        <h4 className="text-sm font-medium text-emerald-400 mb-2">Seeding Rate</h4>
+                        <p className="text-white">{product.specifications.seedingRate}</p>
+                      </div>
+                      <div className="bg-gray-800/50 rounded-xl p-4">
+                        <h4 className="text-sm font-medium text-emerald-400 mb-2">Germination</h4>
+                        <p className="text-white">{product.specifications.germinationRate}</p>
+                      </div>
+                    </div>
+
+                    {/* Rating */}
                     <div className="flex items-center mb-6">
-                      <div className="text-2xl font-bold text-white mr-2">Rs. {product.price}</div>
-                      <div className="text-sm text-gray-400">per {product.unit}</div>
-                    </div>
-
-                    <div className="mb-8">
-                      <h4 className="font-medium text-white mb-3">Key Features:</h4>
-                      <ul className="space-y-2">
-                        {product.features.map((feature, i) => (
-                          <li key={i} className="flex items-start">
-                            <div className="p-1 bg-gray-800 rounded-full mr-3 mt-0.5">
-                              <Leaf className="h-4 w-4 text-emerald-400" />
-                            </div>
-                            <span className="text-gray-300">{feature}</span>
-                          </li>
+                      <div className="flex items-center">
+                        {[...Array(5)].map((_, i) => (
+                          <Star
+                            key={i}
+                            className={`h-5 w-5 ${i < Math.floor(product.rating) ? "text-amber-400 fill-amber-400" : "text-gray-600"}`}
+                          />
                         ))}
-                      </ul>
+                      </div>
+                      <span className="text-gray-400 text-sm ml-2">({product.reviews} reviews)</span>
                     </div>
 
-                    <div className="flex flex-wrap gap-3">
-                      <Button className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-full">
-                        <ShoppingCart className="mr-2 h-4 w-4" />
-                        Add to Cart
-                      </Button>
-                      <Button variant="outline" className="border-gray-700 text-gray-300 hover:text-white rounded-full">
-                        <Heart className="mr-2 h-4 w-4" />
-                        Wishlist
-                      </Button>
+                    {/* Price and Actions */}
+                    <div className="flex flex-wrap items-center justify-between gap-4">
+                      <div>
+                        <span className="text-3xl font-bold text-white">${product.price.toFixed(2)}</span>
+                        <span className="text-gray-400 ml-2">{product.unit}</span>
+                        <p className="text-sm text-gray-500">Min. Order: {product.minOrder}</p>
+                      </div>
+                      <div className="flex gap-3">
+                        <Button
+                          variant="outline"
+                          className="rounded-full border-gray-700 text-gray-300 hover:text-white hover:bg-gray-800 hover:border-gray-600"
+                          onClick={(e) => addToWishlist(e, product.id)}
+                        >
+                          <Heart className="h-5 w-5" />
+                        </Button>
+                        <Button
+                          className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-full px-6"
+                          onClick={(e) => addToCart(e, product.id)}
+                        >
+                          <ShoppingCart className="h-5 w-5 mr-2" />
+                          <span>Add to Cart</span>
+                        </Button>
+                      </div>
+                    </div>
+
+                    {/* View Details Button */}
+                    <div className="mt-6">
                       <Button
-                        variant="outline"
-                        className="border-gray-700 text-gray-300 hover:text-white rounded-full"
-                        onClick={() => openProductModal(product)}
+                        variant="ghost"
+                        className="text-emerald-400 hover:text-emerald-300 hover:bg-transparent p-0 flex items-center"
+                        onClick={() => setActiveProduct(activeProduct === product.id ? null : product.id)}
                       >
-                        <Eye className="mr-2 h-4 w-4" />
-                        View Full Details
+                        <span>{activeProduct === product.id ? "Hide Details" : "View Full Details"}</span>
+                        {activeProduct === product.id ? (
+                          <ChevronUp className="ml-2 h-5 w-5" />
+                        ) : (
+                          <ChevronDown className="ml-2 h-5 w-5" />
+                        )}
                       </Button>
                     </div>
-                  </div>
+                  </motion.div>
                 </div>
-              ))}
-            </div>
+
+                {/* Expanded Details Section */}
+                {activeProduct === product.id && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="mt-8 pt-8 border-t border-gray-800"
+                  >
+                    <Tabs defaultValue="details" className="w-full">
+                      <TabsList className="bg-gray-800 border border-gray-700">
+                        <TabsTrigger value="details">Details</TabsTrigger>
+                        <TabsTrigger value="specifications">Specifications</TabsTrigger>
+                        <TabsTrigger value="growing">Growing Guide</TabsTrigger>
+                      </TabsList>
+                      <TabsContent value="details" className="mt-6">
+                        <div className="prose prose-invert max-w-none">
+                          <h4 className="text-xl font-bold text-white mb-4">Product Description</h4>
+                          <p className="text-gray-300">{product.longDescription}</p>
+
+                          <h4 className="text-xl font-bold text-white mt-6 mb-4">Key Benefits</h4>
+                          <ul className="space-y-2">
+                            {product.features.map((feature, idx) => (
+                              <li key={idx} className="flex items-start">
+                                <Check className="h-5 w-5 text-emerald-400 mt-0.5 mr-2 flex-shrink-0" />
+                                <span className="text-gray-300">{feature}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </TabsContent>
+                      <TabsContent value="specifications" className="mt-6">
+                        <div className="grid md:grid-cols-2 gap-8">
+                          <div>
+                            <h4 className="text-xl font-bold text-white mb-4">Technical Specifications</h4>
+                            <div className="space-y-4">
+                              {Object.entries(product.specifications).map(([key, value]) => (
+                                <div key={key} className="flex justify-between border-b border-gray-800 pb-2">
+                                  <span className="text-gray-400">
+                                    {key.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase())}
+                                  </span>
+                                  <span className="text-white font-medium">{value}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                          <div>
+                            <h4 className="text-xl font-bold text-white mb-4">Shipping Information</h4>
+                            <div className="space-y-4">
+                              <div className="flex items-start">
+                                <Truck className="h-5 w-5 text-emerald-400 mt-0.5 mr-3 flex-shrink-0" />
+                                <div>
+                                  <p className="text-white font-medium">Free Shipping</p>
+                                  <p className="text-gray-400 text-sm">On orders over $100</p>
+                                </div>
+                              </div>
+                              <div className="flex items-start">
+                                <Clock className="h-5 w-5 text-emerald-400 mt-0.5 mr-3 flex-shrink-0" />
+                                <div>
+                                  <p className="text-white font-medium">Processing Time</p>
+                                  <p className="text-gray-400 text-sm">1-2 business days</p>
+                                </div>
+                              </div>
+                              <div className="flex items-start">
+                                <Info className="h-5 w-5 text-emerald-400 mt-0.5 mr-3 flex-shrink-0" />
+                                <div>
+                                  <p className="text-white font-medium">Availability</p>
+                                  <p className="text-emerald-400 text-sm">{product.availability}</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </TabsContent>
+                      <TabsContent value="growing" className="mt-6">
+                        <div className="prose prose-invert max-w-none">
+                          <h4 className="text-xl font-bold text-white mb-4">Growing Conditions</h4>
+                          <div className="grid md:grid-cols-2 gap-6">
+                            {Object.entries(product.growingConditions).map(([key, value]) => (
+                              <div key={key} className="bg-gray-800/50 rounded-xl p-4">
+                                <h5 className="text-emerald-400 font-medium mb-2">
+                                  {key.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase())}
+                                </h5>
+                                <p className="text-gray-300">{value}</p>
+                              </div>
+                            ))}
+                          </div>
+
+                          <h4 className="text-xl font-bold text-white mt-8 mb-4">Planting Guide</h4>
+                          <Accordion type="single" collapsible className="w-full">
+                            <AccordionItem value="item-1" className="border-gray-800">
+                              <AccordionTrigger className="text-white hover:text-emerald-400">
+                                Soil Preparation
+                              </AccordionTrigger>
+                              <AccordionContent className="text-gray-300">
+                                Prepare a well-tilled seedbed free of weeds and large clods. For best results, conduct a
+                                soil test and adjust pH and nutrients according to recommendations for this specific
+                                vegetable crop.
+                              </AccordionContent>
+                            </AccordionItem>
+                            <AccordionItem value="item-2" className="border-gray-800">
+                              <AccordionTrigger className="text-white hover:text-emerald-400">
+                                Seeding Methods
+                              </AccordionTrigger>
+                              <AccordionContent className="text-gray-300">
+                                Broadcast or drill seeds at the recommended seeding rate. When broadcasting, ensure good
+                                seed-to-soil contact by rolling or cultipacking after seeding. For drilling, place seeds
+                                at the appropriate depth (usually 1/4 to 1/2 inch).
+                              </AccordionContent>
+                            </AccordionItem>
+                            <AccordionItem value="item-3" className="border-gray-800">
+                              <AccordionTrigger className="text-white hover:text-emerald-400">
+                                Irrigation & Maintenance
+                              </AccordionTrigger>
+                              <AccordionContent className="text-gray-300">
+                                Keep soil moist but not waterlogged during germination. Once established, follow
+                                recommended irrigation schedules based on your climate and soil conditions. Regular
+                                maintenance includes weed control, proper fertilization, and monitoring for pests and
+                                diseases.
+                              </AccordionContent>
+                            </AccordionItem>
+                          </Accordion>
+                        </div>
+                      </TabsContent>
+                    </Tabs>
+                  </motion.div>
+                )}
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Sustainable Vegetable Growing Section */}
-      <section className="py-16 md:py-24 bg-gray-900">
-        <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="font-serif text-3xl font-bold text-white mb-6">Sustainable Vegetable Growing</h2>
-              <div className="w-16 h-1 bg-emerald-500 mx-auto mb-8 rounded-full"></div>
-              <p className="text-lg text-gray-300 max-w-3xl mx-auto">
-                We're committed to sustainable farming practices that protect our environment while producing
-                high-quality vegetable seeds.
-              </p>
-            </div>
+      {/* Sustainability Section */}
+      <section className="py-16 md:py-24 bg-gray-900 relative">
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMxMTI4MjciIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDM0djZoNnYtNmgtNnptNiA2djZoLTZ2LTZoNnptLTYtNnYtNmg2djZoLTZ6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-30"></div>
 
-            <div className="grid md:grid-cols-3 gap-8 mb-16">
-              <div className="bg-gray-800 rounded-xl p-8 border border-gray-700 hover:border-emerald-500 transition-colors duration-300">
-                <div className="p-3 bg-gray-700 rounded-full w-14 h-14 flex items-center justify-center mb-6">
-                  <Leaf className="h-7 w-7 text-emerald-400" />
+        <div className="container mx-auto px-4 relative">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={staggerContainer}
+            className="text-center mb-16"
+          >
+            <motion.div
+              variants={fadeInUp}
+              className="inline-flex items-center px-4 py-2 rounded-full bg-emerald-900/30 border border-emerald-700/50 text-emerald-300 text-sm font-medium mb-6 backdrop-blur-sm"
+            >
+              <Award className="h-4 w-4 mr-2" />
+              <span>Our Commitment</span>
+            </motion.div>
+
+            <motion.h2 variants={fadeInUp} className="text-3xl md:text-5xl font-bold mb-4 inline-block">
+              Sustainable <span className="text-emerald-400">Vegetable Growing</span>
+            </motion.h2>
+            <motion.div variants={fadeInUp} className="w-24 h-1 bg-emerald-500 mx-auto mb-6 rounded-full" />
+            <motion.p variants={fadeInUp} className="text-lg text-gray-400 max-w-2xl mx-auto">
+              We're dedicated to promoting sustainable agriculture through our ethical seed sourcing and growing
+              practices.
+            </motion.p>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={staggerContainer}
+            className="grid md:grid-cols-3 gap-8"
+          >
+            {[
+              {
+                icon: <Leaf className="h-10 w-10 text-emerald-400" />,
+                title: "Organic Growing Methods",
+                description:
+                  "All our seeds are grown using sustainable, organic practices without synthetic pesticides or fertilizers.",
+              },
+              {
+                icon: <Droplets className="h-10 w-10 text-emerald-400" />,
+                title: "Water Conservation",
+                description:
+                  "We select and develop varieties that require less water, helping farmers conserve this precious resource.",
+              },
+              {
+                icon: <Sun className="h-10 w-10 text-emerald-400" />,
+                title: "Climate Resilience",
+                description:
+                  "Our seeds are tested for resilience to changing climate conditions, ensuring long-term farming success.",
+              },
+            ].map((item, index) => (
+              <motion.div
+                key={index}
+                variants={scaleIn}
+                className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-700"
+              >
+                <div className="p-3 bg-emerald-900/30 rounded-full w-fit mb-6 border border-emerald-700/30">
+                  {item.icon}
                 </div>
-                <h3 className="font-serif text-xl font-bold text-white mb-4">Organic Cultivation</h3>
-                <p className="text-gray-300">
-                  Our vegetable seeds are grown using organic farming methods, free from synthetic pesticides and
-                  fertilizers, ensuring healthier plants and soil.
-                </p>
-              </div>
-
-              <div className="bg-gray-800 rounded-xl p-8 border border-gray-700 hover:border-emerald-500 transition-colors duration-300">
-                <div className="p-3 bg-gray-700 rounded-full w-14 h-14 flex items-center justify-center mb-6">
-                  <Shield className="h-7 w-7 text-emerald-400" />
-                </div>
-                <h3 className="font-serif text-xl font-bold text-white mb-4">Non-GMO Promise</h3>
-                <p className="text-gray-300">
-                  We're committed to providing only non-GMO vegetable seeds, preserving natural biodiversity and
-                  supporting traditional farming practices.
-                </p>
-              </div>
-
-              <div className="bg-gray-800 rounded-xl p-8 border border-gray-700 hover:border-emerald-500 transition-colors duration-300">
-                <div className="p-3 bg-gray-700 rounded-full w-14 h-14 flex items-center justify-center mb-6">
-                  <Sun className="h-7 w-7 text-emerald-400" />
-                </div>
-                <h3 className="font-serif text-xl font-bold text-white mb-4">Heirloom Preservation</h3>
-                <p className="text-gray-300">
-                  We work to preserve heirloom vegetable varieties, maintaining genetic diversity and protecting
-                  traditional flavors for future generations.
-                </p>
-              </div>
-            </div>
-
-            <div className="bg-gray-800 rounded-2xl p-8 md:p-12 border border-gray-700">
-              <div className="grid md:grid-cols-2 gap-8 items-center">
-                <div>
-                  <h3 className="font-serif text-2xl font-bold text-white mb-6">Our Sustainable Practices</h3>
-                  <p className="text-gray-300 mb-6">
-                    At Affan Agro Seeds, sustainability isn't just a buzzword—it's at the core of everything we do. Our
-                    vegetable seeds are produced using methods that respect the environment and support local
-                    communities.
-                  </p>
-                  <ul className="space-y-4">
-                    <li className="flex items-start">
-                      <div className="p-1.5 bg-emerald-900 rounded-full mr-3 mt-0.5">
-                        <Droplets className="h-4 w-4 text-emerald-400" />
-                      </div>
-                      <span className="text-gray-300">
-                        Water conservation through drip irrigation and rainwater harvesting
-                      </span>
-                    </li>
-                    <li className="flex items-start">
-                      <div className="p-1.5 bg-emerald-900 rounded-full mr-3 mt-0.5">
-                        <Droplets className="h-4 w-4 text-emerald-400" />
-                      </div>
-                      <span className="text-gray-300">
-                        Natural pest management using beneficial insects and companion planting
-                      </span>
-                    </li>
-                    <li className="flex items-start">
-                      <div className="p-1.5 bg-emerald-900 rounded-full mr-3 mt-0.5">
-                        <Droplets className="h-4 w-4 text-emerald-400" />
-                      </div>
-                      <span className="text-gray-300">
-                        Soil health maintenance through crop rotation and organic matter addition
-                      </span>
-                    </li>
-                  </ul>
-                </div>
-                <div className="relative h-64 md:h-80 rounded-xl overflow-hidden">
-                  <Image
-                    src="/placeholder.svg?height=400&width=600&text=Sustainable+Farming"
-                    alt="Sustainable Farming Practices"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Growing Guide Section */}
-      <section className="py-16 md:py-24 bg-gray-950">
-        <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="font-serif text-3xl font-bold text-white mb-6">Vegetable Growing Guide</h2>
-              <div className="w-16 h-1 bg-emerald-500 mx-auto mb-8 rounded-full"></div>
-              <p className="text-lg text-gray-300 max-w-3xl mx-auto">
-                Follow our expert tips to get the most from your vegetable seeds and enjoy a bountiful harvest.
-              </p>
-            </div>
-
-            <div className="bg-gray-800 rounded-2xl p-8 md:p-12 border border-gray-700">
-              <Tabs defaultValue="planting" className="w-full">
-                <TabsList className="grid grid-cols-3 mb-8 bg-gray-900">
-                  <TabsTrigger
-                    value="planting"
-                    className="data-[state=active]:bg-emerald-900 data-[state=active]:text-white"
-                  >
-                    Planting
-                  </TabsTrigger>
-                  <TabsTrigger
-                    value="care"
-                    className="data-[state=active]:bg-emerald-900 data-[state=active]:text-white"
-                  >
-                    Plant Care
-                  </TabsTrigger>
-                  <TabsTrigger
-                    value="harvesting"
-                    className="data-[state=active]:bg-emerald-900 data-[state=active]:text-white"
-                  >
-                    Harvesting
-                  </TabsTrigger>
-                </TabsList>
-                <TabsContent value="planting" className="mt-0">
-                  <div className="grid md:grid-cols-2 gap-8 items-start">
-                    <div>
-                      <h3 className="font-serif text-2xl font-bold text-white mb-6">Planting Your Vegetable Seeds</h3>
-                      <p className="text-gray-300 mb-6">
-                        Proper planting is the foundation for a successful vegetable garden. Follow these guidelines to
-                        give your seeds the best start.
-                      </p>
-
-                      <Accordion type="single" collapsible className="w-full">
-                        <AccordionItem value="item-1" className="border-gray-700">
-                          <AccordionTrigger className="text-white hover:text-emerald-400">
-                            Soil Preparation
-                          </AccordionTrigger>
-                          <AccordionContent className="text-gray-300">
-                            Prepare well-draining soil rich in organic matter. Most vegetables prefer a slightly acidic
-                            to neutral pH (6.0-7.0). Add compost or well-rotted manure to improve soil structure and
-                            fertility.
-                          </AccordionContent>
-                        </AccordionItem>
-                        <AccordionItem value="item-2" className="border-gray-700">
-                          <AccordionTrigger className="text-white hover:text-emerald-400">
-                            Planting Depth and Spacing
-                          </AccordionTrigger>
-                          <AccordionContent className="text-gray-300">
-                            Follow the recommended planting depth on the seed packet, generally 2-3 times the diameter
-                            of the seed. Proper spacing ensures adequate airflow and reduces competition for nutrients
-                            and water.
-                          </AccordionContent>
-                        </AccordionItem>
-                        <AccordionItem value="item-3" className="border-gray-700">
-                          <AccordionTrigger className="text-white hover:text-emerald-400">
-                            Watering Techniques
-                          </AccordionTrigger>
-                          <AccordionContent className="text-gray-300">
-                            Keep soil consistently moist but not waterlogged during germination. Water gently to avoid
-                            displacing seeds. Consider using a fine mist sprayer for delicate seedlings.
-                          </AccordionContent>
-                        </AccordionItem>
-                      </Accordion>
-                    </div>
-                    <div className="relative h-80 rounded-xl overflow-hidden">
-                      <Image
-                        src="/placeholder.svg?height=400&width=600&text=Planting+Guide"
-                        alt="Vegetable Planting Guide"
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                  </div>
-                </TabsContent>
-                <TabsContent value="care" className="mt-0">
-                  <div className="grid md:grid-cols-2 gap-8 items-start">
-                    <div>
-                      <h3 className="font-serif text-2xl font-bold text-white mb-6">Caring for Your Vegetables</h3>
-                      <p className="text-gray-300 mb-6">
-                        Proper care throughout the growing season ensures healthy plants and maximum yields. Follow
-                        these essential care tips.
-                      </p>
-
-                      <Accordion type="single" collapsible className="w-full">
-                        <AccordionItem value="item-1" className="border-gray-700">
-                          <AccordionTrigger className="text-white hover:text-emerald-400">
-                            Watering Schedule
-                          </AccordionTrigger>
-                          <AccordionContent className="text-gray-300">
-                            Most vegetables need 1-1.5 inches of water per week. Water deeply and less frequently to
-                            encourage deep root growth. Water early in the morning to reduce evaporation and fungal
-                            issues.
-                          </AccordionContent>
-                        </AccordionItem>
-                        <AccordionItem value="item-2" className="border-gray-700">
-                          <AccordionTrigger className="text-white hover:text-emerald-400">Fertilizing</AccordionTrigger>
-                          <AccordionContent className="text-gray-300">
-                            Apply balanced organic fertilizer according to plant needs. Heavy feeders like tomatoes and
-                            peppers benefit from regular feeding, while root vegetables need less nitrogen to prevent
-                            excessive leaf growth.
-                          </AccordionContent>
-                        </AccordionItem>
-                        <AccordionItem value="item-3" className="border-gray-700">
-                          <AccordionTrigger className="text-white hover:text-emerald-400">
-                            Pest Management
-                          </AccordionTrigger>
-                          <AccordionContent className="text-gray-300">
-                            Monitor plants regularly for signs of pests. Use organic methods like neem oil, insecticidal
-                            soap, or beneficial insects before resorting to chemical controls. Maintain biodiversity in
-                            your garden to keep pest populations in check.
-                          </AccordionContent>
-                        </AccordionItem>
-                      </Accordion>
-                    </div>
-                    <div className="relative h-80 rounded-xl overflow-hidden">
-                      <Image
-                        src="/placeholder.svg?height=400&width=600&text=Plant+Care"
-                        alt="Vegetable Plant Care"
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                  </div>
-                </TabsContent>
-                <TabsContent value="harvesting" className="mt-0">
-                  <div className="grid md:grid-cols-2 gap-8 items-start">
-                    <div>
-                      <h3 className="font-serif text-2xl font-bold text-white mb-6">Harvesting and Storage</h3>
-                      <p className="text-gray-300 mb-6">
-                        Proper harvesting techniques and storage methods help preserve flavor and extend the life of
-                        your vegetables.
-                      </p>
-
-                      <Accordion type="single" collapsible className="w-full">
-                        <AccordionItem value="item-1" className="border-gray-700">
-                          <AccordionTrigger className="text-white hover:text-emerald-400">
-                            When to Harvest
-                          </AccordionTrigger>
-                          <AccordionContent className="text-gray-300">
-                            Harvest most vegetables when they reach their peak size but are still tender. Morning
-                            harvesting is ideal when plants are hydrated and temperatures are cool. Regular harvesting
-                            encourages continued production.
-                          </AccordionContent>
-                        </AccordionItem>
-                        <AccordionItem value="item-2" className="border-gray-700">
-                          <AccordionTrigger className="text-white hover:text-emerald-400">
-                            Harvesting Techniques
-                          </AccordionTrigger>
-                          <AccordionContent className="text-gray-300">
-                            Use clean, sharp tools to minimize damage to plants. Cut rather than pull when appropriate.
-                            Handle produce gently to prevent bruising and damage that can lead to spoilage.
-                          </AccordionContent>
-                        </AccordionItem>
-                        <AccordionItem value="item-3" className="border-gray-700">
-                          <AccordionTrigger className="text-white hover:text-emerald-400">
-                            Storage Methods
-                          </AccordionTrigger>
-                          <AccordionContent className="text-gray-300">
-                            Different vegetables require different storage conditions. Root vegetables prefer cool,
-                            humid conditions, while tomatoes store best at room temperature. Leafy greens need cold,
-                            humid storage to maintain freshness.
-                          </AccordionContent>
-                        </AccordionItem>
-                      </Accordion>
-                    </div>
-                    <div className="relative h-80 rounded-xl overflow-hidden">
-                      <Image
-                        src="/placeholder.svg?height=400&width=600&text=Harvesting+Guide"
-                        alt="Vegetable Harvesting Guide"
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                  </div>
-                </TabsContent>
-              </Tabs>
-            </div>
-          </div>
+                <h3 className="text-xl font-bold text-white mb-4">{item.title}</h3>
+                <p className="text-gray-300">{item.description}</p>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 md:py-24 bg-green-900 relative overflow-hidden">
-        <div className="absolute inset-0 bg-noise opacity-30 mix-blend-soft-light"></div>
-        <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/20 rounded-full filter blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-amber-500/20 rounded-full filter blur-3xl"></div>
+      <section className="py-16 md:py-24 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-emerald-900/30 via-gray-900/20 to-gray-950 opacity-70"></div>
+
+        {/* Decorative elements */}
+        <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-emerald-900/20 blur-3xl"></div>
+        <div className="absolute -bottom-24 -left-24 w-96 h-96 rounded-full bg-emerald-900/20 blur-3xl"></div>
 
         <div className="container mx-auto px-4 relative">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="font-serif text-3xl md:text-4xl font-bold text-white mb-6">
-              Start Your Vegetable Garden Today
-            </h2>
-            <p className="text-lg text-green-100 mb-8">
-              Whether you're a commercial farmer or home gardener, our premium vegetable seeds will help you grow a
-              bountiful, flavorful harvest.
-            </p>
-            <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Button className="bg-white hover:bg-gray-100 text-green-800 rounded-full px-8 py-6 text-lg shadow-lg shadow-green-900/30 border-0">
-                Shop All Seeds
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+            className="max-w-3xl mx-auto text-center"
+          >
+            <motion.h2 variants={fadeInUp} className="text-3xl md:text-4xl font-bold mb-4">
+              Ready to <span className="text-emerald-400">Grow Better Vegetables?</span>
+            </motion.h2>
+            <motion.p variants={fadeInUp} className="text-lg text-gray-400 mb-8">
+              Contact our team of agricultural experts for personalized recommendations and bulk order inquiries.
+            </motion.p>
+
+            <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row justify-center gap-4">
+              <Button
+                size="lg"
+                className="bg-emerald-600 hover:bg-emerald-700 text-white border-0 rounded-full px-8 py-6 text-lg shadow-lg shadow-emerald-900/50 group"
+              >
+                <span>Request a Quote</span>
+                <ArrowUpRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
               </Button>
+
               <Button
                 variant="outline"
-                className="border-white/30 text-white hover:bg-white/10 rounded-full px-8 py-6 text-lg backdrop-blur-sm"
+                size="lg"
+                className="border-emerald-700 text-emerald-400 hover:bg-emerald-900/30 rounded-full px-8 py-6 text-lg"
               >
-                Request Bulk Pricing
+                <span>Download Growing Guide</span>
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Product Modal */}
-      {showModal && activeProduct && (
-        <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4">
-          <div
-            ref={modalRef}
-            className="bg-gray-900 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="sticky top-0 bg-gray-900 p-4 border-b border-gray-800 flex justify-between items-center z-10">
-              <h3 className="font-serif text-xl font-bold text-white">{activeProduct.name}</h3>
-              <button
-                onClick={closeProductModal}
-                className="p-2 rounded-full hover:bg-gray-800 text-gray-400 hover:text-white transition-colors"
-              >
-                <X className="h-5 w-5" />
-              </button>
+      {/* Floating Back to Top Button */}
+      <div
+        className={`fixed bottom-8 right-8 z-40 transition-all duration-300 ${showScrollTop ? "opacity-100 scale-100" : "opacity-0 scale-50 pointer-events-none"}`}
+      >
+        <Button
+          onClick={scrollToTop}
+          className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-full h-12 w-12 p-0 shadow-lg shadow-emerald-900/50"
+          aria-label="Back to top"
+        >
+          <ChevronUp className="h-6 w-6" />
+        </Button>
+      </div>
+
+      {/* Product Detail Modal */}
+      {modalOpen && selectedProduct && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8 animate-fade-in">
+          <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={closeProductModal}></div>
+
+          <div className="relative bg-white rounded-2xl w-full max-w-5xl max-h-[90vh] overflow-y-auto shadow-2xl animate-scale-in">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="absolute top-4 right-4 z-10 rounded-full bg-white/80 hover:bg-white"
+              onClick={closeProductModal}
+            >
+              <X className="h-5 w-5" />
+            </Button>
+
+            {/* Modal Header */}
+            <div className="relative h-64 md:h-80 overflow-hidden">
+              <Image
+                src={selectedProduct.image || "/placeholder.svg"}
+                alt={selectedProduct.name}
+                fill
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+              <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
+                <span
+                  className={`inline-block px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-sm font-medium mb-2`}
+                >
+                  {selectedProduct.badge}
+                </span>
+                <h2 className="text-3xl md:text-5xl font-serif font-bold text-white mb-2">{selectedProduct.name}</h2>
+                <p className="text-white/80 text-lg">{selectedProduct.scientificName}</p>
+              </div>
             </div>
-            <div className="p-6">
-              <div className="grid md:grid-cols-2 gap-8">
-                <div className="relative aspect-square rounded-xl overflow-hidden">
-                  <Image
-                    src={activeProduct.image || "/placeholder.svg"}
-                    alt={activeProduct.name}
-                    fill
-                    className="object-cover"
-                  />
-                  {activeProduct.badge && (
-                    <Badge
-                      className={`absolute top-4 left-4 ${
-                        activeProduct.badge === "Bestseller"
-                          ? "bg-amber-600"
-                          : activeProduct.badge === "Organic"
-                            ? "bg-emerald-600"
-                            : activeProduct.badge === "Premium"
-                              ? "bg-purple-600"
-                              : activeProduct.badge === "Spicy"
-                                ? "bg-red-600"
-                                : "bg-blue-600"
-                      } text-white border-0 px-3 py-1.5 text-sm font-medium`}
-                    >
-                      {activeProduct.badge}
-                    </Badge>
-                  )}
-                </div>
+
+            {/* Modal Content */}
+            <div className="p-6 md:p-8">
+              <div className="grid md:grid-cols-2 gap-8 mb-8">
                 <div>
-                  <div className="flex items-center mb-4">
-                    <div className="text-2xl font-bold text-white mr-2">Rs. {activeProduct.price}</div>
-                    <div className="text-sm text-gray-400">per {activeProduct.unit}</div>
+                  <h3 className="text-2xl font-serif font-bold text-gray-900 mb-4">Overview</h3>
+                  <p className="text-gray-700 mb-6">{selectedProduct.longDescription}</p>
+
+                  <div className="flex items-baseline mb-4">
+                    <span className={`text-3xl font-bold text-emerald-600`}>${selectedProduct.price.toFixed(2)}</span>
+                    <span className="text-gray-500 ml-2">{selectedProduct.unit}</span>
+                    <Badge variant="outline" className="ml-4">
+                      Min. Order: {selectedProduct.minOrder}
+                    </Badge>
                   </div>
-                  <p className="text-gray-300 mb-6">{activeProduct.description}</p>
 
-                  <Tabs defaultValue="specs" className="w-full mb-6">
-                    <TabsList className="grid grid-cols-3 bg-gray-800">
-                      <TabsTrigger
-                        value="specs"
-                        className="data-[state=active]:bg-emerald-900 data-[state=active]:text-white"
-                      >
-                        Specifications
-                      </TabsTrigger>
-                      <TabsTrigger
-                        value="growing"
-                        className="data-[state=active]:bg-emerald-900 data-[state=active]:text-white"
-                      >
-                        Growing Conditions
-                      </TabsTrigger>
-                      <TabsTrigger
-                        value="features"
-                        className="data-[state=active]:bg-emerald-900 data-[state=active]:text-white"
-                      >
-                        Features
-                      </TabsTrigger>
-                    </TabsList>
-                    <TabsContent value="specs" className="mt-4 text-gray-300 space-y-2">
-                      <p>
-                        <strong>Package Size:</strong> {activeProduct.unit}
-                      </p>
-                      <p>
-                        <strong>Seeds per Packet:</strong> Approximately 100-150 seeds
-                      </p>
-                      <p>
-                        <strong>Germination Rate:</strong> 85-95%
-                      </p>
-                      <p>
-                        <strong>Days to Maturity:</strong> 60-90 days (varies by variety)
-                      </p>
-                    </TabsContent>
-                    <TabsContent value="growing" className="mt-4 text-gray-300 space-y-2">
-                      <p>
-                        <strong>Sunlight:</strong> Full sun (6-8 hours daily)
-                      </p>
-                      <p>
-                        <strong>Soil:</strong> Well-draining, rich in organic matter
-                      </p>
-                      <p>
-                        <strong>Watering:</strong> Consistent moisture, avoid waterlogging
-                      </p>
-                      <p>
-                        <strong>Spacing:</strong> 12-24 inches between plants (varies by variety)
-                      </p>
-                    </TabsContent>
-                    <TabsContent value="features" className="mt-4">
-                      <ul className="space-y-2">
-                        {activeProduct.features.map((feature, i) => (
-                          <li key={i} className="flex items-start">
-                            <div className="p-1 bg-gray-800 rounded-full mr-3 mt-0.5">
-                              <Leaf className="h-4 w-4 text-emerald-400" />
-                            </div>
-                            <span className="text-gray-300">{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </TabsContent>
-                  </Tabs>
-
-                  <div className="flex flex-wrap gap-3">
-                    <Button className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-full">
-                      <ShoppingCart className="mr-2 h-4 w-4" />
-                      Add to Cart
-                    </Button>
-                    <Button variant="outline" className="border-gray-700 text-gray-300 hover:text-white rounded-full">
-                      <Heart className="mr-2 h-4 w-4" />
-                      Add to Wishlist
-                    </Button>
+                  <div className="bg-gray-50 p-4 rounded-lg mb-6">
+                    <h4 className="font-medium text-gray-700 mb-2">Availability</h4>
+                    <p
+                      className={`flex items-center ${selectedProduct.availability === "In Stock" ? "text-green-600" : "text-red-600"}`}
+                    >
+                      {selectedProduct.availability === "In Stock" ? (
+                        <Check className="h-4 w-4 mr-1" />
+                      ) : (
+                        <X className="h-4 w-4 mr-1" />
+                      )}
+                      {selectedProduct.availability}
+                    </p>
                   </div>
                 </div>
+
+                <div>
+                  <h3 className="text-2xl font-serif font-bold text-gray-900 mb-4">Key Features</h3>
+                  <ul className="space-y-2">
+                    {selectedProduct.features.map((feature, idx) => (
+                      <li key={idx} className="flex items-start">
+                        <Check className={`h-5 w-5 text-emerald-600 mt-0.5 mr-2 flex-shrink-0`} />
+                        <span className="text-gray-700">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              <div className="border-t border-gray-200 pt-8 mb-8">
+                <h3 className="text-2xl font-serif font-bold text-gray-900 mb-4">Technical Specifications</h3>
+                <div className="grid md:grid-cols-2 gap-8">
+                  <div>
+                    <h4 className="font-medium text-gray-900 mb-4">Seed Specifications</h4>
+                    <ul className="space-y-3">
+                      {Object.entries(selectedProduct.specifications).map(([key, value]) => (
+                        <li key={key} className="flex justify-between border-b border-gray-100 pb-2">
+                          <span className="text-gray-600">
+                            {key.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase())}
+                          </span>
+                          <span className="font-medium text-gray-900">{value}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-gray-900 mb-4">Growing Conditions</h4>
+                    <ul className="space-y-3">
+                      {Object.entries(selectedProduct.growingConditions).map(([key, value]) => (
+                        <li key={key} className="flex justify-between border-b border-gray-100 pb-2">
+                          <span className="text-gray-600">
+                            {key.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase())}
+                          </span>
+                          <span className="font-medium text-gray-900">{value}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div className="border-t border-gray-200 pt-8">
+                <div className="flex justify-between items-center">
+                  <h3 className="text-2xl font-serif font-bold text-gray-900">Planting Tips</h3>
+                  <Button className={`bg-emerald-600 hover:bg-emerald-700 text-white`} onClick={closeProductModal}>
+                    Contact For More Info
+                  </Button>
+                </div>
+                <p className="text-gray-700 mt-4">
+                  For best results, plant {selectedProduct.name.toLowerCase()} during the recommended planting season.
+                  Ensure proper soil preparation and follow the recommended seeding rate. Contact our agricultural
+                  experts for personalized advice specific to your region and growing conditions.
+                </p>
               </div>
             </div>
           </div>
         </div>
       )}
-
-      {/* Scroll to Top Button */}
-      <button
-        onClick={scrollToTop}
-        className={`fixed right-6 bottom-6 p-3 rounded-full bg-emerald-600 text-white shadow-lg transition-all duration-300 ${
-          showScrollTop ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none"
-        }`}
-        aria-label="Scroll to top"
-      >
-        <ArrowRight className="h-5 w-5 rotate-270" />
-      </button>
     </main>
   )
 }

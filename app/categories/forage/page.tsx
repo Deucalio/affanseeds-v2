@@ -3,49 +3,92 @@
 import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import { motion } from "framer-motion"
-import {
-  ShoppingCart,
-  Heart,
-  Star,
-  Leaf,
-  Droplets,
-  Sun,
-  ArrowRight,
-  Check,
-  Info,
-  Award,
-  Truck,
-  Clock,
-  ChevronDown,
-  ChevronUp,
-  ArrowUpRight,
-  Shield,
-  Sprout,
-  X,
-} from "lucide-react"
+import { ShoppingCart, Heart, Star, Leaf, Droplets, Sun, ArrowRight, Check, Info, Award, Truck, Clock, ChevronDown, ChevronUp, ArrowUpRight, Shield, Sprout, X } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import Breadcrumb from "@/components/breadcrumb"
 
+// Define TypeScript interfaces for our data
+interface ProductFeature {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+}
+
+interface ProductSpecifications {
+  seedingRate: string;
+  germinationRate: string;
+  daysToGermination: string;
+  harvestTime: string;
+  yieldPotential: string;
+}
+
+interface GrowingConditions {
+  soilType: string;
+  soilPH: string;
+  climate: string;
+  waterRequirements: string;
+  sunlight: string;
+  growingSeason: string;
+}
+
+interface Product {
+  id: number;
+  name: string;
+  scientificName: string;
+  description: string;
+  longDescription: string;
+  price: number;
+  unit: string;
+  minOrder: string;
+  availability: string;
+  image: string;
+  features: string[];
+  specifications: ProductSpecifications;
+  growingConditions: GrowingConditions;
+  badge: string;
+  badgeColor: string;
+  rating: number;
+  reviews: number;
+}
+
+interface ProductItem {
+  id: number;
+  name: string;
+  subtitle: string;
+  description: string;
+  longDescription: string;
+  price: string;
+  unit: string;
+  minOrder: string;
+  availability: string;
+  image: string;
+  features: string[];
+  specifications: ProductSpecifications;
+  growingConditions: GrowingConditions;
+  color: string;
+  badge: string;
+}
+
 export default function ForageCategoryPage() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [cartCount, setCartCount] = useState(0)
   const [wishlistCount, setWishlistCount] = useState(0)
-  const [activeProduct, setActiveProduct] = useState(null)
+  const [activeProduct, setActiveProduct] = useState<number | null>(null)
   const [showScrollTop, setShowScrollTop] = useState(false)
 
   // Refs for scroll sections
-  const heroRef = useRef(null)
-  const productsRef = useRef(null)
+  const heroRef = useRef<HTMLElement>(null)
+  const productsRef = useRef<HTMLElement>(null)
 
   // State for scroll position
   const [scrollY, setScrollY] = useState(0)
 
   // State for product interactions
-  const [hoveredProduct, setHoveredProduct] = useState(null)
-  const [selectedProduct, setSelectedProduct] = useState(null)
+  const [hoveredProduct, setHoveredProduct] = useState<number | null>(null)
+  const [selectedProduct, setSelectedProduct] = useState<ProductItem | null>(null)
   const [modalOpen, setModalOpen] = useState(false)
 
   // Handle scroll events
@@ -69,7 +112,7 @@ export default function ForageCategoryPage() {
   }
 
   // Modal functions
-  const openProductModal = (product) => {
+  const openProductModal = (product: ProductItem) => {
     setSelectedProduct(product)
     setModalOpen(true)
     document.body.style.overflow = "hidden"
@@ -109,7 +152,7 @@ export default function ForageCategoryPage() {
   }, [])
 
   // Forage products data
-  const forageProducts = [
+  const forageProducts: Product[] = [
     {
       id: 1,
       name: "Thai Grass Seeds",
@@ -380,7 +423,7 @@ export default function ForageCategoryPage() {
   }
 
   // Helper function for badge colors
-  const getBadgeColor = (color) => {
+  const getBadgeColor = (color: string) => {
     switch (color) {
       case "red":
         return "bg-red-900/80 text-red-100 border-red-700"
@@ -408,21 +451,21 @@ export default function ForageCategoryPage() {
   }
 
   // Add to cart function
-  const addToCart = (e, productId) => {
+  const addToCart = (e: React.MouseEvent, productId: number) => {
     e.preventDefault()
     setCartCount((prev) => prev + 1)
     // Here you would add actual cart functionality
   }
 
   // Add to wishlist function
-  const addToWishlist = (e, productId) => {
+  const addToWishlist = (e: React.MouseEvent, productId: number) => {
     e.preventDefault()
     setWishlistCount((prev) => prev + 1)
     // Here you would add actual wishlist functionality
   }
 
   // Products data
-  const products = [
+  const products: ProductItem[] = [
     {
       id: 1,
       name: "Thai Grass Seeds",
@@ -654,7 +697,7 @@ export default function ForageCategoryPage() {
   ]
 
   // Features data
-  const features = [
+  const features: ProductFeature[] = [
     {
       icon: <Leaf className="h-6 w-6 text-green-600" />,
       title: "Premium Quality",
@@ -678,7 +721,7 @@ export default function ForageCategoryPage() {
   ]
 
   // Get color classes for products
-  const getColorClasses = (color) => {
+  const getColorClasses = (color: string) => {
     switch (color) {
       case "green":
         return {
@@ -756,7 +799,7 @@ export default function ForageCategoryPage() {
   return (
     <main className="min-h-screen bg-gray-950 text-gray-100 pt-20">
       {/* Breadcrumb */}
-      <Breadcrumb />
+      {/* <Breadcrumb /> */}
 
       {/* Hero Section */}
       <section ref={heroRef} className="relative py-16 md:py-24 overflow-hidden">
@@ -815,7 +858,7 @@ export default function ForageCategoryPage() {
               <Button
                 size="lg"
                 className="bg-emerald-600 hover:bg-emerald-700 text-white border-0 rounded-full px-8 py-6 text-lg shadow-lg shadow-emerald-900/50 group"
-                onClick={() => productsRef.current.scrollIntoView({ behavior: "smooth" })}
+                onClick={() => productsRef.current?.scrollIntoView({ behavior: "smooth" })}
               >
                 <span>Explore Products</span>
                 <ChevronDown className="ml-2 h-5 w-5 transition-transform group-hover:translate-y-1" />
@@ -1240,21 +1283,6 @@ export default function ForageCategoryPage() {
           <ChevronUp className="h-6 w-6" />
         </Button>
       </div>
-
-      {/* Back to top button */}
-      {/* <div
-        className={`fixed bottom-8 right-8 z-40 transition-all duration-300 ${
-          showScrollTop ? "opacity-100 scale-100" : "opacity-0 scale-50 pointer-events-none"
-        }`}
-      >
-        <Button
-          onClick={scrollToTop}
-          className="rounded-full h-12 w-12 bg-green-600 hover:bg-green-700 text-white shadow-lg"
-          aria-label="Back to top"
-        >
-          <ChevronUp className="h-6 w-6" />
-        </Button>
-      </div> */}
 
       {/* Product Detail Modal */}
       {modalOpen && selectedProduct && (
