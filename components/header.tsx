@@ -152,15 +152,7 @@ export default function Header() {
                   </Link>
                 ))}
               </div>
-              <div className="bg-gray-900 p-3 text-center">
-                <Link
-                  href="/products"
-                  className="text-sm text-emerald-400 hover:text-emerald-300 font-medium"
-                  onClick={() => setShowTooltip(false)}
-                >
-                  View All Products
-                </Link>
-              </div>
+    
             </div>
           </div>
         </div>
@@ -245,12 +237,7 @@ export default function Header() {
                     </Link>
                   ))}
 
-                  <Link
-                    href="/products"
-                    className="block text-center py-3 text-emerald-400 hover:text-emerald-300 font-medium"
-                  >
-                    View All Products
-                  </Link>
+               
                 </div>
               </div>
 
@@ -275,14 +262,6 @@ export default function Header() {
               </Link>
             </nav>
 
-            <div className="mt-auto pt-8">
-              <Button
-                className="w-full py-6 text-lg bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Shop Now
-              </Button>
-            </div>
           </div>
         </div>
       </div>

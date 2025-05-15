@@ -57,14 +57,14 @@ export default function HomePage() {
   const [wishlistCount, setWishlistCount] = useState(0)
   const [hoveredProduct, setHoveredProduct] = useState<number | null>(null)
 
-  const heroRef = useRef(null)
-  const featuredRef = useRef(null)
-  const categoriesRef = useRef(null)
-  const sustainabilityRef = useRef(null)
-  const aboutRef = useRef(null)
-  const locationRef = useRef(null)
-  const certificatesRef = useRef(null)
-  const testimonialsRef = useRef(null)
+  const heroRef = useRef<HTMLDivElement>(null)
+  const featuredRef = useRef<HTMLDivElement>(null)
+  const categoriesRef = useRef<HTMLDivElement>(null)
+  const sustainabilityRef = useRef<HTMLDivElement>(null)
+  const aboutRef = useRef<HTMLDivElement>(null)
+  const locationRef = useRef<HTMLDivElement>(null)
+  const certificatesRef = useRef<HTMLDivElement>(null)
+  const testimonialsRef = useRef<HTMLDivElement>(null)
 
   // Handle scroll events
   useEffect(() => {
@@ -372,11 +372,19 @@ export default function HomePage() {
 
               <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row justify-center gap-4">
                 <Button
-                onClick={() => router.push("/products")}
+                // onClick={() => router.push("/products")}
+                  onClick={() => {
+// Scroll to categoriesRef
+                    if (categoriesRef.current) {
+                      categoriesRef.current.scrollIntoView({ behavior: "smooth" })
+                    }
+
+
+                  }}
                   size="lg"
                   className="bg-emerald-600 hover:bg-emerald-700 text-white border-0 rounded-full px-8 py-6 text-lg shadow-lg shadow-emerald-900/50 group"
                 >
-                  <span>View Products</span>
+                  <span>View Categories</span>
                   <ChevronRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Button>
 
