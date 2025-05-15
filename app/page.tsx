@@ -6,6 +6,7 @@ import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { motion } from "framer-motion"
+import { useRouter } from "next/navigation"
 import {
   ShoppingCart,
   Heart,
@@ -48,6 +49,8 @@ const floatingAnimation = `
 
 export default function HomePage() {
   const [isScrolled, setIsScrolled] = useState(false)
+
+  const router=  useRouter()
   const [activeCategory, setActiveCategory] = useState("all")
   const [searchQuery, setSearchQuery] = useState("")
   const [cartCount, setCartCount] = useState(0)
@@ -369,10 +372,11 @@ export default function HomePage() {
 
               <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row justify-center gap-4">
                 <Button
+                onClick={() => router.push("/products")}
                   size="lg"
                   className="bg-emerald-600 hover:bg-emerald-700 text-white border-0 rounded-full px-8 py-6 text-lg shadow-lg shadow-emerald-900/50 group"
                 >
-                  <span>Shop Collection</span>
+                  <span>View Products</span>
                   <ChevronRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Button>
 
