@@ -192,46 +192,7 @@ export default function AboutPage() {
       </section>
 
       {/* Team Section */}
-      <section className="py-16 md:py-24 bg-gray-900">
-        <div className="container mx-auto px-4">
-          <div className="max-w-5xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="font-serif text-3xl font-bold text-white mb-6 opacity-0 reveal">Our Leadership Team</h2>
-              <div className="w-16 h-1 bg-emerald-500 mx-auto mb-8 opacity-0 reveal rounded-full"></div>
-              <p className="text-lg text-gray-300 max-w-3xl mx-auto opacity-0 reveal">
-                Meet the dedicated professionals who drive our mission forward.
-              </p>
-            </div>
 
-            <div className="grid md:grid-cols-3 gap-8">
-              {[1, 2, 3].map((member, index) => (
-                <div
-                  key={member}
-                  className="bg-gray-800 rounded-xl overflow-hidden shadow-md border border-gray-700 opacity-0 reveal"
-                  style={{ animationDelay: `${index * 150}ms` }}
-                >
-                  <div className="relative h-64 w-full">
-                    <Image
-                      src={`/placeholder.svg?height=300&width=300&text=Team+Member+${member}`}
-                      alt={`Team Member ${member}`}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <div className="p-6">
-                    <h3 className="font-serif text-xl font-bold text-white mb-1">Team Member {member}</h3>
-                    <p className="text-emerald-400 mb-4">Position Title</p>
-                    <p className="text-gray-300 text-sm">
-                      With over 15 years of experience in agriculture, our team member brings expertise in seed
-                      development and sustainable farming practices.
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* CTA Section */}
       <section className="py-16 md:py-24 bg-green-900 relative overflow-hidden">

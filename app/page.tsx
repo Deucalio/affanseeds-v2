@@ -430,7 +430,7 @@ export default function HomePage() {
       <style jsx global>{`
         ${floatingAnimation}
       `}</style>
-      <main className="min-h-screen bg-gray-950 text-gray-100">
+      <main className="min-h-screen bg-gray-950 text-gray-100 overflow-x-hidden">
         {/* Hero Section */}
         <section ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
           {/* Background with gradient overlay */}
@@ -524,7 +524,7 @@ export default function HomePage() {
        
         </section>
 
-        <WelcomeSection/>
+        {/* <WelcomeSection/> */}
 
         {/* About Us Section */}
         <section ref={aboutRef} className="py-24 relative">
@@ -823,7 +823,7 @@ export default function HomePage() {
 
         {/* Testimonials Section */}
         <section ref={testimonialsRef} className="py-24 relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-b from-emerald-900/30 via-gray-900/20 to-gray-950/30"></div>
+          <div className="absolute inset-0  bg-black"></div>
 
           {/* Decorative elements */}
           <div className="absolute top-0 left-0 w-full h-1/3 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-emerald-700/20 via-transparent to-transparent"></div>

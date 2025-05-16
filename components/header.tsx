@@ -162,6 +162,17 @@ export default function Header() {
             </div>
           </div>
 
+          
+          <Link
+            href="/"
+            className={cn(
+              "text-base font-medium transition-colors hover:text-emerald-400",
+              pathname === "/" ? "text-emerald-400" : "text-gray-200",
+            )}
+          >
+            Home
+          </Link>
+
           <Link
             href="/about"
             className={cn(
@@ -226,6 +237,9 @@ export default function Header() {
                 </div>
               </div>
 
+              
+
+
               <Link
                 href="/about"
                 className={cn(
@@ -245,6 +259,11 @@ export default function Header() {
               >
                 Contact Us
               </Link>
+
+
+              
+              
+
             </nav>
           </div>
         </div>

@@ -168,23 +168,7 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              <div className="mt-12 opacity-0 reveal" style={{ animationDelay: "400ms" }}>
-                <h3 className="font-serif text-xl font-bold text-white mb-4">Business Hours</h3>
-                <ul className="space-y-2 text-gray-300">
-                  <li className="flex justify-between">
-                    <span>Monday - Friday:</span>
-                    <span>9:00 AM - 6:00 PM</span>
-                  </li>
-                  <li className="flex justify-between">
-                    <span>Saturday:</span>
-                    <span>9:00 AM - 2:00 PM</span>
-                  </li>
-                  <li className="flex justify-between">
-                    <span>Sunday:</span>
-                    <span>Closed</span>
-                  </li>
-                </ul>
-              </div>
+             
             </div>
 
             {/* Contact Form */}
@@ -317,87 +301,13 @@ export default function ContactPage() {
       </section>
 
       {/* Map Section */}
-      <section className="py-16 md:py-24 bg-gray-900">
-        <div className="container mx-auto px-4">
-          <div className="max-w-5xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="font-serif text-3xl font-bold text-white mb-6 opacity-0 reveal">Find Us</h2>
-              <div className="w-16 h-1 bg-emerald-500 mx-auto mb-8 opacity-0 reveal rounded-full"></div>
-            </div>
-
-            <div className="relative rounded-2xl overflow-hidden shadow-lg h-[400px] md:h-[500px] bg-gray-800 p-8 flex flex-col items-center justify-center text-center opacity-0 reveal">
-              <div className="p-6 bg-gray-700 rounded-full mb-6 animate-float">
-                <MapPin className="h-12 w-12 text-emerald-400" />
-              </div>
-              <h3 className="font-serif text-2xl font-bold text-white mb-4">Our Location</h3>
-              <p className="text-gray-300 max-w-lg mb-8">
-                Visit us at our office in Hyderabad. We're located in the Dawood Center on Auto Bhan Road, easily
-                accessible from major transportation routes.
-              </p>
-              <Button className="bg-emerald-600 hover:bg-emerald-700 text-white">Get Directions</Button>
-            </div>
-          </div>
-        </div>
-      </section>
+ 
 
       {/* FAQ Section */}
-      <section className="py-16 md:py-24 bg-gray-950">
-        <div className="container mx-auto px-4">
-          <div className="max-w-5xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="font-serif text-3xl font-bold text-white mb-6 opacity-0 reveal">
-                Frequently Asked Questions
-              </h2>
-              <div className="w-16 h-1 bg-emerald-500 mx-auto mb-8 opacity-0 reveal rounded-full"></div>
-              <p className="text-lg text-gray-300 max-w-3xl mx-auto opacity-0 reveal">
-                Find answers to common questions about our products and services.
-              </p>
-            </div>
 
-            <div className="grid md:grid-cols-2 gap-6 opacity-0 reveal">
-              {[1, 2, 3, 4].map((faq) => (
-                <div key={faq} className="bg-gray-800 rounded-xl p-6 border border-gray-700">
-                  <h3 className="font-serif text-xl font-bold text-white mb-3">Frequently Asked Question {faq}</h3>
-                  <p className="text-gray-300">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl vel ultricies lacinia,
-                    nisl nisl aliquam nisl, eu aliquam nisl nisl sit amet nisl.
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* CTA Section */}
-      <section className="py-16 md:py-24 bg-green-900 relative overflow-hidden">
-        <div className="absolute inset-0 bg-noise opacity-30 mix-blend-soft-light"></div>
-        <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/20 rounded-full filter blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-amber-500/20 rounded-full filter blur-3xl"></div>
-
-        <div className="container mx-auto px-4 relative">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="font-serif text-3xl md:text-4xl font-bold text-white mb-6 opacity-0 reveal">
-              Ready to Grow with Us?
-            </h2>
-            <p className="text-lg text-green-100 mb-8 opacity-0 reveal">
-              Join thousands of satisfied farmers across Pakistan who trust our premium agricultural seeds for their
-              crops.
-            </p>
-            <div className="flex flex-col sm:flex-row justify-center gap-4 opacity-0 reveal">
-              <Button className="bg-white hover:bg-gray-100 text-green-800 rounded-full px-8 py-6 text-lg shadow-lg shadow-green-900/30 border-0">
-                Request a Quote
-              </Button>
-              <Button
-                variant="outline"
-                className="border-white/30 text-white hover:bg-white/10 rounded-full px-8 py-6 text-lg backdrop-blur-sm"
-              >
-                Explore Products
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
+ 
     </main>
   )
 }
