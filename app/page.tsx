@@ -105,10 +105,10 @@ const WelcomeSection: React.FC = () => {
             Welcome and Greetings at
           </h2>
           <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight">
-            Affan Agro 
+             
             <h2 className="text-4xl md:text-6xl font-bold mb-4 inline-block">
             
-            <span className="text-emerald-400">&nbsp; Seeds</span>
+            Affan Agro <span className="text-emerald-400">Seeds</span>
             </h2>
           </h1>
           <div className="w-24 h-1 bg-emerald-400 mx-auto mb-6 rounded-full"></div>
