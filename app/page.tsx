@@ -28,6 +28,7 @@ import {
   Mail,
   Building,
   Clock,
+  ChevronLeft,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -47,9 +48,37 @@ const floatingAnimation = `
   }
 `
 
+
+
+const SectionHeading = ({
+  title,
+  highlight,
+  description,
+}: {
+  title: string
+  highlight?: string
+  description?: string
+}) => {
+  return (
+    <div className="relative -mx-4 sm:-mx-6 md:-mx-8 lg:-mx-12 xl:-mx-24 mb-16">
+      <div className="bg-gradient-to-r from-emerald-900/40 via-gray-900/60 to-emerald-900/40 py-12">
+        <div className="container mx-auto px-4">
+          <div className="text-center">
+            <h2 className="text-3xl md:text-5xl font-bold mb-4 inline-block">
+              {title} {highlight && <span className="text-emerald-400">{highlight}</span>}
+            </h2>
+            <div className="w-24 h-1 bg-emerald-500 mx-auto mb-6 rounded-full" />
+            {description && <p className="text-lg text-gray-300 max-w-2xl mx-auto">{description}</p>}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export default function HomePage() {
   const [isScrolled, setIsScrolled] = useState(false)
-
+  const [currentTestimonial, setCurrentTestimonial] = useState(0)
   const router=  useRouter()
   const [activeCategory, setActiveCategory] = useState("all")
   const [searchQuery, setSearchQuery] = useState("")
@@ -65,6 +94,24 @@ export default function HomePage() {
   const locationRef = useRef<HTMLDivElement>(null)
   const certificatesRef = useRef<HTMLDivElement>(null)
   const testimonialsRef = useRef<HTMLDivElement>(null)
+
+
+  const nextTestimonial = () => {
+    setCurrentTestimonial((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1))
+  }
+
+  const prevTestimonial = () => {
+    setCurrentTestimonial((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1))
+  }
+
+  // Add this useEffect for auto-advancing the testimonial slider
+  useEffect(() => {
+    const timer = setInterval(() => {
+      nextTestimonial()
+    }, 5000)
+
+    return () => clearInterval(timer)
+  }, [])
 
   // Handle scroll events
   useEffect(() => {
@@ -361,7 +408,7 @@ export default function HomePage() {
 
               <motion.h1
                 variants={fadeInUp}
-                className="text-5xl md:text-7xl font-bold mb-6 leading-tight bg-clip-text text-transparent bg-gradient-to-r from-emerald-300 via-green-200 to-emerald-300"
+                className="text-5xl md:text-7xl font-bold mt-4 sm:mt-0 mb-6 leading-tight bg-clip-text text-transparent bg-gradient-to-r from-emerald-300 via-green-200 to-emerald-300"
               >
                 Grow Something Extraordinary
               </motion.h1>
@@ -397,53 +444,12 @@ export default function HomePage() {
                 </Button> */}
               </motion.div>
 
-              <motion.div variants={fadeInUp} className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8">
-                {[
-                  { icon: <Leaf className="h-6 w-6 text-emerald-400" />, label: "100% Organic", value: "No GMOs" },
-                  { icon: <Star className="h-6 w-6 text-amber-400" />, label: "Rare Varieties", value: "200+ Species" },
-                  {
-                    icon: <Droplets className="h-6 w-6 text-cyan-400" />,
-                    label: "High Germination",
-                    value: "95% Success",
-                  },
-                  {
-                    icon: <Sun className="h-6 w-6 text-orange-400" />,
-                    label: "Global Sourcing",
-                    value: "6 Continents",
-                  },
-                ].map((item, i) => (
-                  <div key={i} className="text-center">
-                    <div className="inline-flex items-center justify-center p-3 rounded-full bg-gray-800/50 border border-gray-700 mb-3 mx-auto">
-                      {item.icon}
-                    </div>
-                    <h3 className="text-lg font-medium text-white">{item.label}</h3>
-                    <p className="text-sm text-gray-400">{item.value}</p>
-                  </div>
-                ))}
-              </motion.div>
+        
             </motion.div>
           </div>
 
           {/* Scroll indicator */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0, transition: { delay: 1.5 } }}
-            className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center"
-          >
-            <span className="text-sm text-gray-400 mb-2">Scroll to explore</span>
-            <div className="w-6 h-10 rounded-full border-2 border-gray-500 flex justify-center p-1">
-              <motion.div
-                animate={{
-                  y: [0, 12, 0],
-                  transition: {
-                    repeat: Number.POSITIVE_INFINITY,
-                    duration: 1.5,
-                  },
-                }}
-                className="w-1.5 h-1.5 rounded-full bg-emerald-400"
-              />
-            </div>
-          </motion.div>
+       
         </section>
 
         {/* About Us Section */}
@@ -451,21 +457,11 @@ export default function HomePage() {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-emerald-900/20 via-gray-900/10 to-gray-950 opacity-50"></div>
 
           <div className="container mx-auto px-4 relative">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
-              variants={staggerContainer}
-              className="text-center mb-16"
-            >
-              <motion.h2 variants={fadeInUp} className="text-3xl md:text-5xl font-bold mb-4 inline-block">
-                About <span className="text-emerald-400">Us</span>
-              </motion.h2>
-              <motion.div variants={fadeInUp} className="w-24 h-1 bg-emerald-500 mx-auto mb-6 rounded-full" />
-              <motion.p variants={fadeInUp} className="text-lg text-gray-400 max-w-2xl mx-auto">
-                Dedicated to providing high-quality agricultural seeds and solutions to farmers across Pakistan.
-              </motion.p>
-            </motion.div>
+            <SectionHeading
+              title="About"
+              highlight="Us"
+              description="Dedicated to providing high-quality agricultural seeds and solutions to farmers across Pakistan."
+            />
 
             <motion.div
               initial="hidden"
@@ -507,7 +503,7 @@ export default function HomePage() {
                 <div className="absolute -inset-4 rounded-2xl bg-emerald-600/10 opacity-20 blur-lg"></div>
                 <div className="relative rounded-2xl overflow-hidden shadow-lg">
                   <Image
-                    src="/about-us.avif"
+                    src="/placeholder.svg?height=600&width=800&text=Our+Team"
                     alt="Our Team"
                     width={800}
                     height={600}
@@ -538,187 +534,25 @@ export default function HomePage() {
         </section>
 
         {/* Featured Products Section */}
-        <section ref={featuredRef} className="py-24 bg-gray-900 relative hidden">
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMxMTI4MjciIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDM0djZoNnYtNmgtNnptNiA2djZoLTZ2LTZoNnptLTYtNnYtNmg2djZoLTZ6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-30"></div>
-
-          <div className="container mx-auto px-4 relative">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
-              variants={staggerContainer}
-              className="text-center mb-16"
-            >
-              <motion.h2 variants={fadeInUp} className="text-3xl md:text-5xl font-bold mb-4 inline-block">
-                Featured <span className="text-emerald-400">Seeds</span>
-              </motion.h2>
-              <motion.div variants={fadeInUp} className="w-24 h-1 bg-emerald-500 mx-auto mb-6 rounded-full" />
-              <motion.p variants={fadeInUp} className="text-lg text-gray-400 max-w-2xl mx-auto">
-                Discover our curated selection of rare and exotic seeds, perfect for adventurous gardeners looking to
-                grow something truly special.
-              </motion.p>
-            </motion.div>
-
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
-              variants={staggerContainer}
-              className="grid md:grid-cols-2 lg:grid-cols-4 gap-8"
-            >
-              {featuredProducts.map((product, index) => (
-                <motion.div
-                  key={product.id}
-                  variants={scaleIn}
-                  className="group relative"
-                  onMouseEnter={() => setHoveredProduct(product.id)}
-                  onMouseLeave={() => setHoveredProduct(null)}
-                >
-                  <Link href={`/products/${product.id}`} className="block">
-                    <div className="relative bg-gray-900 rounded-2xl overflow-hidden border border-gray-800 transition-all duration-300 hover:border-emerald-700/50 hover:shadow-lg hover:shadow-emerald-900/20">
-                      {/* Product Image */}
-                      <div className="relative mx-auto p-6">
-                        <div className="relative w-48 h-48 mx-auto rounded-full overflow-hidden mb-4 border-4 border-gray-800 group-hover:border-emerald-900 transition-all duration-300">
-                          <Image
-                            src={product.image || "/placeholder.svg"}
-                            alt={product.name}
-                            fill
-                            className="object-cover transition-transform duration-700 group-hover:scale-110"
-                          />
-                        </div>
-
-                        {/* Badge */}
-                        {product.badge && (
-                          <div
-                            className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-medium border ${getBadgeColor(product.badgeColor)}`}
-                          >
-                            {product.badge}
-                          </div>
-                        )}
-
-                        {/* Quick action buttons - visible on hover */}
-                        <div
-                          className={`absolute right-4 top-16 flex flex-col gap-2 transition-all duration-300 ${hoveredProduct === product.id ? "opacity-100 translate-x-0" : "opacity-0 translate-x-4"}`}
-                        >
-                          <button
-                            className="p-2 rounded-full bg-gray-800 hover:bg-gray-700 text-gray-200 hover:text-white transition-colors"
-                            aria-label="Add to wishlist"
-                            onClick={(e) => {
-                              e.stopPropagation()
-                              addToWishlist(e, product.id)
-                            }}
-                          >
-                            <Heart className="h-5 w-5" />
-                          </button>
-                          <button
-                            className="p-2 rounded-full bg-emerald-800 hover:bg-emerald-700 text-emerald-200 hover:text-white transition-colors"
-                            aria-label="Add to cart"
-                            onClick={(e) => {
-                              e.stopPropagation()
-                              addToCart(e, product.id)
-                            }}
-                          >
-                            <ShoppingCart className="h-5 w-5" />
-                          </button>
-                        </div>
-                      </div>
-
-                      {/* Product Content */}
-                      <div className="p-6 pt-0 text-center">
-                        <h3 className="text-xl font-bold text-white mb-1 group-hover:text-emerald-400 transition-colors">
-                          {product.name}
-                        </h3>
-                        <p className="text-gray-400 text-sm mb-3 line-clamp-2">{product.description}</p>
-
-                        {/* Tags */}
-                        <div className="flex flex-wrap justify-center gap-1 mb-4">
-                          {product.tags.map((tag, idx) => (
-                            <span key={idx} className="text-xs px-2 py-1 rounded-full bg-gray-800 text-gray-300">
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-
-                        {/* Rating */}
-                        <div className="flex items-center justify-center mb-4">
-                          <div className="flex items-center">
-                            {[...Array(5)].map((_, i) => (
-                              <Star
-                                key={i}
-                                className={`h-4 w-4 ${i < Math.floor(product.rating) ? "text-amber-400 fill-amber-400" : "text-gray-600"}`}
-                              />
-                            ))}
-                          </div>
-                          <span className="text-gray-400 text-xs ml-2">({product.reviews})</span>
-                        </div>
-
-                        <div className="flex items-center justify-between scale-0">
-                          <span className="text-2xl font-bold text-white">${product.price.toFixed(2)}</span>
-                          <Button
-                            size="sm"
-                            className="bg-emerald-800 hover:bg-emerald-700 text-white rounded-full"
-                            onClick={(e) => {
-                              e.preventDefault()
-                              addToCart(e, product.id)
-                            }}
-                          >
-                            <Plus className="h-4 w-4 mr-1" />
-                            <span>Add</span>
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-                  </Link>
-                </motion.div>
-              ))}
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4 }}
-              className="mt-12 text-center"
-            >
-              <Button
-                variant="outline"
-                className="border-emerald-700 text-emerald-400 hover:bg-emerald-900/30 rounded-full px-6"
-              >
-                <span>View All Products</span>
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </motion.div>
-          </div>
-        </section>
+      
 
         {/* Categories Section */}
         <section ref={categoriesRef} className="py-24 relative">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-emerald-900/20 via-gray-900/10 to-gray-950 opacity-50"></div>
 
           <div className="container mx-auto px-4 relative">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
-              variants={staggerContainer}
-              className="text-center mb-16"
-            >
-              <motion.h2 variants={fadeInUp} className="text-3xl md:text-5xl font-bold mb-4 inline-block">
-                Explore <span className="text-emerald-400">Categories</span>
-              </motion.h2>
-              <motion.div variants={fadeInUp} className="w-24 h-1 bg-emerald-500 mx-auto mb-6 rounded-full" />
-              <motion.p variants={fadeInUp} className="text-lg text-gray-400 max-w-2xl mx-auto">
-                Browse our extensive collection of specialty seeds organized by category to find exactly what you're
-                looking for.
-              </motion.p>
-            </motion.div>
+            <SectionHeading
+              title="Explore"
+              highlight="Categories"
+              description="Browse our extensive collection of specialty seeds organized by category to find exactly what you're looking for."
+            />
 
             <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-100px" }}
               variants={staggerContainer}
-              className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mx-auto"
+              className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
             >
               {categories.map((category, index) => (
                 <motion.div key={category.id} variants={scaleIn} className="group">
@@ -762,89 +596,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Sustainability Practices Section */}
-        <section ref={sustainabilityRef} className="py-24 bg-gray-900 relative">
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMxMTI4MjciIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDM0djZoNnYtNmgtNnptNiA2djZoLTZ2LTZoNnptLTYtNnYtNmg2djZoLTZ6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-30"></div>
-
-          <div className="container mx-auto px-4 relative">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
-              variants={staggerContainer}
-              className="text-center mb-16"
-            >
-              <motion.div
-                variants={fadeInUp}
-                className="inline-flex items-center px-4 py-2 rounded-full bg-emerald-900/30 border border-emerald-700/50 text-emerald-300 text-sm font-medium mb-6 backdrop-blur-sm"
-              >
-                <Award className="h-4 w-4 mr-2" />
-                <span>Our Commitment</span>
-              </motion.div>
-
-              <motion.h2 variants={fadeInUp} className="text-3xl md:text-5xl font-bold mb-4 inline-block">
-                Sustainable <span className="text-emerald-400">Seed Practices</span>
-              </motion.h2>
-              <motion.div variants={fadeInUp} className="w-24 h-1 bg-emerald-500 mx-auto mb-6 rounded-full" />
-              <motion.p variants={fadeInUp} className="text-lg text-gray-400 max-w-2xl mx-auto">
-                We're dedicated to preserving biodiversity and promoting sustainable agriculture through our ethical
-                seed sourcing and growing practices.
-              </motion.p>
-            </motion.div>
-
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
-              variants={staggerContainer}
-              className="grid md:grid-cols-2 gap-8"
-            >
-              {sustainabilityPractices.map((practice, index) => (
-                <motion.div
-                  key={index}
-                  variants={scaleIn}
-                  className="bg-gray-900 rounded-2xl overflow-hidden border border-gray-800 transition-all duration-300 hover:border-emerald-700/50 hover:shadow-lg hover:shadow-emerald-900/20"
-                >
-                  <div className="flex flex-col md:flex-row">
-                    <div className="relative w-full md:w-1/3 h-48 md:h-auto">
-                      <Image
-                        src={practice.image || "/placeholder.svg"}
-                        alt={practice.title}
-                        fill
-                        className="object-cover"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-r from-transparent to-gray-900 hidden md:block"></div>
-                    </div>
-
-                    <div className="p-6 md:w-2/3 flex flex-col justify-center">
-                      <div className="p-3 bg-emerald-900/30 rounded-full w-fit mb-4 border border-emerald-700/30">
-                        {practice.icon}
-                      </div>
-                      <h3 className="text-xl font-bold text-white mb-3">{practice.title}</h3>
-                      <p className="text-gray-400">{practice.description}</p>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4 }}
-              className="mt-12 text-center"
-            >
-              <Button
-                variant="outline"
-                className="border-emerald-700 text-emerald-400 hover:bg-emerald-900/30 rounded-full px-6"
-              >
-                <span>Learn More About Our Practices</span>
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </motion.div>
-          </div>
-        </section>
+      
 
         {/* Certificates Section */}
         <section ref={certificatesRef} className="py-24 relative">
@@ -899,9 +651,9 @@ export default function HomePage() {
         {/* Location Section */}
         <section style={{
           // Add bg image https://kohenoorint.com/wp-content/uploads/2017/12/colored-corrected.png
-          backgroundImage: "url('https://kohenoorint.com/wp-content/uploads/2017/12/colored-corrected.png')",
+          backgroundImage: "url('https://c4.wallpaperflare.com/wallpaper/888/200/919/earth-black-background-world-map-the-continent-wallpaper-preview.jpg')",
 
-        }} ref={locationRef} className="py-24 bg-gray-900 relative">
+        }} ref={locationRef} className="py-24 bg-gray-900 relative bg-center bg-cover bg-no-repeat">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-emerald-900/20 via-gray-900/10 to-gray-950 opacity-50"></div>
 
           <div className="container mx-auto px-4 relative">
@@ -995,133 +747,99 @@ export default function HomePage() {
         </section>
 
         {/* Testimonials Section */}
-        <section ref={testimonialsRef} className="py-24 relative">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-emerald-900/20 via-gray-900/10 to-gray-950 opacity-50"></div>
+        <section ref={testimonialsRef} className="py-24 relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-b from-emerald-900/30 via-gray-900/20 to-gray-950/30"></div>
+
+          {/* Decorative elements */}
+          <div className="absolute top-0 left-0 w-full h-1/3 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-emerald-700/20 via-transparent to-transparent"></div>
+          <div className="absolute bottom-0 right-0 w-full h-1/3 bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-emerald-700/20 via-transparent to-transparent"></div>
 
           <div className="container mx-auto px-4 relative">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
-              variants={staggerContainer}
-              className="text-center mb-16"
-            >
-              <motion.h2 variants={fadeInUp} className="text-3xl md:text-5xl font-bold mb-4 inline-block">
-                What Our <span className="text-emerald-400">Customers Say</span>
-              </motion.h2>
-              <motion.div variants={fadeInUp} className="w-24 h-1 bg-emerald-500 mx-auto mb-6 rounded-full" />
-              <motion.p variants={fadeInUp} className="text-lg text-gray-400 max-w-2xl mx-auto">
-                Read what gardeners and plant enthusiasts have to say about their experience with our seeds.
-              </motion.p>
-            </motion.div>
+            <SectionHeading
+              title="What Our"
+              highlight="Customers Say"
+              description="Read what gardeners and plant enthusiasts have to say about their experience with our seeds."
+            />
 
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
-              variants={staggerContainer}
-              className="grid md:grid-cols-3 gap-8"
-            >
-              {testimonials.map((testimonial, index) => (
+            <div className="max-w-4xl mx-auto relative">
+              {/* Testimonial Slider */}
+              <div className="relative bg-gray-800/70 backdrop-blur-md rounded-2xl p-8 md:p-12 border border-emerald-700/30 shadow-xl shadow-emerald-900/20">
+                <div className="absolute -top-6 -left-6 text-emerald-400 opacity-60 text-8xl font-serif">"</div>
+
                 <motion.div
-                  key={testimonial.id}
-                  variants={scaleIn}
-                  className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-700"
+                  key={currentTestimonial}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.5 }}
+                  className="relative z-10"
                 >
-                  <div className="flex items-center mb-6">
-                    <div className="relative w-14 h-14 rounded-full overflow-hidden mr-4 border-2 border-emerald-500">
-                      <Image
-                        src={testimonial.image || "/placeholder.svg"}
-                        alt={testimonial.name}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-bold text-white">{testimonial.name}</h3>
-                      <p className="text-sm text-emerald-400">{testimonial.role}</p>
-                    </div>
+                  <div className="mb-8 text-center">
+                    <p className="text-xl md:text-2xl text-gray-200 italic leading-relaxed">
+                      {testimonials[currentTestimonial].content}
+                    </p>
                   </div>
 
-                  <div className="mb-6">
-                    <div className="relative">
-                      <div className="absolute -top-4 -left-2 text-emerald-700 opacity-30 text-5xl font-serif">"</div>
-                      <p className="text-gray-300 relative z-10">{testimonial.content}</p>
-                      <div className="absolute -bottom-4 -right-2 text-emerald-700 opacity-30 text-5xl font-serif">
-                        "
-                      </div>
+                  <div className="flex flex-col items-center">
+                    <div className="flex items-center mb-2">
+                      {[...Array(5)].map((_, i) => (
+                        <Star
+                          key={i}
+                          className={`h-6 w-6 ${
+                            i < testimonials[currentTestimonial].rating
+                              ? "text-amber-400 fill-amber-400"
+                              : "text-gray-600"
+                          }`}
+                        />
+                      ))}
                     </div>
-                  </div>
-
-                  <div className="flex items-center">
-                    {[...Array(5)].map((_, i) => (
-                      <Star
-                        key={i}
-                        className={`h-5 w-5 ${i < testimonial.rating ? "text-amber-400 fill-amber-400" : "text-gray-600"}`}
-                      />
-                    ))}
+                    <h3 className="text-xl font-bold text-white">{testimonials[currentTestimonial].name}</h3>
+                    <p className="text-emerald-400">{testimonials[currentTestimonial].role}</p>
                   </div>
                 </motion.div>
-              ))}
-            </motion.div>
+
+                <div className="absolute -bottom-6 -right-6 text-emerald-400 opacity-60 text-8xl font-serif">"</div>
+              </div>
+
+              {/* Navigation Dots */}
+              <div className="flex justify-center mt-8 space-x-2">
+                {testimonials.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentTestimonial(index)}
+                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                      index === currentTestimonial ? "bg-emerald-500 scale-125" : "bg-gray-600 hover:bg-gray-500"
+                    }`}
+                    aria-label={`Go to testimonial ${index + 1}`}
+                  />
+                ))}
+              </div>
+
+              {/* Navigation Arrows */}
+              <button
+                onClick={prevTestimonial}
+                className="absolute top-1/2 -translate-y-1/2 -left-4 md:-left-12 bg-gray-800/80 hover:bg-emerald-800/80 text-white p-3 rounded-full transition-all duration-300"
+                aria-label="Previous testimonial"
+              >
+                <ChevronLeft className="h-6 w-6" />
+              </button>
+
+              <button
+                onClick={nextTestimonial}
+                className="absolute top-1/2 -translate-y-1/2 -right-4 md:-right-12 bg-gray-800/80 hover:bg-emerald-800/80 text-white p-3 rounded-full transition-all duration-300"
+                aria-label="Next testimonial"
+              >
+                <ChevronRight className="h-6 w-6" />
+              </button>
+            </div>
           </div>
         </section>
 
         {/* Newsletter Section */}
-        <section className="py-24 bg-gray-900 relative overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-emerald-900/30 via-gray-900/20 to-gray-950 opacity-70"></div>
-
-          {/* Decorative elements */}
-          <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-emerald-900/20 blur-3xl"></div>
-          <div className="absolute -bottom-24 -left-24 w-96 h-96 rounded-full bg-emerald-900/20 blur-3xl"></div>
-
-          <div className="container mx-auto px-4 relative">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={staggerContainer}
-              className="max-w-3xl mx-auto text-center"
-            >
-              <motion.h2 variants={fadeInUp} className="text-3xl md:text-4xl font-bold mb-4">
-                Join Our <span className="text-emerald-400">Green Community</span>
-              </motion.h2>
-              <motion.p variants={fadeInUp} className="text-lg text-gray-400 mb-8">
-                Subscribe to our newsletter for growing tips, new seed releases, and exclusive offers.
-              </motion.p>
-
-              <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-                <Input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="bg-gray-800 border-gray-700 text-white placeholder:text-gray-500 focus:border-emerald-500 focus:ring-emerald-500"
-                />
-                <Button className="bg-emerald-600 hover:bg-emerald-700 text-white">Subscribe</Button>
-              </motion.div>
-
-              <motion.p variants={fadeInUp} className="text-sm text-gray-500 mt-4">
-                By subscribing, you agree to our Privacy Policy and consent to receive updates from our company.
-              </motion.p>
-            </motion.div>
-          </div>
-        </section>
+       
 
         {/* Floating Cart Button */}
-        <div
-          className={`scale-0 bottom-8 right-8 z-40 transition-all duration-300 ${isScrolled ? "opacity-100 scale-100" : "opacity-0 scale-50"}`}
-        >
-          <Button
-            className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-full h-14 w-14 p-0 shadow-lg shadow-emerald-900/50 relative"
-            aria-label="View cart"
-          >
-            <ShoppingCart className="h-6 w-6" />
-            {cartCount > 0 && (
-              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                {cartCount}
-              </span>
-            )}
-          </Button>
-        </div>
+     
       </main>
     </>
   )

@@ -101,8 +101,8 @@ export default function Header() {
       <div className="container mx-auto flex items-center justify-between px-4">
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-2 z-10">
-          <div className="relative h-10 w-40">
-            <Image src="/logo.svg" alt="SeedVault Logo" width={160} height={40} className="h-10 w-auto" />
+          <div className="relative h-14 w-40">
+            <Image src="/logo.svg" alt="SeedVault Logo" width={160} height={40} className="h-28 md:h-36 w-auto absolute -top-9" />
           </div>
         </Link>
 
