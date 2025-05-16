@@ -685,7 +685,8 @@ export default function HomePage() {
               className="text-center mb-16"
             >
               <motion.h2 variants={fadeInUp} className="text-3xl md:text-5xl font-bold mb-4 inline-block">
-                Our <span className="text-emerald-400">Certifications</span>
+                {/* Our <span className="text-emerald-400">Certifications</span> */}
+                Certifications and Affiliations 
               </motion.h2>
               <motion.div variants={fadeInUp} className="w-24 h-1 bg-emerald-500 mx-auto mb-6 rounded-full" />
               <motion.p variants={fadeInUp} className="text-lg text-gray-400 max-w-2xl mx-auto">
