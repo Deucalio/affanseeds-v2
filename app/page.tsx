@@ -47,7 +47,79 @@ const floatingAnimation = `
     }
   }
 `
+interface LightSectionHeadingProps {
+  title: string
+  highlight?: string
+  description?: string
+}
 
+const LightSectionHeading: React.FC<LightSectionHeadingProps> = ({ title, highlight, description }) => {
+  return (
+    <div className="relative -mx-4 sm:-mx-6 md:-mx-8 lg:-mx-12 xl:-mx-24 mb-16">
+      <div className="bg-gradient-to-r from-white/90 via-gray-100/95 to-white/90 py-12 shadow-lg">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-emerald-100/40 via-transparent to-transparent opacity-70"></div>
+        <div className="container mx-auto px-4 relative">
+          <div className="text-center">
+            <h2 className="text-3xl md:text-5xl font-bold mb-4 inline-block text-gray-800">
+              {title} {highlight && <span className="text-emerald-600">{highlight}</span>}
+            </h2>
+            <div className="w-24 h-1 bg-emerald-500 mx-auto mb-6 rounded-full" />
+            {description && <p className="text-lg text-gray-600 max-w-2xl mx-auto">{description}</p>}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+
+const WelcomeSection: React.FC = () => {
+  return (
+    <section className="relative py-24 overflow-hidden">
+      {/* Background with gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-r from-emerald-900 via-gray-900 to-emerald-900 opacity-90"></div>
+      
+      {/* Decorative elements */}
+      <div className="absolute inset-0">
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-emerald-600/20 via-transparent to-transparent"></div>
+        <div className="absolute bottom-0 left-0 w-1/3 h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-emerald-600/20 via-transparent to-transparent"></div>
+      </div>
+      
+      {/* Pattern overlay */}
+      <div 
+        className="absolute inset-0 opacity-5"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fillRule='evenodd'%3E%3Cg fill='%23ffffff' fillOpacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+        }}
+      ></div>
+      
+      <div className="container mx-auto px-4 relative z-10">
+        <motion.div 
+          className="text-center"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          <h2 className="text-2xl md:text-3xl font-medium text-white mb-4">
+            Welcome and Greetings at
+          </h2>
+          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight">
+            Affan Agro 
+            <h2 className="text-4xl md:text-6xl font-bold mb-4 inline-block">
+            
+            <span className="text-emerald-400">&nbsp; Seeds</span>
+            </h2>
+          </h1>
+          <div className="w-24 h-1 bg-emerald-400 mx-auto mb-6 rounded-full"></div>
+          <p className="text-xl md:text-2xl text-white font-medium">
+            We Make AgriBusiness Run Really Better!
+          </p>
+        </motion.div>
+      </div>
+    </section>
+  )
+}
 
 
 const SectionHeading = ({
@@ -452,6 +524,8 @@ export default function HomePage() {
        
         </section>
 
+        <WelcomeSection/>
+
         {/* About Us Section */}
         <section ref={aboutRef} className="py-24 relative">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-emerald-900/20 via-gray-900/10 to-gray-950 opacity-50"></div>
@@ -462,7 +536,7 @@ export default function HomePage() {
               highlight="Us"
               description="Dedicated to providing high-quality agricultural seeds and solutions to farmers across Pakistan."
             />
-
+         
             <motion.div
               initial="hidden"
               whileInView="visible"
@@ -503,7 +577,7 @@ export default function HomePage() {
                 <div className="absolute -inset-4 rounded-2xl bg-emerald-600/10 opacity-20 blur-lg"></div>
                 <div className="relative rounded-2xl overflow-hidden shadow-lg">
                   <Image
-                    src="/placeholder.svg?height=600&width=800&text=Our+Team"
+                    src="/livestock.jpg"
                     alt="Our Team"
                     width={800}
                     height={600}

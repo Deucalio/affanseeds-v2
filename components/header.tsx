@@ -13,7 +13,6 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [showTooltip, setShowTooltip] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [expandedCategory, setExpandedCategory] = useState<string | null>(null)
   const tooltipRef = useRef<HTMLDivElement | null>(null)
   const pathname = usePathname()
   const isMobile = useMediaQuery("(max-width: 768px)")
@@ -87,10 +86,6 @@ export default function Header() {
     },
   ]
 
-  const toggleCategory = (id: string) => {
-    setExpandedCategory(expandedCategory === id ? null : id)
-  }
-
   return (
     <header
       className={cn(
@@ -102,7 +97,13 @@ export default function Header() {
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-2 z-10">
           <div className="relative h-14 w-40">
-            <Image src="/logo.svg" alt="SeedVault Logo" width={160} height={40} className="h-28 md:h-36 w-auto absolute -top-9" />
+            <Image
+              src="/logo.svg"
+              alt="SeedVault Logo"
+              width={160}
+              height={40}
+              className="h-28 md:h-36 w-auto absolute -top-9"
+            />
           </div>
         </Link>
 
@@ -152,7 +153,6 @@ export default function Header() {
                   </Link>
                 ))}
               </div>
-    
             </div>
           </div>
         </div>
@@ -201,28 +201,12 @@ export default function Header() {
           <div className="h-20" aria-hidden="true"></div>
           <div className="flex-1 overflow-y-auto px-6 py-8 flex flex-col">
             {/* Mobile Navigation Links */}
-            <nav className="flex flex-col space-y-6 text-center">
-              {/* Explore Products Accordion */}
+            <nav className="flex flex-col space-y-6">
+              {/* Products Section - Always Expanded */}
               <div className="border-b border-gray-800 pb-6">
-                <button
-                  className="flex items-center justify-between w-full text-xl font-medium text-gray-200 hover:text-emerald-400 transition-colors py-2"
-                  onClick={() => toggleCategory("explore")}
-                >
-                  <span>Products</span>
-                  <ChevronDown
-                    className={cn(
-                      "h-5 w-5 transition-transform duration-200",
-                      expandedCategory === "explore" ? "rotate-180" : "",
-                    )}
-                  />
-                </button>
+                <h3 className="text-xl font-medium text-emerald-400 mb-4 text-center">Products</h3>
 
-                <div
-                  className={cn(
-                    "mt-4 space-y-4 transition-all duration-300 overflow-hidden",
-                    expandedCategory === "explore" ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0",
-                  )}
-                >
+                <div className="space-y-4">
                   {categories.map((category) => (
                     <Link
                       key={category.id}
@@ -236,15 +220,13 @@ export default function Header() {
                       </div>
                     </Link>
                   ))}
-
-               
                 </div>
               </div>
 
               <Link
                 href="/about"
                 className={cn(
-                  "text-xl font-medium transition-colors hover:text-emerald-400 py-2",
+                  "text-xl font-medium transition-colors hover:text-emerald-400 py-2 text-center",
                   pathname === "/about" ? "text-emerald-400" : "text-gray-200",
                 )}
               >
@@ -254,14 +236,13 @@ export default function Header() {
               <Link
                 href="/contact"
                 className={cn(
-                  "text-xl font-medium transition-colors hover:text-emerald-400 py-2",
+                  "text-xl font-medium transition-colors hover:text-emerald-400 py-2 text-center",
                   pathname === "/contact" ? "text-emerald-400" : "text-gray-200",
                 )}
               >
                 Contact Us
               </Link>
             </nav>
-
           </div>
         </div>
       </div>
