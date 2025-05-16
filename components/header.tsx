@@ -109,10 +109,16 @@ export default function Header() {
 
         {/* Desktop Navigation */}
         <div className="hidden md:block">
-          <div className="relative" ref={tooltipRef}>
+          
+        </div>
+
+        {/* Desktop Right Navigation */}
+        <div className="hidden md:flex items-center space-x-6">
+
+        <div className="relative" ref={tooltipRef}>
             <button
               className={cn(
-                "flex items-center text-base font-medium transition-colors hover:text-emerald-400 px-4 py-2 rounded-full",
+                "flex ml-auto self-end text-base font-medium transition-colors hover:text-emerald-400 px-4 py-2 rounded-full",
                 showTooltip ? "text-emerald-400 bg-gray-800" : "text-gray-200",
               )}
               onMouseEnter={() => setShowTooltip(true)}
@@ -155,10 +161,7 @@ export default function Header() {
               </div>
             </div>
           </div>
-        </div>
 
-        {/* Desktop Right Navigation */}
-        <div className="hidden md:flex items-center space-x-6">
           <Link
             href="/about"
             className={cn(
