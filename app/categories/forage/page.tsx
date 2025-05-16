@@ -956,29 +956,10 @@ export default function ForageCategoryPage() {
                     </div>
 
                     {/* Specifications Preview */}
-                    <div className="grid grid-cols-2 gap-4 mb-6">
-                      <div className="bg-gray-800/50 rounded-xl p-4">
-                        <h4 className="text-sm font-medium text-emerald-400 mb-2">Seeding Rate</h4>
-                        <p className="text-white">{product.specifications.seedingRate}</p>
-                      </div>
-                      <div className="bg-gray-800/50 rounded-xl p-4">
-                        <h4 className="text-sm font-medium text-emerald-400 mb-2">Germination</h4>
-                        <p className="text-white">{product.specifications.germinationRate}</p>
-                      </div>
-                    </div>
+           
 
                     {/* Rating */}
-                    <div className="flex items-center mb-6">
-                      <div className="flex items-center">
-                        {[...Array(5)].map((_, i) => (
-                          <Star
-                            key={i}
-                            className={`h-5 w-5 ${i < Math.floor(product.rating) ? "text-amber-400 fill-amber-400" : "text-gray-600"}`}
-                          />
-                        ))}
-                      </div>
-                      <span className="text-gray-400 text-sm ml-2">({product.reviews} reviews)</span>
-                    </div>
+               
 
                     {/* Price and Actions */}
                     <div className="flex scale-0 flex-wrap items-center justify-between gap-4">
