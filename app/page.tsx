@@ -509,7 +509,7 @@ export default function HomePage() {
                     src={src || "/placeholder.svg"}
                     alt={`Slide ${index + 1}`}
                     fill
-                    className="sm:object-cover opacity-60"
+                    className="object-cover opacity-60"
                     priority={index === 0}
                     sizes="(max-width: 768px) 320px, 100vw"
                   />
