@@ -169,7 +169,7 @@ export default function OilSeedsPage() {
       name: "Premium Sunflower Seeds",
       scientificName: "Helianthus annuus",
       description:
-        "High-oil content sunflower seeds ideal for oil production and direct consumption. Known for their excellent yield and oil quality.",
+        "Sunflower is widely cultivated in Pakistan and plays a significant role in meeting the country's edible oil demands. Our company offers high-quality Sunflower Seeds suitable for multiple uses, including sowing, oil extraction, and bird feed.",
       longDescription:
         "Premium Sunflower Seeds (Helianthus annuus) are specially selected for their high oil content and superior quality. These seeds produce large, robust plants with substantial flower heads that yield abundant seeds. Ideal for commercial oil production, these seeds offer exceptional oil extraction rates and quality that meets international standards.",
       price: 18.99,
@@ -210,8 +210,10 @@ export default function OilSeedsPage() {
       id: 3,
       name: "Sesame Seeds",
       scientificName: "Sesamum indicum",
-      description:
-        "High-quality sesame seeds with excellent oil content and flavor. Drought-resistant varieties ideal for arid and semi-arid regions.",
+      description: `Pakistan is recognized as one of the leading producers of high-quality sesame seeds. Our company proudly supplies premium-grade, machine-cleaned sesame seeds sourced from trusted origins within Pakistan. We are committed to delivering consistent quality
+         that meets both local and international standards.
+
+         `,
       longDescription:
         "Sesame Seeds (Sesamum indicum) are one of the oldest oilseed crops known to humanity. Our premium sesame varieties are selected for their high oil content, distinctive flavor, and adaptability to challenging growing conditions. These seeds produce plants that are notably drought-resistant, making them an excellent choice for areas with limited rainfall or irrigation.",
       price: 24.99,
@@ -250,9 +252,10 @@ export default function OilSeedsPage() {
     {
       id: 4,
       name: "Titan Mustard Seeds",
-      scientificName: "Brassica juncea",
-      description:
-        "Premium mustard seeds for oil production and condiment manufacturing. Fast-growing crop with excellent adaptability to various soils.",
+      scientificName: "Brassica nigra",
+      description: `
+      Titan Mustard Seeds are known for their exceptional performance and resilience. This high-yielding variety produces up to 30 to 35 man per acre, with more fruiting branches and early, homogeneous maturity for a quicker and more uniform harvest. The medium-height plants are resistant to lodging, ensuring better crop stability. With a high oil content and the "Double Zero" feature, the oil is free from hazardous components, offering a healthier product. Titan Mustard Seeds also boast high tolerance against common diseases, insects, and adverse climatic conditions, making them a reliable choice for farmers seeking strong performance and consistent results.
+      `,
       longDescription:
         "Mustard Seeds (Brassica juncea) are versatile oilseed crops that serve dual purposes - oil extraction and condiment production. Our mustard varieties are selected for their high oil content, pungent flavor, and excellent adaptability to different soil types. These fast-growing plants are ideal for short growing seasons and can be used effectively in crop rotations.",
       price: 16.99,
@@ -283,7 +286,7 @@ export default function OilSeedsPage() {
         sunlight: "Full sun",
         growingSeason: "Winter to spring",
       },
-      badge: "Fast Growing",
+      badge: "High-Yielding Variety",
       badgeColor: "teal",
       rating: 4.6,
       reviews: 87,
@@ -579,19 +582,40 @@ export default function OilSeedsPage() {
                       index % 2 === 0 ? "md:order-2" : "md:order-1"
                     }`}
                   >
-                    <h3 onClick={(e) => {
-                      // Open Modal
-                      // openProductModal(product);
-                    }} className="text-3xl font-bold text-white mb-2">
+                    <h3
+                      onClick={(e) => {
+                        // Open Modal
+                        // openProductModal(product);
+                      }}
+                      className="text-3xl font-bold text-white mb-2"
+                    >
                       {product.name}
                     </h3>
                     <p className="text-amber-400 italic mb-4">
                       {product.scientificName}
                     </p>
                     <p className="text-gray-300 mb-6">{product.description}</p>
+                    {index === 1 && (
+                      <span className="text-gray-300 mb-3 mt-4 py-8">
+                        We offer a range of sesame seed varieties to suit
+                        diverse applications:
+                        <ul className="list-disc list-inside text-gray-300 mb-4">
+                          <li>Natural White Sesame Seeds</li>
+                          <li>Natural Black Sesame Seeds</li>
+                          <li>Mixed Sesame Seeds</li>
+                        </ul>
+                        <span className="text-gray-300 my-4 py-8">
+
+                        Each product is carefully processed to ensure purity,
+                        optimal oil content, and excellent shelf life, making
+                        them ideal for food processing, oil extraction, and
+                        export markets.
+                        </span>
+                      </span>
+                    )}
 
                     {/* Features */}
-                    <div className="grid grid-cols-2 gap-3 mb-6">
+                    <div className="grid grid-cols-2 gap-3 mb-8 py-2">
                       {product.features.slice(0, 6).map((feature, idx) => (
                         <div key={idx} className="flex items-start">
                           <Check className="h-5 w-5 text-amber-400 mt-0.5 mr-2 flex-shrink-0" />
@@ -603,21 +627,16 @@ export default function OilSeedsPage() {
                     </div>
 
                     {/* Specifications Preview */}
-    
 
                     {/* Rating */}
-              
 
                     {/* Price and Actions */}
-               
 
                     {/* View Details Button */}
-              
                   </motion.div>
                 </div>
 
                 {/* Expanded Details Section */}
-             
               </motion.div>
             ))}
           </div>
@@ -836,8 +855,6 @@ export default function OilSeedsPage() {
                     {selectedProduct.longDescription}
                   </p>
 
-              
-
                   <div className="bg-gray-50 p-4 rounded-lg mb-6">
                     <h4 className="font-medium text-gray-700 mb-2">
                       Availability
@@ -875,9 +892,6 @@ export default function OilSeedsPage() {
                   </ul>
                 </div>
               </div>
-
-
-           
             </div>
           </div>
         </div>

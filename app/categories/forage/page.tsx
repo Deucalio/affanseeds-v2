@@ -1,15 +1,39 @@
-"use client"
+"use client";
 
-import { useState, useEffect, useRef } from "react"
-import Image from "next/image"
-import { motion } from "framer-motion"
-import { ShoppingCart, Heart, Star, Leaf, Droplets, Sun, ArrowRight, Check, Info, Award, Truck, Clock, ChevronDown, ChevronUp, ArrowUpRight, Shield, Sprout, X } from 'lucide-react'
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import Breadcrumb from "@/components/breadcrumb"
-import {useRouter} from "next/navigation"
+import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import {
+  ShoppingCart,
+  Heart,
+  Star,
+  Leaf,
+  Droplets,
+  Sun,
+  ArrowRight,
+  Check,
+  Info,
+  Award,
+  Truck,
+  Clock,
+  ChevronDown,
+  ChevronUp,
+  ArrowUpRight,
+  Shield,
+  Sprout,
+  X,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import Breadcrumb from "@/components/breadcrumb";
+import { useRouter } from "next/navigation";
 
 // Define TypeScript interfaces for our data
 interface ProductFeature {
@@ -74,62 +98,63 @@ interface ProductItem {
 }
 
 export default function ForageCategoryPage() {
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [cartCount, setCartCount] = useState(0)
-  const [wishlistCount, setWishlistCount] = useState(0)
-  const [activeProduct, setActiveProduct] = useState<number | null>(null)
-  const [showScrollTop, setShowScrollTop] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
+  const [wishlistCount, setWishlistCount] = useState(0);
+  const [activeProduct, setActiveProduct] = useState<number | null>(null);
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
-
-  const router = useRouter()
+  const router = useRouter();
   // Refs for scroll sections
-  const heroRef = useRef<HTMLElement>(null)
-  const productsRef = useRef<HTMLElement>(null)
+  const heroRef = useRef<HTMLElement>(null);
+  const productsRef = useRef<HTMLElement>(null);
 
   // State for scroll position
-  const [scrollY, setScrollY] = useState(0)
+  const [scrollY, setScrollY] = useState(0);
 
   // State for product interactions
-  const [hoveredProduct, setHoveredProduct] = useState<number | null>(null)
-  const [selectedProduct, setSelectedProduct] = useState<ProductItem | null>(null)
-  const [modalOpen, setModalOpen] = useState(false)
+  const [hoveredProduct, setHoveredProduct] = useState<number | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<ProductItem | null>(
+    null
+  );
+  const [modalOpen, setModalOpen] = useState(false);
 
   // Handle scroll events
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
-      setShowScrollTop(window.scrollY > 300)
-      setScrollY(window.scrollY)
-    }
+      setIsScrolled(window.scrollY > 50);
+      setShowScrollTop(window.scrollY > 300);
+      setScrollY(window.scrollY);
+    };
 
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Scroll to products section
   const scrollToContent = () => {
-    const productsElement = document.getElementById("products")
+    const productsElement = document.getElementById("products");
     if (productsElement) {
-      productsElement.scrollIntoView({ behavior: "smooth" })
+      productsElement.scrollIntoView({ behavior: "smooth" });
     }
-  }
+  };
 
   // Modal functions
   const openProductModal = (product: ProductItem) => {
-    setSelectedProduct(product)
-    setModalOpen(true)
-    document.body.style.overflow = "hidden"
-  }
+    setSelectedProduct(product);
+    setModalOpen(true);
+    document.body.style.overflow = "hidden";
+  };
 
   const closeProductModal = () => {
-    setModalOpen(false)
-    document.body.style.overflow = "auto"
-  }
+    setModalOpen(false);
+    document.body.style.overflow = "auto";
+  };
 
   // Scroll to top
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" })
-  }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   // Animation on scroll
   useEffect(() => {
@@ -137,22 +162,22 @@ export default function ForageCategoryPage() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add("animate-fade-in")
-            entry.target.classList.add("opacity-100")
+            entry.target.classList.add("animate-fade-in");
+            entry.target.classList.add("opacity-100");
           }
-        })
+        });
       },
       {
         threshold: 0.1,
         rootMargin: "0px 0px -100px 0px",
-      },
-    )
+      }
+    );
 
-    const elements = document.querySelectorAll(".reveal")
-    elements.forEach((el) => observer.observe(el))
+    const elements = document.querySelectorAll(".reveal");
+    elements.forEach((el) => observer.observe(el));
 
-    return () => elements.forEach((el) => observer.unobserve(el))
-  }, [])
+    return () => elements.forEach((el) => observer.unobserve(el));
+  }, []);
 
   // Forage products data
   const forageProducts: Product[] = [
@@ -202,7 +227,7 @@ export default function ForageCategoryPage() {
       name: "Alfalfa Seeds",
       scientificName: "Medicago sativa",
       description:
-        "Premium legume forage with exceptional protein content and nutritional value. Deep-rooted perennial that improves soil fertility through nitrogen fixation.",
+        "Stamina Alfalfa Seeds from Affan Agro Seeds are your go-to solution for high-quality, nutrient-dense forage. Known as Lucerne (Medicago sativa), this deep-rooted legume thrives in various soil conditions, providing excellent nutrition for livestock such as cattle, horses, and sheep. Whether used for hay, fodder, grazing, or fresh green chop, Stamina offers exceptional yield, rapid regrowth, and superior feed quality. With a legacy of agricultural excellence, Affan Agro Seeds delivers the finest alfalfa variety to boost farm productivity and enhance economic returns.",
       longDescription:
         "Alfalfa (Medicago sativa) is known as the 'Queen of Forages' due to its exceptional protein content and nutritional value. This deep-rooted perennial legume produces high yields of nutritious forage for hay, silage, or grazing. It also improves soil fertility through nitrogen fixation, making it an excellent choice for sustainable farming systems.",
       price: 24.99,
@@ -233,7 +258,7 @@ export default function ForageCategoryPage() {
         sunlight: "Full sun",
         growingSeason: "Spring through fall",
       },
-      badge: "Best Seller",
+      badge: "The Queen of Forage",
       badgeColor: "green",
       rating: 4.9,
       reviews: 156,
@@ -241,9 +266,9 @@ export default function ForageCategoryPage() {
     {
       id: 3,
       name: "Ryegrass Seeds",
-      scientificName: "Lolium perenne",
+      scientificName: "Lolium",
       description:
-        "High-quality cool-season grass with excellent digestibility and palatability. Establishes quickly and provides high-quality forage for grazing or hay production.",
+        "Our Annual Ryegrass offers farmers exceptional winter forage performance with rapid establishment and strong cool-season growth. Its late heading date extends the grazing period, delivering flexibility and multiple grazing or cutting opportunities. Ideal for high-output silage systems or intensive grazing, this variety ensures high feed quality and strong livestock performance. It thrives in medium fertility soils and performs well under both dryland and irrigated conditions.",
       longDescription:
         "Ryegrass (Lolium perenne) is a premium cool-season grass known for its exceptional digestibility and palatability. It establishes quickly and provides high-quality forage for grazing or hay production. With proper management, ryegrass delivers excellent animal performance and can be used in pure stands or in mixtures with legumes for balanced nutrition.",
       price: 14.99,
@@ -252,12 +277,13 @@ export default function ForageCategoryPage() {
       availability: "In Stock",
       image: "/products/forage/jivet annual ryegrass.jpg",
       features: [
-        "Quick establishment",
-        "High digestibility",
-        "Excellent palatability",
-        "Good winter hardiness",
-        "High nutritional value",
-        "Suitable for grazing and hay",
+        "Rapid establishment for quick ground cover",
+        "Outstanding winter and early spring production",
+        "Excellent forage quality for silage and grazing",
+        "Late heading (+18 days) for extended grazing window",
+        "Strong disease resistance",
+        "Supports high animal performance and weight gain",
+        "Maintains quality into spring",
       ],
       specifications: {
         seedingRate: "25-35 kg/hectare",
@@ -284,7 +310,7 @@ export default function ForageCategoryPage() {
       name: "Berseem Clover Seeds",
       scientificName: "Trifolium alexandrinum",
       description:
-        "Fast-growing winter annual legume ideal for green manure and livestock feed. Excellent for improving soil fertility through nitrogen fixation.",
+        "Berseem Clover (Trifolium alexandrinum) is a highly productive, cool-season annual forage legume widely cultivated for its exceptional green fodder quality. Well-known for its rapid regrowth and multiple cutting potential, Berseem is ideal for hay production and direct grazing. This variety establishes quickly and recovers strongly after mowing, providing consistent biomass throughout the season. Requiring moderate irrigation, Berseem Clover is a reliable choice for farmers looking to maximize forage yield with limited water input. Its tender, nutrient-rich foliage is highly palatable and well-suited for dairy and livestock feeding. A valuable addition to any forage rotation system, Berseem also contributes to soil fertility through natural nitrogen fixation",
       longDescription:
         "Berseem Clover (Trifolium alexandrinum) is a fast-growing winter annual legume that provides high-quality forage during cooler months. It's excellent for green manure, improving soil fertility through nitrogen fixation. With high protein content and exceptional digestibility, it makes an ideal livestock feed that can be cut multiple times during its growing season.",
       price: 19.99,
@@ -323,9 +349,9 @@ export default function ForageCategoryPage() {
     {
       id: 5,
       name: "Fodder Beet Seeds",
-      scientificName: "Beta vulgaris",
+      scientificName: "GERONIMO",
       description:
-        "High-energy root crop providing exceptional yields for livestock feeding. Large, nutritious roots can be harvested and fed directly to animals or stored for winter feeding.",
+        "GERONIMO Fodderbeet delivers reliable, high-yielding forage with excellent energy value for livestock feeding. With strong disease tolerance and a clean root profile, it offers easy harvest and high-quality silage or fresh feed. The variety's high above-ground root height minimizes soil contamination, and its balanced dry matter content ensures optimal nutrition. GERONIMO is ideal for farmers focused on efficient, profitable, and high-performing animal systems.",
       longDescription:
         "Fodder Beet (Beta vulgaris) is a high-yielding root crop that provides exceptional energy content for livestock feeding. The large, nutritious roots can be harvested and fed directly to animals or stored for winter feeding. With proper management, fodder beet delivers some of the highest dry matter yields per hectare of any forage crop, making it extremely cost-effective.",
       price: 29.99,
@@ -334,12 +360,15 @@ export default function ForageCategoryPage() {
       availability: "In Stock",
       image: "/products/forage/FODDER BEET IMAGE.jpg",
       features: [
-        "Extremely high yields",
-        "High energy content",
-        "Excellent palatability",
-        "Winter feeding option",
-        "Cost-effective production",
-        "Long storage life",
+        "High fresh matter yield for maximum biomass output",
+        "Medium to high dry matter content (16-18%) for energy-dense feed",
+        "Strong energy yield (MJ NEL/ha) supports high animal performance",
+        "Roots grow well above ground - easier harvesting and lower soil tare",
+        "Clean, ovoid, yellow-orange roots - ideal for silage and fresh feeding",
+
+        "Excellent resistance to Rhizomania",
+        "Medium resistance to Cercospora, Ramularia, Powdery Mildew, and Rhizoctonia",
+        "Medium to high bolting tolerance for crop reliability",
       ],
       specifications: {
         seedingRate: "3-5 kg/hectare",
@@ -364,9 +393,9 @@ export default function ForageCategoryPage() {
     {
       id: 6,
       name: "Rhodes Grass Seeds",
-      scientificName: "Chloris gayana",
+      scientificName: "FineCut",
       description:
-        "Drought-resistant perennial grass excellent for hay production and erosion control. Establishes quickly and provides high-quality forage for grazing and hay.",
+        "FineCut Rhodes is a premium fine-leaf Rhodes grass selected for its excellent forage quality and versatility. Its upright growth and early flowering make it ideal for haymaking, while its soft, leafy texture ensures high animal acceptance and intake when grazed. With the added benefit of low oxalate content and stoloniferous spreading ability, FineCut Rhodes establishes quickly and maintains strong ground cover over multiple seasons",
       longDescription:
         "Rhodes Grass (Chloris gayana) is a hardy perennial grass known for its exceptional drought resistance and salt tolerance. It establishes quickly and provides high-quality forage for grazing and hay. Its deep root system makes it excellent for erosion control and soil improvement, while its ability to withstand heavy grazing makes it ideal for intensive livestock operations.",
       price: 16.99,
@@ -375,12 +404,13 @@ export default function ForageCategoryPage() {
       availability: "In Stock",
       image: "/products/forage/1-27.jpeg.jpg",
       features: [
-        "Exceptional drought resistance",
-        "Salt tolerance",
-        "Deep root system",
-        "Erosion control",
-        "Withstands heavy grazing",
-        "Long-lived perennial",
+        "Fine leaf, high-quality forage grass",
+        "Early and uniform flowering",
+        "Dense, upright growth for easier harvesting",
+        "Excellent dry matter production potential (up to 20 t DM/ha+)",
+        "Highly palatable for both hay and grazing use",
+        "Stoloniferous growth promoting fast ground coverage",
+        "Naturally low in oxalate levels - safe for livestock,",
       ],
       specifications: {
         seedingRate: "6-8 kg/hectare",
@@ -402,13 +432,13 @@ export default function ForageCategoryPage() {
       rating: 4.7,
       reviews: 112,
     },
-  ]
+  ];
 
   // Animation variants
   const fadeInUp = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-  }
+  };
 
   const staggerContainer = {
     hidden: { opacity: 0 },
@@ -418,310 +448,84 @@ export default function ForageCategoryPage() {
         staggerChildren: 0.1,
       },
     },
-  }
+  };
 
   const scaleIn = {
     hidden: { opacity: 0, scale: 0.8 },
     visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } },
-  }
+  };
 
   // Helper function for badge colors
   const getBadgeColor = (color: string) => {
     switch (color) {
       case "red":
-        return "bg-red-900/80 text-red-100 border-red-700"
+        return "bg-red-900/80 text-red-100 border-red-700";
       case "amber":
-        return "bg-amber-900/80 text-amber-100 border-amber-700"
+        return "bg-amber-900/80 text-amber-100 border-amber-700";
       case "green":
-        return "bg-emerald-900/80 text-emerald-100 border-emerald-700"
+        return "bg-emerald-900/80 text-emerald-100 border-emerald-700";
       case "blue":
-        return "bg-blue-900/80 text-blue-100 border-blue-700"
+        return "bg-blue-900/80 text-blue-100 border-blue-700";
       case "purple":
-        return "bg-purple-900/80 text-purple-100 border-purple-700"
+        return "bg-purple-900/80 text-purple-100 border-purple-700";
       case "violet":
-        return "bg-violet-900/80 text-violet-100 border-violet-700"
+        return "bg-violet-900/80 text-violet-100 border-violet-700";
       case "lime":
-        return "bg-lime-900/80 text-lime-100 border-lime-700"
+        return "bg-lime-900/80 text-lime-100 border-lime-700";
       case "teal":
-        return "bg-teal-900/80 text-teal-100 border-teal-700"
+        return "bg-teal-900/80 text-teal-100 border-teal-700";
       case "emerald":
-        return "bg-emerald-900/80 text-emerald-100 border-emerald-700"
+        return "bg-emerald-900/80 text-emerald-100 border-emerald-700";
       case "rose":
-        return "bg-rose-900/80 text-rose-100 border-rose-700"
+        return "bg-rose-900/80 text-rose-100 border-rose-700";
       default:
-        return "bg-emerald-900/80 text-emerald-100 border-emerald-700"
+        return "bg-emerald-900/80 text-emerald-100 border-emerald-700";
     }
-  }
+  };
 
   // Add to cart function
   const addToCart = (e: React.MouseEvent, productId: number) => {
-    e.preventDefault()
-    setCartCount((prev) => prev + 1)
+    e.preventDefault();
+    setCartCount((prev) => prev + 1);
     // Here you would add actual cart functionality
-  }
+  };
 
   // Add to wishlist function
   const addToWishlist = (e: React.MouseEvent, productId: number) => {
-    e.preventDefault()
-    setWishlistCount((prev) => prev + 1)
+    e.preventDefault();
+    setWishlistCount((prev) => prev + 1);
     // Here you would add actual wishlist functionality
-  }
+  };
 
   // Products data
-  const products: ProductItem[] = [
-    {
-      id: 1,
-      name: "Thai Grass Seeds",
-      subtitle: "Brachiaria ruziziensis",
-      description: "High-yielding tropical grass ideal for grazing and hay production in warm climates.",
-      longDescription:
-        "Thai Grass (Brachiaria ruziziensis) is a high-yielding tropical forage grass that thrives in warm climates. It produces abundant leafy growth, making it excellent for grazing, hay, and silage. With good drought tolerance and quick regrowth after cutting, it's an ideal choice for year-round forage production in Pakistan's warmer regions.",
-      price: "$18.99",
-      unit: "per kg",
-      minOrder: "5kg",
-      availability: "In Stock",
-      image: "/placeholder.svg?height=600&width=800&text=Thai+Grass",
-      features: [
-        "High leaf-to-stem ratio",
-        "Excellent palatability",
-        "Good drought tolerance",
-        "Quick regrowth after cutting",
-        "Suitable for grazing and hay",
-        "Adapts to various soil types",
-      ],
-      specifications: {
-        seedingRate: "8-10 kg/hectare",
-        germinationRate: "75-80%",
-        daysToGermination: "7-14 days",
-        harvestTime: "60-70 days after planting",
-        yieldPotential: "15-20 tons/hectare/year (dry matter)",
-      },
-      growingConditions: {
-        soilType: "Wide range, prefers well-drained",
-        soilPH: "5.0-7.5",
-        climate: "Tropical to subtropical",
-        waterRequirements: "Medium",
-        sunlight: "Full sun",
-        growingSeason: "Year-round in warm areas",
-      },
-      color: "amber",
-      badge: "Popular",
-    },
-    {
-      id: 2,
-      name: "Rhodes Grass Seeds",
-      subtitle: "Chloris gayana",
-      description: "Drought-resistant perennial grass excellent for hay production and erosion control.",
-      longDescription:
-        "Rhodes Grass (Chloris gayana) is a hardy perennial grass known for its exceptional drought resistance and salt tolerance. It establishes quickly and provides high-quality forage for grazing and hay. Its deep root system makes it excellent for erosion control and soil improvement, while its ability to withstand heavy grazing makes it ideal for intensive livestock operations.",
-      price: "$16.99",
-      unit: "per kg",
-      minOrder: "5kg",
-      availability: "In Stock",
-      image: "/placeholder.svg?height=600&width=800&text=Rhodes+Grass",
-      features: [
-        "Exceptional drought resistance",
-        "Salt tolerance",
-        "Deep root system",
-        "Erosion control",
-        "Withstands heavy grazing",
-        "Long-lived perennial",
-      ],
-      specifications: {
-        seedingRate: "6-8 kg/hectare",
-        germinationRate: "70-80%",
-        daysToGermination: "7-14 days",
-        harvestTime: "70-80 days after planting",
-        yieldPotential: "10-15 tons/hectare/year (dry matter)",
-      },
-      growingConditions: {
-        soilType: "Wide range, tolerates poor soils",
-        soilPH: "5.5-8.0",
-        climate: "Tropical to subtropical",
-        waterRequirements: "Low to medium",
-        sunlight: "Full sun",
-        growingSeason: "Spring through fall",
-      },
-      color: "emerald",
-      badge: "Drought Resistant",
-    },
-    {
-      id: 3,
-      name: "Alfalfa Seeds",
-      subtitle: "Medicago sativa",
-      description: "Premium legume forage with exceptional protein content and nutritional value.",
-      longDescription:
-        "Alfalfa (Medicago sativa) is known as the 'Queen of Forages' due to its exceptional protein content and nutritional value. This deep-rooted perennial legume produces high yields of nutritious forage for hay, silage, or grazing. It also improves soil fertility through nitrogen fixation, making it an excellent choice for sustainable farming systems.",
-      price: "$24.99",
-      unit: "per kg",
-      minOrder: "5kg",
-      availability: "In Stock",
-      image: "/placeholder.svg?height=600&width=800&text=Alfalfa",
-      features: [
-        "High protein content (18-22%)",
-        "Deep root system",
-        "Drought resistant",
-        "Nitrogen fixation",
-        "Multiple harvests per season",
-        "Excellent nutritional value",
-      ],
-      specifications: {
-        seedingRate: "15-20 kg/hectare",
-        germinationRate: "85-90%",
-        daysToGermination: "7-10 days",
-        harvestTime: "60-70 days after planting (first cutting)",
-        yieldPotential: "12-15 tons/hectare/year",
-      },
-      growingConditions: {
-        soilType: "Well-drained loamy soil",
-        soilPH: "6.5-7.5",
-        climate: "Temperate to arid",
-        waterRequirements: "Medium to high",
-        sunlight: "Full sun",
-        growingSeason: "Spring through fall",
-      },
-      color: "green",
-      badge: "Best Seller",
-    },
-    {
-      id: 4,
-      name: "Berseem Seeds",
-      subtitle: "Trifolium alexandrinum",
-      description: "Fast-growing winter annual legume ideal for green manure and livestock feed.",
-      longDescription:
-        "Berseem Clover (Trifolium alexandrinum) is a fast-growing winter annual legume that provides high-quality forage during cooler months. It's excellent for green manure, improving soil fertility through nitrogen fixation. With high protein content and exceptional digestibility, it makes an ideal livestock feed that can be cut multiple times during its growing season.",
-      price: "$19.99",
-      unit: "per kg",
-      minOrder: "5kg",
-      availability: "In Stock",
-      image: "/placeholder.svg?height=600&width=800&text=Berseem+Clover",
-      features: [
-        "Fast establishment",
-        "Multiple cuttings",
-        "Nitrogen fixation",
-        "High protein content",
-        "Excellent digestibility",
-        "Winter growth",
-      ],
-      specifications: {
-        seedingRate: "20-25 kg/hectare",
-        germinationRate: "80-85%",
-        daysToGermination: "5-8 days",
-        harvestTime: "50-60 days after planting (first cutting)",
-        yieldPotential: "40-60 tons/hectare (green fodder)",
-      },
-      growingConditions: {
-        soilType: "Clay to loamy soils",
-        soilPH: "6.0-8.0",
-        climate: "Cool season crop",
-        waterRequirements: "Medium to high",
-        sunlight: "Full sun",
-        growingSeason: "Winter to spring",
-      },
-      color: "teal",
-      badge: "Winter Crop",
-    },
-    {
-      id: 5,
-      name: "Fodder Beet Seeds",
-      subtitle: "Beta vulgaris",
-      description: "High-energy root crop providing exceptional yields for livestock feeding.",
-      longDescription:
-        "Fodder Beet (Beta vulgaris) is a high-yielding root crop that provides exceptional energy content for livestock feeding. The large, nutritious roots can be harvested and fed directly to animals or stored for winter feeding. With proper management, fodder beet delivers some of the highest dry matter yields per hectare of any forage crop, making it extremely cost-effective.",
-      price: "$29.99",
-      unit: "per kg",
-      minOrder: "2kg",
-      availability: "In Stock",
-      image: "/placeholder.svg?height=600&width=800&text=Fodder+Beet",
-      features: [
-        "Extremely high yields",
-        "High energy content",
-        "Excellent palatability",
-        "Winter feeding option",
-        "Cost-effective production",
-        "Long storage life",
-      ],
-      specifications: {
-        seedingRate: "3-5 kg/hectare",
-        germinationRate: "85-90%",
-        daysToGermination: "7-14 days",
-        harvestTime: "180-200 days after planting",
-        yieldPotential: "80-120 tons/hectare (fresh weight)",
-      },
-      growingConditions: {
-        soilType: "Deep, well-drained soils",
-        soilPH: "6.0-7.5",
-        climate: "Temperate",
-        waterRequirements: "Medium",
-        sunlight: "Full sun",
-        growingSeason: "Spring to fall",
-      },
-      color: "rose",
-      badge: "High Energy",
-    },
-    {
-      id: 6,
-      name: "Ryegrass Seeds",
-      subtitle: "Lolium perenne",
-      description: "High-quality cool-season grass with excellent digestibility and palatability.",
-      longDescription:
-        "Ryegrass (Lolium perenne) is a premium cool-season grass known for its exceptional digestibility and palatability. It establishes quickly and provides high-quality forage for grazing or hay production. With proper management, ryegrass delivers excellent animal performance and can be used in pure stands or in mixtures with legumes for balanced nutrition.",
-      price: "$14.99",
-      unit: "per kg",
-      minOrder: "5kg",
-      availability: "In Stock",
-      image: "/placeholder.svg?height=600&width=800&text=Ryegrass",
-      features: [
-        "Quick establishment",
-        "High digestibility",
-        "Excellent palatability",
-        "Good winter hardiness",
-        "High nutritional value",
-        "Suitable for grazing and hay",
-      ],
-      specifications: {
-        seedingRate: "25-35 kg/hectare",
-        germinationRate: "85-90%",
-        daysToGermination: "7-14 days",
-        harvestTime: "Rotational grazing every 21-28 days",
-        yieldPotential: "10-12 tons/hectare/year (dry matter)",
-      },
-      growingConditions: {
-        soilType: "Moist, fertile soil",
-        soilPH: "5.5-7.5",
-        climate: "Temperate, cool",
-        waterRequirements: "Medium to high",
-        sunlight: "Full sun to partial shade",
-        growingSeason: "Fall to spring in Pakistan",
-      },
-      color: "blue",
-      badge: "High Quality",
-    },
-  ]
 
   // Features data
   const features: ProductFeature[] = [
     {
       icon: <Leaf className="h-6 w-6 text-green-600" />,
       title: "Premium Quality",
-      description: "Our forage seeds are carefully selected for optimal growth and nutrition.",
+      description:
+        "Our forage seeds are carefully selected for optimal growth and nutrition.",
     },
     {
       icon: <Shield className="h-6 w-6 text-green-600" />,
       title: "Disease Resistant",
-      description: "Varieties chosen for their natural resistance to common diseases.",
+      description:
+        "Varieties chosen for their natural resistance to common diseases.",
     },
     {
       icon: <Droplets className="h-6 w-6 text-green-600" />,
       title: "Drought Tolerant",
-      description: "Selected for performance even in challenging water conditions.",
+      description:
+        "Selected for performance even in challenging water conditions.",
     },
     {
       icon: <Sprout className="h-6 w-6 text-green-600" />,
       title: "High Yield",
-      description: "Maximize your harvest with our high-performing seed varieties.",
+      description:
+        "Maximize your harvest with our high-performing seed varieties.",
     },
-  ]
+  ];
 
   // Get color classes for products
   const getColorClasses = (color: string) => {
@@ -735,7 +539,7 @@ export default function ForageCategoryPage() {
           border: "border-green-200",
           badgeBg: "bg-green-100",
           badgeText: "text-green-800",
-        }
+        };
       case "emerald":
         return {
           bg: "bg-emerald-600",
@@ -745,7 +549,7 @@ export default function ForageCategoryPage() {
           border: "border-emerald-200",
           badgeBg: "bg-emerald-100",
           badgeText: "text-emerald-800",
-        }
+        };
       case "amber":
         return {
           bg: "bg-amber-600",
@@ -755,7 +559,7 @@ export default function ForageCategoryPage() {
           border: "border-amber-200",
           badgeBg: "bg-amber-100",
           badgeText: "text-amber-800",
-        }
+        };
       case "teal":
         return {
           bg: "bg-teal-600",
@@ -765,7 +569,7 @@ export default function ForageCategoryPage() {
           border: "border-teal-200",
           badgeBg: "bg-teal-100",
           badgeText: "text-teal-800",
-        }
+        };
       case "blue":
         return {
           bg: "bg-blue-600",
@@ -775,7 +579,7 @@ export default function ForageCategoryPage() {
           border: "border-blue-200",
           badgeBg: "bg-blue-100",
           badgeText: "text-blue-800",
-        }
+        };
       case "rose":
         return {
           bg: "bg-rose-600",
@@ -785,7 +589,7 @@ export default function ForageCategoryPage() {
           border: "border-rose-200",
           badgeBg: "bg-rose-100",
           badgeText: "text-rose-800",
-        }
+        };
       default:
         return {
           bg: "bg-green-600",
@@ -795,9 +599,9 @@ export default function ForageCategoryPage() {
           border: "border-green-200",
           badgeBg: "bg-green-100",
           badgeText: "text-green-800",
-        }
+        };
     }
-  }
+  };
 
   return (
     <main className="min-h-screen bg-gray-950 text-gray-100 pt-20">
@@ -805,7 +609,10 @@ export default function ForageCategoryPage() {
       {/* <Breadcrumb /> */}
 
       {/* Hero Section */}
-      <section ref={heroRef} className="relative py-16 md:py-24 overflow-hidden">
+      <section
+        ref={heroRef}
+        className="relative py-16 md:py-24 overflow-hidden"
+      >
         {/* Background with gradient overlay */}
         <div className="absolute inset-0 z-0">
           <Image
@@ -819,7 +626,12 @@ export default function ForageCategoryPage() {
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
-          <motion.div className="max-w-4xl mx-auto" initial="hidden" animate="visible" variants={staggerContainer}>
+          <motion.div
+            className="max-w-4xl mx-auto"
+            initial="hidden"
+            animate="visible"
+            variants={staggerContainer}
+          >
             <motion.div
               variants={fadeInUp}
               className="inline-flex items-center px-4 py-2 rounded-full bg-emerald-900/30 border border-emerald-700/50 text-emerald-300 text-sm font-medium mb-6 backdrop-blur-sm"
@@ -835,33 +647,59 @@ export default function ForageCategoryPage() {
               Premium Forage Seeds for Optimal Yields
             </motion.h1>
 
-            <motion.p variants={fadeInUp} className="text-xl text-gray-300 mb-10">
-              High-quality seeds for pasture, hay, and silage production, carefully selected for optimal growth and
-              nutrition. Our forage seeds are sourced from the best producers worldwide.
+            <motion.p
+              variants={fadeInUp}
+              className="text-xl text-gray-300 mb-10"
+            >
+              High-quality seeds for pasture, hay, and silage production,
+              carefully selected for optimal growth and nutrition. Our forage
+              seeds are sourced from the best producers worldwide.
             </motion.p>
 
-            <motion.div variants={fadeInUp} className="flex flex-wrap gap-4 mb-8">
+            <motion.div
+              variants={fadeInUp}
+              className="flex flex-wrap gap-4 mb-8"
+            >
               {[
-                { icon: <Check className="h-5 w-5 text-emerald-400" />, text: "100% Authentic Seeds" },
-                { icon: <Check className="h-5 w-5 text-emerald-400" />, text: "High Germination Rate" },
-                { icon: <Check className="h-5 w-5 text-emerald-400" />, text: "Disease Resistant Varieties" },
-                { icon: <Check className="h-5 w-5 text-emerald-400" />, text: "Expert Growing Support" },
+                {
+                  icon: <Check className="h-5 w-5 text-emerald-400" />,
+                  text: "100% Authentic Seeds",
+                },
+                {
+                  icon: <Check className="h-5 w-5 text-emerald-400" />,
+                  text: "High Germination Rate",
+                },
+                {
+                  icon: <Check className="h-5 w-5 text-emerald-400" />,
+                  text: "Disease Resistant Varieties",
+                },
+                {
+                  icon: <Check className="h-5 w-5 text-emerald-400" />,
+                  text: "Expert Growing Support",
+                },
               ].map((item, i) => (
                 <div
                   key={i}
                   className="flex items-center px-4 py-2 bg-gray-800/50 backdrop-blur-sm rounded-full border border-gray-700"
                 >
                   {item.icon}
-                  <span className="ml-2 text-sm text-gray-200">{item.text}</span>
+                  <span className="ml-2 text-sm text-gray-200">
+                    {item.text}
+                  </span>
                 </div>
               ))}
             </motion.div>
 
-            <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4">
+            <motion.div
+              variants={fadeInUp}
+              className="flex flex-col sm:flex-row gap-4"
+            >
               <Button
                 size="lg"
                 className="bg-emerald-600 hover:bg-emerald-700 text-white border-0 rounded-full px-8 py-6 text-lg shadow-lg shadow-emerald-900/50 group"
-                onClick={() => productsRef.current?.scrollIntoView({ behavior: "smooth" })}
+                onClick={() =>
+                  productsRef.current?.scrollIntoView({ behavior: "smooth" })
+                }
               >
                 <span>Explore Products</span>
                 <ChevronDown className="ml-2 h-5 w-5 transition-transform group-hover:translate-y-1" />
@@ -892,13 +730,23 @@ export default function ForageCategoryPage() {
             variants={staggerContainer}
             className="text-center mb-16"
           >
-            <motion.h2 variants={fadeInUp} className="text-3xl md:text-5xl font-bold mb-4 inline-block">
+            <motion.h2
+              variants={fadeInUp}
+              className="text-3xl md:text-5xl font-bold mb-4 inline-block"
+            >
               Our <span className="text-emerald-400">Forage Seeds</span>
             </motion.h2>
-            <motion.div variants={fadeInUp} className="w-24 h-1 bg-emerald-500 mx-auto mb-6 rounded-full" />
-            <motion.p variants={fadeInUp} className="text-lg text-gray-400 max-w-2xl mx-auto">
-              Discover our premium selection of forage seeds, perfect for farmers looking to maximize yield and
-              nutritional value for their livestock.
+            <motion.div
+              variants={fadeInUp}
+              className="w-24 h-1 bg-emerald-500 mx-auto mb-6 rounded-full"
+            />
+            <motion.p
+              variants={fadeInUp}
+              className="text-lg text-gray-400 max-w-2xl mx-auto"
+            >
+              Discover our premium selection of forage seeds, perfect for
+              farmers looking to maximize yield and nutritional value for their
+              livestock.
             </motion.p>
           </motion.div>
 
@@ -914,7 +762,10 @@ export default function ForageCategoryPage() {
               >
                 <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
                   {/* Product Image - Always on left for mobile, alternating for desktop */}
-                  <motion.div variants={scaleIn} className={`order-1 ${index % 2 === 0 ? "md:order-1" : "md:order-2"}`}>
+                  <motion.div
+                    variants={scaleIn}
+                    className={`order-1 ${index % 2 === 0 ? "md:order-1" : "md:order-2"}`}
+                  >
                     <div className="relative mx-auto">
                       <div className="relative w-64 h-64 md:w-80 md:h-80 mx-auto rounded-full overflow-hidden border-8 border-gray-800 group-hover:border-emerald-900 transition-all duration-300">
                         <Image
@@ -941,8 +792,12 @@ export default function ForageCategoryPage() {
                     variants={fadeInUp}
                     className={`order-2 ${index % 2 === 0 ? "md:order-2" : "md:order-1"}`}
                   >
-                    <h3 className="text-3xl font-bold text-white mb-2">{product.name}</h3>
-                    <p className="text-emerald-400 italic mb-4">{product.scientificName}</p>
+                    <h3 className="text-3xl font-bold text-white mb-2">
+                      {product.name}
+                    </h3>
+                    <p className="text-emerald-400 italic mb-4">
+                      {product.scientificName}
+                    </p>
                     <p className="text-gray-300 mb-6">{product.description}</p>
 
                     {/* Features */}
@@ -950,23 +805,29 @@ export default function ForageCategoryPage() {
                       {product.features.slice(0, 6).map((feature, idx) => (
                         <div key={idx} className="flex items-start">
                           <Check className="h-5 w-5 text-emerald-400 mt-0.5 mr-2 flex-shrink-0" />
-                          <span className="text-gray-300 text-sm">{feature}</span>
+                          <span className="text-gray-300 text-sm">
+                            {feature}
+                          </span>
                         </div>
                       ))}
                     </div>
 
                     {/* Specifications Preview */}
-           
 
                     {/* Rating */}
-               
 
                     {/* Price and Actions */}
                     <div className="flex scale-0 flex-wrap items-center justify-between gap-4">
                       <div>
-                        <span className="text-3xl font-bold text-white">${product.price.toFixed(2)}</span>
-                        <span className="text-gray-400 ml-2">{product.unit}</span>
-                        <p className="text-sm text-gray-500">Min. Order: {product.minOrder}</p>
+                        <span className="text-3xl font-bold text-white">
+                          ${product.price.toFixed(2)}
+                        </span>
+                        <span className="text-gray-400 ml-2">
+                          {product.unit}
+                        </span>
+                        <p className="text-sm text-gray-500">
+                          Min. Order: {product.minOrder}
+                        </p>
                       </div>
                       <div className="flex gap-3">
                         <Button
@@ -987,12 +848,10 @@ export default function ForageCategoryPage() {
                     </div>
 
                     {/* View Details Button */}
-                 
                   </motion.div>
                 </div>
 
                 {/* Expanded Details Section */}
-              
               </motion.div>
             ))}
           </div>
@@ -1019,13 +878,23 @@ export default function ForageCategoryPage() {
               <span>Our Commitment</span>
             </motion.div>
 
-            <motion.h2 variants={fadeInUp} className="text-3xl md:text-5xl font-bold mb-4 inline-block">
-              Sustainable <span className="text-emerald-400">Farming Practices</span>
+            <motion.h2
+              variants={fadeInUp}
+              className="text-3xl md:text-5xl font-bold mb-4 inline-block"
+            >
+              Sustainable{" "}
+              <span className="text-emerald-400">Farming Practices</span>
             </motion.h2>
-            <motion.div variants={fadeInUp} className="w-24 h-1 bg-emerald-500 mx-auto mb-6 rounded-full" />
-            <motion.p variants={fadeInUp} className="text-lg text-gray-400 max-w-2xl mx-auto">
-              We're dedicated to promoting sustainable agriculture through our ethical seed sourcing and growing
-              practices.
+            <motion.div
+              variants={fadeInUp}
+              className="w-24 h-1 bg-emerald-500 mx-auto mb-6 rounded-full"
+            />
+            <motion.p
+              variants={fadeInUp}
+              className="text-lg text-gray-400 max-w-2xl mx-auto"
+            >
+              We're dedicated to promoting sustainable agriculture through our
+              ethical seed sourcing and growing practices.
             </motion.p>
           </motion.div>
 
@@ -1064,7 +933,9 @@ export default function ForageCategoryPage() {
                 <div className="p-3 bg-emerald-900/30 rounded-full w-fit mb-6 border border-emerald-700/30">
                   {item.icon}
                 </div>
-                <h3 className="text-xl font-bold text-white mb-4">{item.title}</h3>
+                <h3 className="text-xl font-bold text-white mb-4">
+                  {item.title}
+                </h3>
                 <p className="text-gray-300">{item.description}</p>
               </motion.div>
             ))}
@@ -1088,14 +959,25 @@ export default function ForageCategoryPage() {
             variants={staggerContainer}
             className="max-w-3xl mx-auto text-center"
           >
-            <motion.h2 variants={fadeInUp} className="text-3xl md:text-4xl font-bold mb-4">
-              Ready to <span className="text-emerald-400">Grow Better Forage?</span>
+            <motion.h2
+              variants={fadeInUp}
+              className="text-3xl md:text-4xl font-bold mb-4"
+            >
+              Ready to{" "}
+              <span className="text-emerald-400">Grow Better Forage?</span>
             </motion.h2>
-            <motion.p variants={fadeInUp} className="text-lg text-gray-400 mb-8">
-              Contact our team of agricultural experts for personalized recommendations and bulk order inquiries.
+            <motion.p
+              variants={fadeInUp}
+              className="text-lg text-gray-400 mb-8"
+            >
+              Contact our team of agricultural experts for personalized
+              recommendations and bulk order inquiries.
             </motion.p>
 
-            <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row justify-center gap-4">
+            <motion.div
+              variants={fadeInUp}
+              className="flex flex-col sm:flex-row justify-center gap-4"
+            >
               {/* <Button
                 size="lg"
                 className="bg-emerald-600 hover:bg-emerald-700 text-white border-0 rounded-full px-8 py-6 text-lg shadow-lg shadow-emerald-900/50 group"
@@ -1135,7 +1017,10 @@ export default function ForageCategoryPage() {
       {/* Product Detail Modal */}
       {modalOpen && selectedProduct && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8 animate-fade-in">
-          <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={closeProductModal}></div>
+          <div
+            className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+            onClick={closeProductModal}
+          ></div>
 
           <div className="relative bg-white rounded-2xl w-full max-w-5xl max-h-[90vh] overflow-y-auto shadow-2xl animate-scale-in">
             <Button
@@ -1162,8 +1047,12 @@ export default function ForageCategoryPage() {
                 >
                   {selectedProduct.badge}
                 </span>
-                <h2 className="text-3xl md:text-5xl font-serif font-bold text-white mb-2">{selectedProduct.name}</h2>
-                <p className="text-white/80 text-lg">{selectedProduct.subtitle}</p>
+                <h2 className="text-3xl md:text-5xl font-serif font-bold text-white mb-2">
+                  {selectedProduct.name}
+                </h2>
+                <p className="text-white/80 text-lg">
+                  {selectedProduct.subtitle}
+                </p>
               </div>
             </div>
 
@@ -1171,21 +1060,31 @@ export default function ForageCategoryPage() {
             <div className="p-6 md:p-8">
               <div className="grid md:grid-cols-2 gap-8 mb-8">
                 <div>
-                  <h3 className="text-2xl font-serif font-bold text-gray-900 mb-4">Overview</h3>
-                  <p className="text-gray-700 mb-6">{selectedProduct.longDescription}</p>
+                  <h3 className="text-2xl font-serif font-bold text-gray-900 mb-4">
+                    Overview
+                  </h3>
+                  <p className="text-gray-700 mb-6">
+                    {selectedProduct.longDescription}
+                  </p>
 
                   <div className="flex items-baseline mb-4">
-                    <span className={`text-3xl font-bold ${getColorClasses(selectedProduct.color).text}`}>
+                    <span
+                      className={`text-3xl font-bold ${getColorClasses(selectedProduct.color).text}`}
+                    >
                       {selectedProduct.price}
                     </span>
-                    <span className="text-gray-500 ml-2">{selectedProduct.unit}</span>
+                    <span className="text-gray-500 ml-2">
+                      {selectedProduct.unit}
+                    </span>
                     <Badge variant="outline" className="ml-4">
                       Min. Order: {selectedProduct.minOrder}
                     </Badge>
                   </div>
 
                   <div className="bg-gray-50 p-4 rounded-lg mb-6">
-                    <h4 className="font-medium text-gray-700 mb-2">Availability</h4>
+                    <h4 className="font-medium text-gray-700 mb-2">
+                      Availability
+                    </h4>
                     <p
                       className={`flex items-center ${selectedProduct.availability === "In Stock" ? "text-green-600" : "text-red-600"}`}
                     >
@@ -1200,7 +1099,9 @@ export default function ForageCategoryPage() {
                 </div>
 
                 <div>
-                  <h3 className="text-2xl font-serif font-bold text-gray-900 mb-4">Key Features</h3>
+                  <h3 className="text-2xl font-serif font-bold text-gray-900 mb-4">
+                    Key Features
+                  </h3>
                   <ul className="space-y-2">
                     {selectedProduct.features.map((feature, idx) => (
                       <li key={idx} className="flex items-start">
@@ -1215,32 +1116,56 @@ export default function ForageCategoryPage() {
               </div>
 
               <div className="border-t border-gray-200 pt-8 mb-8">
-                <h3 className="text-2xl font-serif font-bold text-gray-900 mb-4">Technical Specifications</h3>
+                <h3 className="text-2xl font-serif font-bold text-gray-900 mb-4">
+                  Technical Specifications
+                </h3>
                 <div className="grid md:grid-cols-2 gap-8">
                   <div>
-                    <h4 className="font-medium text-gray-900 mb-4">Seed Specifications</h4>
+                    <h4 className="font-medium text-gray-900 mb-4">
+                      Seed Specifications
+                    </h4>
                     <ul className="space-y-3">
-                      {Object.entries(selectedProduct.specifications).map(([key, value]) => (
-                        <li key={key} className="flex justify-between border-b border-gray-100 pb-2">
-                          <span className="text-gray-600">
-                            {key.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase())}
-                          </span>
-                          <span className="font-medium text-gray-900">{value}</span>
-                        </li>
-                      ))}
+                      {Object.entries(selectedProduct.specifications).map(
+                        ([key, value]) => (
+                          <li
+                            key={key}
+                            className="flex justify-between border-b border-gray-100 pb-2"
+                          >
+                            <span className="text-gray-600">
+                              {key
+                                .replace(/([A-Z])/g, " $1")
+                                .replace(/^./, (str) => str.toUpperCase())}
+                            </span>
+                            <span className="font-medium text-gray-900">
+                              {value}
+                            </span>
+                          </li>
+                        )
+                      )}
                     </ul>
                   </div>
                   <div>
-                    <h4 className="font-medium text-gray-900 mb-4">Growing Conditions</h4>
+                    <h4 className="font-medium text-gray-900 mb-4">
+                      Growing Conditions
+                    </h4>
                     <ul className="space-y-3">
-                      {Object.entries(selectedProduct.growingConditions).map(([key, value]) => (
-                        <li key={key} className="flex justify-between border-b border-gray-100 pb-2">
-                          <span className="text-gray-600">
-                            {key.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase())}
-                          </span>
-                          <span className="font-medium text-gray-900">{value}</span>
-                        </li>
-                      ))}
+                      {Object.entries(selectedProduct.growingConditions).map(
+                        ([key, value]) => (
+                          <li
+                            key={key}
+                            className="flex justify-between border-b border-gray-100 pb-2"
+                          >
+                            <span className="text-gray-600">
+                              {key
+                                .replace(/([A-Z])/g, " $1")
+                                .replace(/^./, (str) => str.toUpperCase())}
+                            </span>
+                            <span className="font-medium text-gray-900">
+                              {value}
+                            </span>
+                          </li>
+                        )
+                      )}
                     </ul>
                   </div>
                 </div>
@@ -1248,7 +1173,9 @@ export default function ForageCategoryPage() {
 
               <div className="border-t border-gray-200 pt-8">
                 <div className="flex justify-between items-center">
-                  <h3 className="text-2xl font-serif font-bold text-gray-900">Planting Tips</h3>
+                  <h3 className="text-2xl font-serif font-bold text-gray-900">
+                    Planting Tips
+                  </h3>
                   <Button
                     className={`${getColorClasses(selectedProduct.color).bg} ${getColorClasses(selectedProduct.color).hover} text-white`}
                     onClick={closeProductModal}
@@ -1257,9 +1184,11 @@ export default function ForageCategoryPage() {
                   </Button>
                 </div>
                 <p className="text-gray-700 mt-4">
-                  For best results, plant {selectedProduct.name.toLowerCase()} during the recommended planting season.
-                  Ensure proper soil preparation and follow the recommended seeding rate. Contact our agricultural
-                  experts for personalized advice specific to your region and farming conditions.
+                  For best results, plant {selectedProduct.name.toLowerCase()}{" "}
+                  during the recommended planting season. Ensure proper soil
+                  preparation and follow the recommended seeding rate. Contact
+                  our agricultural experts for personalized advice specific to
+                  your region and farming conditions.
                 </p>
               </div>
             </div>
@@ -1267,5 +1196,5 @@ export default function ForageCategoryPage() {
         </div>
       )}
     </main>
-  )
+  );
 }
