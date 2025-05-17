@@ -348,28 +348,34 @@ export default function HomePage() {
   // Certificates
   const certificates = [
     {
-      name: "Federal Seeds Certification and Registration Department",
+      name: "Federal Seeds Certification & Registration Department, Government Of Pakistan",
       description:
         "Regulates and certifies seed quality in Pakistan to ensure reliable agricultural production and support the farming sector.",
       image: "/cert/c1-removebg-preview.png",
       // image: "https://logowik.com/content/uploads/images/491_pakistan.jpg"
     },
     {
-      name: "Karachi Chamber of Commerce",
+      name: "KCCI Karachi Chamber Of Commerce",
       description:
         "Supports and represents Karachi's business community, promoting trade, industry, and economic growth.",
       image: "/cert/kcci.webp",
     },
     {
-      name: "FBR",
+      name: "Federal Board Of Revenue, Revenue Division - Government Of Pakistan",
       description:
         "Pakistan's key tax authority, responsible for tax collection, enforcement, and implementing fiscal policies.",
       image: "/cert/fbr-logo.png",
     },
     {
-      name: "Pakistan Single Window",
-      description: "A digital platform for trade facilitation, streamlining customs and regulatory processes for importers and exporters.",
+      name: "PSW - Pakistan Single Window",
+      description:
+        "A digital platform for trade facilitation, streamlining customs and regulatory processes for importers and exporters.",
       image: "/cert/psw logo.png",
+    },
+    {
+      name: "Alibaba Supplier",
+      description: "A global e-commerce platform connecting buyers and suppliers, facilitating international trade and commerce.",
+      image: "/cert/alibaba.png",
     },
   ];
 
@@ -757,10 +763,10 @@ export default function HomePage() {
                       className={`  object-cover rounded-full transition-transform duration-700`}
                     />
                   </div>
-                  <h3 className="text-base font-bold  text-white mb-2">
+                  <h3 className="text-sm   font-bold  text-white mb-2">
                     {certificate.name}
                   </h3>
-                  <p className="text-gray-400 text-sm">
+                  <p className="text-gray-400 text-xs">
                     {certificate.description}
                   </p>
                 </motion.div>
@@ -774,7 +780,7 @@ export default function HomePage() {
           style={{
             // Add bg image https://kohenoorint.com/wp-content/uploads/2017/12/colored-corrected.png
             backgroundImage:
-              "url('https://c4.wallpaperflare.com/wallpaper/888/200/919/earth-black-background-world-map-the-continent-wallpaper-preview.jpg')",
+              "url('worldmap.jpg')",
           }}
           ref={locationRef}
           className="py-24 bg-gray-900 relative bg-center bg-cover bg-no-repeat"
