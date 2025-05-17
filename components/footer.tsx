@@ -69,12 +69,12 @@ export default function Footer() {
             <h3 className="text-white text-lg font-bold mb-6">Quick Links</h3>
             <ul className="space-y-4">
               {[
-                { name: "Shop All", href: "/shop" },
-                { name: "Categories", href: "/categories" },
-                { name: "Growing Guides", href: "/guides" },
+                // { name: "Shop All", href: "/shop" },
+                // { name: "Categories", href: "/categories" },
+                // { name: "Growing Guides", href: "/guides" },
                 { name: "About Us", href: "/about" },
                 { name: "Contact", href: "/contact" },
-                { name: "FAQs", href: "/faqs" },
+                // { name: "FAQs", href: "/faqs" },
               ].map((link) => (
                 <li key={link.name}>
                   <Link
@@ -140,9 +140,9 @@ export default function Footer() {
       <div className="border-t border-gray-800 py-6">
         <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-500 text-sm mb-4 md:mb-0">
-            &copy; {currentYear} SeedVault. All rights reserved.
+            &copy; {currentYear} Affan Agro Seeds. All rights reserved.
           </p>
-          <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-500">
+          <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-500 scale-0">
             <Link
               href="/privacy-policy"
               className="hover:text-emerald-400 transition-colors"

@@ -394,10 +394,10 @@ export default function OilSeedsPage() {
         {/* Background with gradient overlay */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/products/seeds/banner.avif"
+            src="/products/seeds/OIL SEEDS BANNER.svg"
             alt="Oil seeds field"
             fill
-            className="object-cover opacity-40"
+            className="object-cover opacity-90"
             priority
           />
           <div className="absolute inset-0 bg-gradient-to-b from-gray-950/80 via-gray-900/50 to-gray-950"></div>
@@ -579,7 +579,10 @@ export default function OilSeedsPage() {
                       index % 2 === 0 ? "md:order-2" : "md:order-1"
                     }`}
                   >
-                    <h3 className="text-3xl font-bold text-white mb-2">
+                    <h3 onClick={(e) => {
+                      // Open Modal
+                      // openProductModal(product);
+                    }} className="text-3xl font-bold text-white mb-2">
                       {product.name}
                     </h3>
                     <p className="text-amber-400 italic mb-4">
@@ -606,35 +609,7 @@ export default function OilSeedsPage() {
               
 
                     {/* Price and Actions */}
-                    <div className="flex scale-0 flex-wrap items-center justify-between gap-4">
-                      <div>
-                        <span className="text-3xl font-bold text-white">
-                          ${product.price.toFixed(2)}
-                        </span>
-                        <span className="text-gray-400 ml-2">
-                          {product.unit}
-                        </span>
-                        <p className="text-sm text-gray-500">
-                          Min. Order: {product.minOrder}
-                        </p>
-                      </div>
-                      <div className="flex gap-3">
-                        <Button
-                          variant="outline"
-                          className="rounded-full border-gray-700 text-gray-300 hover:text-white hover:bg-gray-800 hover:border-gray-600"
-                          onClick={(e) => addToWishlist(e, product.id)}
-                        >
-                          <Heart className="h-5 w-5" />
-                        </Button>
-                        <Button
-                          className="bg-amber-600 hover:bg-amber-700 text-white rounded-full px-6"
-                          onClick={(e) => addToCart(e, product.id)}
-                        >
-                          <ShoppingCart className="h-5 w-5 mr-2" />
-                          <span>Add to Cart</span>
-                        </Button>
-                      </div>
-                    </div>
+               
 
                     {/* View Details Button */}
               
@@ -861,17 +836,7 @@ export default function OilSeedsPage() {
                     {selectedProduct.longDescription}
                   </p>
 
-                  <div className="flex items-baseline mb-4">
-                    <span className={`text-3xl font-bold text-amber-600`}>
-                      ${selectedProduct.price.toFixed(2)}
-                    </span>
-                    <span className="text-gray-500 ml-2">
-                      {selectedProduct.unit}
-                    </span>
-                    <Badge variant="outline" className="ml-4">
-                      Min. Order: {selectedProduct.minOrder}
-                    </Badge>
-                  </div>
+              
 
                   <div className="bg-gray-50 p-4 rounded-lg mb-6">
                     <h4 className="font-medium text-gray-700 mb-2">
@@ -911,82 +876,8 @@ export default function OilSeedsPage() {
                 </div>
               </div>
 
-              <div className="border-t border-gray-200 pt-8 mb-8">
-                <h3 className="text-2xl font-serif font-bold text-gray-900 mb-4">
-                  Technical Specifications
-                </h3>
-                <div className="grid md:grid-cols-2 gap-8">
-                  <div>
-                    <h4 className="font-medium text-gray-900 mb-4">
-                      Seed Specifications
-                    </h4>
-                    <ul className="space-y-3">
-                      {Object.entries(selectedProduct.specifications).map(
-                        ([key, value]) => (
-                          <li
-                            key={key}
-                            className="flex justify-between border-b border-gray-100 pb-2"
-                          >
-                            <span className="text-gray-600">
-                              {key
-                                .replace(/([A-Z])/g, " $1")
-                                .replace(/^./, (str) => str.toUpperCase())}
-                            </span>
-                            <span className="font-medium text-gray-900">
-                              {value}
-                            </span>
-                          </li>
-                        )
-                      )}
-                    </ul>
-                  </div>
-                  <div>
-                    <h4 className="font-medium text-gray-900 mb-4">
-                      Growing Conditions
-                    </h4>
-                    <ul className="space-y-3">
-                      {Object.entries(selectedProduct.growingConditions).map(
-                        ([key, value]) => (
-                          <li
-                            key={key}
-                            className="flex justify-between border-b border-gray-100 pb-2"
-                          >
-                            <span className="text-gray-600">
-                              {key
-                                .replace(/([A-Z])/g, " $1")
-                                .replace(/^./, (str) => str.toUpperCase())}
-                            </span>
-                            <span className="font-medium text-gray-900">
-                              {value}
-                            </span>
-                          </li>
-                        )
-                      )}
-                    </ul>
-                  </div>
-                </div>
-              </div>
 
-              <div className="border-t border-gray-200 pt-8">
-                <div className="flex justify-between items-center">
-                  <h3 className="text-2xl font-serif font-bold text-gray-900">
-                    Planting Tips
-                  </h3>
-                  <Button
-                    className={`bg-amber-600 hover:bg-amber-700 text-white`}
-                    onClick={closeProductModal}
-                  >
-                    Contact For More Info
-                  </Button>
-                </div>
-                <p className="text-gray-700 mt-4">
-                  For best results, plant {selectedProduct.name.toLowerCase()}{" "}
-                  during the recommended planting season. Ensure proper soil
-                  preparation and follow the recommended seeding rate. Contact
-                  our agricultural experts for personalized advice specific to
-                  your region and farming conditions.
-                </p>
-              </div>
+           
             </div>
           </div>
         </div>

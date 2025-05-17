@@ -318,12 +318,12 @@ export default function HomePage() {
     {
       name: "ISO 9001:2015",
       description: "Quality Management System",
-      image: "/placeholder.svg?height=200&width=200&text=ISO+9001",
+      image: "/cert/c1-removebg-preview.png",
     },
     {
       name: "Organic Certification",
       description: "Certified Organic Producer",
-      image: "/placeholder.svg?height=200&width=200&text=Organic+Certified",
+      image: "/cert/c2-removebg-preview.png",
     },
     {
       name: "Non-GMO Project",
@@ -480,7 +480,7 @@ export default function HomePage() {
 
               <motion.h1
                 variants={fadeInUp}
-                className="text-5xl md:text-7xl font-bold mt-4 sm:mt-0 mb-6 leading-tight bg-clip-text text-transparent bg-gradient-to-r from-emerald-300 via-green-200 to-emerald-300"
+                className="text-5xl md:text-7xl font-bold mt-16 sm:mt-0 mb-6 leading-tight bg-clip-text text-transparent bg-gradient-to-r from-emerald-300 via-green-200 to-emerald-300"
               >
                 Grow Something Extraordinary
               </motion.h1>
@@ -684,14 +684,14 @@ export default function HomePage() {
               variants={staggerContainer}
               className="text-center mb-16"
             >
-              <motion.h2 variants={fadeInUp} className="text-3xl md:text-5xl font-bold mb-4 inline-block">
-                {/* Our <span className="text-emerald-400">Certifications</span> */}
-                Certifications and Affiliations 
-              </motion.h2>
-              <motion.div variants={fadeInUp} className="w-24 h-1 bg-emerald-500 mx-auto mb-6 rounded-full" />
-              <motion.p variants={fadeInUp} className="text-lg text-gray-400 max-w-2xl mx-auto">
-                We maintain the highest standards in the industry, backed by internationally recognized certifications.
-              </motion.p>
+        
+
+              <SectionHeading
+                title="Certifications and "
+                highlight="Affiliations"
+                description="We are proud to be certified by leading organizations in the agricultural industry."
+              />
+
             </motion.div>
 
             <motion.div
@@ -707,7 +707,7 @@ export default function HomePage() {
                   variants={scaleIn}
                   className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-700 text-center"
                 >
-                  <div className="relative w-32 h-32 mx-auto mb-6">
+                  <div className={`relative w-32 h-32 mx-auto mb-6 ${index==0 && "bg-white"} rounded-full`}>
                     <Image
                       src={certificate.image || "/placeholder.svg"}
                       alt={certificate.name}

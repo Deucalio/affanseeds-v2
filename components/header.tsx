@@ -50,11 +50,20 @@ export default function Header() {
   useEffect(() => {
     if (mobileMenuOpen) {
       document.body.style.overflow = "hidden"
+      document.body.style.height = "100%"
+      document.documentElement.style.height = "100%"
+      document.documentElement.style.overflow = "hidden"
     } else {
       document.body.style.overflow = ""
+      document.body.style.height = ""
+      document.documentElement.style.height = ""
+      document.documentElement.style.overflow = ""
     }
     return () => {
       document.body.style.overflow = ""
+      document.body.style.height = ""
+      document.documentElement.style.height = ""
+      document.documentElement.style.overflow = ""
     }
   }, [mobileMenuOpen])
 
@@ -99,23 +108,20 @@ export default function Header() {
           <div className="relative h-14 w-40">
             <Image
               src="/logo.svg"
-              alt="SeedVault Logo"
+              alt="Affan Agro Seeds Logo"
               width={160}
               height={40}
-              className="h-28 md:h-36 w-auto absolute -top-9"
+              className="h-24 md:h-36 w-auto absolute -top-7"
             />
           </div>
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:block">
-          
-        </div>
+        <div className="hidden md:block"></div>
 
         {/* Desktop Right Navigation */}
         <div className="hidden md:flex items-center space-x-6">
-
-        <div className="relative" ref={tooltipRef}>
+          <div className="relative" ref={tooltipRef}>
             <button
               className={cn(
                 "flex ml-auto self-end text-base font-medium transition-colors hover:text-emerald-400 px-4 py-2 rounded-full",
@@ -162,7 +168,6 @@ export default function Header() {
             </div>
           </div>
 
-          
           <Link
             href="/"
             className={cn(
@@ -211,6 +216,7 @@ export default function Header() {
             "fixed inset-0 bg-gray-950/95 backdrop-blur-sm z-40 md:hidden transition-all duration-300 flex flex-col",
             mobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none",
           )}
+          style={{ height: "100vh", overflowY: mobileMenuOpen ? "auto" : "hidden" }}
         >
           <div className="h-20" aria-hidden="true"></div>
           <div className="flex-1 overflow-y-auto px-6 py-8 flex flex-col">
@@ -237,9 +243,6 @@ export default function Header() {
                 </div>
               </div>
 
-              
-
-
               <Link
                 href="/about"
                 className={cn(
@@ -259,11 +262,6 @@ export default function Header() {
               >
                 Contact Us
               </Link>
-
-
-              
-              
-
             </nav>
           </div>
         </div>

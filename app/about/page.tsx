@@ -118,7 +118,7 @@ export default function AboutPage() {
                 <div className="absolute -inset-4 rounded-2xl bg-emerald-500/10 opacity-20 blur-lg"></div>
                 <div className="relative rounded-2xl overflow-hidden">
                   <Image
-                    src="/placeholder.svg?height=600&width=800&text=Our+Story"
+                    src="/ourstory.jpeg"
                     alt="Our Story"
                     width={800}
                     height={600}
