@@ -513,3 +513,16 @@ html {
   animation-delay: 0.7s;
   opacity: 0;
 }
+
+/* when screen size is great than 400px */
+@media screen and (min-width: 400px) {
+  #slideshow {
+    height: 50vh;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  #slideshow {
+    height: auto;
+  }
+}
