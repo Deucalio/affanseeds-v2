@@ -489,10 +489,10 @@ export default function HomePage() {
         {/* Hero Section */}
         <section
           id="home"
-          className="relative min-h-screen flex items-center pt-16"
+          className="relative flex flex-col pt-16 md:min-h-screen md:flex-row"
         >
           {/* Slideshow */}
-          <div className="absolute inset-0 z-0">
+          <div className="relative w-full h-[320px] md:h-auto md:absolute md:inset-0 z-0">
             {[
               "/slideshow/OIL SEEDS BANNER.svg",
               "/slideshow/VEGETABLES SEEDS.png",
@@ -509,55 +509,67 @@ export default function HomePage() {
                     src={src || "/placeholder.svg"}
                     alt={`Slide ${index + 1}`}
                     fill
-                    // className="object-cover opacity-60"
-                    className="object-contain md:object-cover opacity-60"
+                    className="sm:object-cover opacity-60"
                     priority={index === 0}
-                    sizes="100vw"
+                    sizes="(max-width: 768px) 320px, 100vw"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-b from-dark-900/90 via-dark-900/70 to-dark-900"></div>
                 </div>
+                <div className="absolute inset-0 bg-gradient-to-b from-dark-900/90 via-dark-900/70 to-dark-900"></div>
               </div>
             ))}
-          </div>
 
-          {/* Content */}
-          <div className="container mx-auto px-4 z-10 relative">
-            <div className="max-w-3xl mx-auto">
-              {/* <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-6 leading-tight animate-fade-in-up">
-              Wild Foraged & <span className="text-green-400">Organic Seeds</span>
-            </h1> */}
-
-              {/* <p className="text-xl text-gray-100 mb-10 animate-fade-in-up animation-delay-200">
-              Sustainably harvested rare and heirloom varieties for the conscious gardener and culinary enthusiast.
-            </p> */}
+            {/* Slideshow Controls */}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex space-x-3">
+              {[0, 1, 2].map((index) => (
+                <button
+                  key={index}
+                  onClick={() => setActiveSlide(index)}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    index === activeSlide
+                      ? "bg-green-400 scale-125"
+                      : "bg-white/50 hover:bg-white/80"
+                  }`}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
             </div>
           </div>
 
-          {/* Slideshow Controls */}
-          <div className="absolute bottom-32 left-1/2 -translate-x-1/2 z-10 flex space-x-3">
-            {[0, 1, 2].map((index) => (
-              <button
-                key={index}
-                onClick={() => setActiveSlide(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  index === activeSlide
-                    ? "bg-green-400 scale-125"
-                    : "bg-white/50 hover:bg-white/80"
-                }`}
-                aria-label={`Go to slide ${index + 1}`}
-              />
-            ))}
-          </div>
+          {/* Welcome Message - Desktop (on banner) */}
+          {/* <div className="hidden md:flex md:absolute inset-0 z-10 items-center justify-center">
+            <div className="text-center">
+              <p className="text-xl text-gray-300 mb-2 animate-fade-in-up">
+                Welcome and Greetings at
+              </p>
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-4 leading-tight animate-fade-in-up">
+                Affan Agro <span className="text-green-400">Seeds</span>
+              </h1>
+              <div className="h-1 w-24 bg-green-600 mx-auto mb-4 rounded-full animate-fade-in-up animation-delay-100"></div>
+              <p className="text-xl text-gray-300 animate-fade-in-up animation-delay-200">
+                We Make Business Run Better
+              </p>
+            </div>
+          </div> */}
 
-          {/* Scroll indicator */}
-          {/* <div
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 cursor-pointer z-10 animate-bounce"
-          onClick={() => scrollToSection("products")}
-        >
-          <div className="p-2 rounded-full bg-green-900/30 backdrop-blur-sm border border-green-700/20">
-            <ChevronDown className="h-6 w-6 text-green-400" />
-          </div>
-        </div> */}
+          {/* Welcome Message - Mobile (on banner but positioned better) */}
+          {/* <div className="absolute inset-0 flex items-center justify-center z-20 md:hidden">
+            <div className="text-center px-4 py-3 bg-dark-900/60 backdrop-blur-sm rounded-lg">
+              <p className="text-sm text-gray-300 mb-1">
+                Welcome and Greetings at
+              </p>
+              <h1 className="text-2xl font-serif font-bold text-white mb-1 leading-tight">
+                Affan Agro <span className="text-green-400">Seeds</span>
+              </h1>
+              <div className="h-0.5 w-12 bg-green-600 mx-auto mb-1 rounded-full"></div>
+              <p className="text-sm text-gray-300">
+                We Make Business Run Better
+              </p>
+            </div>
+          </div> */}
+
+          {/* Content */}
+
+          {/* Scroll indicator - Only on desktop */}
         </section>
 
         {/* <WelcomeSection/> */}
