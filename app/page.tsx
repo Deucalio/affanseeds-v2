@@ -11,6 +11,7 @@ import {
   ShoppingCart,
   Heart,
   ChevronRight,
+  ChevronDown,
   Star,
   Leaf,
   Droplets,
@@ -166,6 +167,18 @@ export default function HomePage() {
   const locationRef = useRef<HTMLDivElement>(null)
   const certificatesRef = useRef<HTMLDivElement>(null)
   const testimonialsRef = useRef<HTMLDivElement>(null)
+
+  const [activeSection, setActiveSection] = useState(0)
+  const [activeSlide, setActiveSlide] = useState(0)
+
+  // Auto-advance slides
+  useEffect(() => {
+    const slideInterval = setInterval(() => {
+      setActiveSlide((prev) => (prev === 2 ? 0 : prev + 1))
+    }, 8000)
+
+    return () => clearInterval(slideInterval)
+  }, [])
 
 
   const nextTestimonial = () => {
@@ -425,6 +438,32 @@ export default function HomePage() {
     // Here you would add actual wishlist functionality
   }
 
+
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id)
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" })
+    }
+  }
+
+  const slideshowImages = [
+    {
+      image: "/placeholder.svg?height=1080&width=1920&text=Seeds+in+Nature",
+      alt: "Seeds in nature",
+    },
+    {
+      image: "/placeholder.svg?height=1080&width=1920&text=Organic+Farming",
+      alt: "Organic farming",
+    },
+    {
+      image: "/placeholder.svg?height=1080&width=1920&text=Sustainable+Agriculture",
+      alt: "Sustainable agriculture",
+    },
+  ]
+
+  
+
+
   return (
     <>
       <style jsx global>{`
@@ -432,97 +471,71 @@ export default function HomePage() {
       `}</style>
       <main className="min-h-screen bg-gray-950 text-gray-100 overflow-x-hidden">
         {/* Hero Section */}
-        <section ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
-          {/* Background with gradient overlay */}
-          <div className="absolute inset-0 z-0">
-            <Image
-              src="/slideshow-2.avif"
-              alt="Dark garden background"
-              fill
-              className="object-cover opacity-40"
-              priority
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-gray-950/8 0 via-gray-900/50 to-gray-950"></div>
-
-            {/* Animated particles */}
-            <div className="absolute inset-0 overflow-hidden">
-              {[...Array(20)].map((_, i) => (
-                <div
-                  key={i}
-                  className="absolute rounded-full bg-emerald-500/30 blur-sm"
-                  style={{
-                    width: `${Math.random() * 8 + 2}px`,
-                    height: `${Math.random() * 8 + 2}px`,
-                    top: `${Math.random() * 100}%`,
-                    left: `${Math.random() * 100}%`,
-                    animation: `float ${Math.random() * 10 + 10}s linear infinite`,
-                    animationDelay: `${Math.random() * 10}s`,
-                  }}
-                />
-              ))}
-            </div>
-          </div>
-
-          <div className="container mx-auto px-4 z-10 relative">
-            <motion.div
-              className="max-w-4xl mx-auto text-center"
-              initial="hidden"
-              animate="visible"
-              variants={staggerContainer}
+        <section id="home" className="relative min-h-screen flex items-center pt-16">
+        {/* Slideshow */}
+        <div className="absolute inset-0 z-0">
+          {[
+            "/slideshow/OIL SEEDS BANNER.svg",
+            "/slideshow/VEGETABLES SEEDS.png",
+            "/slideshow-3.jpg",
+          ].map((src, index) => (
+            <div
+              key={index}
+              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+                index === activeSlide ? "opacity-100 z-10" : "opacity-0 z-0"
+              }`}
             >
-              {/* <motion.div
-                variants={fadeInUp}
-                className="inline-flex items-center px-4 py-2 rounded-full bg-emerald-900/30 border border-emerald-700/50 text-emerald-300 text-sm font-medium mb-6 backdrop-blur-sm"
-              >
-                <Sparkles className="h-4 w-4 mr-2" />
-                <span>Discover Rare & Exotic Seeds</span>
-              </motion.div> */}
+              <Image
+                src={src || "/placeholder.svg"}
+                alt={`Slide ${index + 1}`}
+                fill
+                className="object-cover opacity-60"
+                priority={index === 0}
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-dark-900/90 via-dark-900/70 to-dark-900"></div>
+            </div>
+          ))}
+        </div>
 
-              <motion.h1
-                variants={fadeInUp}
-                className="text-5xl md:text-7xl font-bold mt-16 sm:mt-0 mb-6 leading-tight bg-clip-text text-transparent bg-gradient-to-r from-emerald-300 via-green-200 to-emerald-300"
-              >
-                Grow Something Extraordinary
-              </motion.h1>
+        {/* Content */}
+        <div className="container mx-auto px-4 z-10 relative">
+          <div className="max-w-3xl mx-auto">
+            {/* <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-6 leading-tight animate-fade-in-up">
+              Wild Foraged & <span className="text-green-400">Organic Seeds</span>
+            </h1> */}
 
-              <motion.p variants={fadeInUp} className="text-xl md:text-2xl text-gray-300 mb-10">
-                Rare, exotic, and heirloom seeds for the adventurous gardener
-              </motion.p>
+            {/* <p className="text-xl text-gray-100 mb-10 animate-fade-in-up animation-delay-200">
+              Sustainably harvested rare and heirloom varieties for the conscious gardener and culinary enthusiast.
+            </p> */}
 
-              <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row justify-center gap-4">
-                <Button
-                // onClick={() => router.push("/products")}
-                  onClick={() => {
-// Scroll to categoriesRef
-                    if (categoriesRef.current) {
-                      categoriesRef.current.scrollIntoView({ behavior: "smooth" })
-                    }
-
-
-                  }}
-                  size="lg"
-                  className="bg-emerald-600 hover:bg-emerald-700 text-white border-0 rounded-full px-8 py-6 text-lg shadow-lg shadow-emerald-900/50 group"
-                >
-                  <span>View Categories</span>
-                  <ChevronRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-                </Button>
-
-                {/* <Button
-                  variant="outline"
-                  size="lg"
-                  className="border-emerald-700 text-emerald-400 hover:bg-emerald-900/30 rounded-full px-8 py-6 text-lg"
-                >
-                  Explore Categories
-                </Button> */}
-              </motion.div>
-
-        
-            </motion.div>
+          
           </div>
+        </div>
 
-          {/* Scroll indicator */}
-       
-        </section>
+        {/* Slideshow Controls */}
+        <div className="absolute bottom-32 left-1/2 -translate-x-1/2 z-10 flex space-x-3">
+          {[0, 1, 2].map((index) => (
+            <button
+              key={index}
+              onClick={() => setActiveSlide(index)}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                index === activeSlide ? "bg-green-400 scale-125" : "bg-white/50 hover:bg-white/80"
+              }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
+
+        {/* Scroll indicator */}
+        {/* <div
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 cursor-pointer z-10 animate-bounce"
+          onClick={() => scrollToSection("products")}
+        >
+          <div className="p-2 rounded-full bg-green-900/30 backdrop-blur-sm border border-green-700/20">
+            <ChevronDown className="h-6 w-6 text-green-400" />
+          </div>
+        </div> */}
+      </section>
 
         {/* <WelcomeSection/> */}
 
