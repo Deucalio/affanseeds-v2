@@ -349,18 +349,21 @@ export default function HomePage() {
   const certificates = [
     {
       name: "Federal Seeds Certification and Registration Department",
-      description: "Federal Seeds Certification and Registration Department",
+      description:
+        "Regulates and certifies seed quality in Pakistan to ensure reliable agricultural production and support the farming sector.",
       image: "/cert/c1-removebg-preview.png",
       // image: "https://logowik.com/content/uploads/images/491_pakistan.jpg"
     },
     {
       name: "Karachi Chamber of Commerce",
-      description: "Karachi Chamber of Commerce",
+      description:
+        "Supports and represents Karachi's business community, promoting trade, industry, and economic growth.",
       image: "/cert/kcci.webp",
     },
     {
       name: "FBR",
-      description: "asdasd",
+      description:
+        "Pakistan's key tax authority, responsible for tax collection, enforcement, and implementing fiscal policies.",
       image: "/cert/fbr-logo.png",
     },
     {
@@ -493,7 +496,10 @@ export default function HomePage() {
           className="relative flex flex-col pt-16 md:min-h-screen md:flex-row"
         >
           {/* Slideshow */}
-          <div id="slideshow" className="relative w-full h-[24vh] mt-16 md:mt-0 md:h-auto md:absolute md:inset-0 z-0">
+          <div
+            id="slideshow"
+            className="relative w-full h-[24vh] mt-16 md:mt-0 md:h-auto md:absolute md:inset-0 z-0"
+          >
             {[
               "/slideshow/OIL SEEDS BANNER.svg",
               "/slideshow/VEGETABLES SEEDS.png",
@@ -742,7 +748,7 @@ export default function HomePage() {
                   className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-700 text-center"
                 >
                   <div
-                    className={`relative w-40 h-40 mx-auto mb-6 ${index === 0 || index === 2 && "bg-white"}  rounded-full`}
+                    className={`relative w-40 h-40 mx-auto mb-6 ${[0, 2].includes(index) && "bg-white"} rounded-full`}
                   >
                     <Image
                       src={certificate.image || "/placeholder.svg"}
@@ -751,8 +757,12 @@ export default function HomePage() {
                       className={`  object-cover rounded-full transition-transform duration-700`}
                     />
                   </div>
-                  <h3 className="text-sm  text-gray-300 mb-2">{certificate.name}</h3>
-                  {/* <p className="text-gray-400 text-sm">{certificate.description}</p> */}
+                  <h3 className="text-base font-bold  text-white mb-2">
+                    {certificate.name}
+                  </h3>
+                  <p className="text-gray-400 text-sm">
+                    {certificate.description}
+                  </p>
                 </motion.div>
               ))}
             </motion.div>
