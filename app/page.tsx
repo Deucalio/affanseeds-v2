@@ -493,7 +493,7 @@ export default function HomePage() {
           className="relative flex flex-col pt-16 md:min-h-screen md:flex-row"
         >
           {/* Slideshow */}
-          <div className="relative w-full h-[35vh] mt-16 md:mt-0 md:h-auto md:absolute md:inset-0 z-0">
+          <div className="relative w-full h-[30vh] mt-16 md:mt-0 md:h-auto md:absolute md:inset-0 z-0">
             {[
               "/slideshow/OIL SEEDS BANNER.svg",
               "/slideshow/VEGETABLES SEEDS.png",
