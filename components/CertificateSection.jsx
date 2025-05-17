@@ -3,7 +3,6 @@ import { useRef, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { register } from "swiper/element/bundle";
-// import { SectionHeading } from "./SectionHeading"; // Assuming this is your existing component
 
 const SectionHeading = ({ title, highlight, description }) => {
   return (
@@ -30,39 +29,39 @@ const SectionHeading = ({ title, highlight, description }) => {
   );
 };
 
-const certificates = [
-  {
-    name: "Federal Seeds Certification & Registration Department, Government Of Pakistan",
-    description:
-      "Regulates and certifies seed quality in Pakistan to ensure reliable agricultural production and support the farming sector.",
-    image: "/cert/c1-removebg-preview.png",
-    // image: "https://logowik.com/content/uploads/images/491_pakistan.jpg"
-  },
-  {
-    name: "KCCI Karachi Chamber Of Commerce",
-    description:
-      "Supports and represents Karachi's business community, promoting trade, industry, and economic growth.",
-    image: "/cert/kcci.webp",
-  },
-  {
-    name: "Federal Board Of Revenue, Revenue Division - Government Of Pakistan",
-    description:
-      "Pakistan's key tax authority, responsible for tax collection, enforcement, and implementing fiscal policies.",
-    image: "/cert/fbr-logo.png",
-  },
-  {
-    name: "PSW - Pakistan Single Window",
-    description:
-      "A digital platform for trade facilitation, streamlining customs and regulatory processes for importers and exporters.",
-    image: "/cert/psw logo.png",
-  },
-  {
-    name: "Alibaba Supplier",
-    description:
-      "A global e-commerce platform connecting buyers and suppliers, facilitating international trade and commerce.",
-    image: "/cert/alibaba.png",
-  },
-];
+// const certificates = [
+//   {
+//     name: "Federal Seeds Certification & Registration Department, Government Of Pakistan",
+//     description:
+//       "Regulates and certifies seed quality in Pakistan to ensure reliable agricultural production and support the farming sector.",
+//     image: "/cert/c1-removebg-preview.png",
+//   },
+//   {
+//     name: "KCCI Karachi Chamber Of Commerce",
+//     description:
+//       "Supports and represents Karachi's business community, promoting trade, industry, and economic growth.",
+//     image: "/cert/kcci.webp",
+//   },
+//   {
+//     name: "Federal Board Of Revenue, Revenue Division - Government Of Pakistan",
+//     description:
+//       "Pakistan's key tax authority, responsible for tax collection, enforcement, and implementing fiscal policies.",
+//     image: "/cert/fbr-logo.png",
+//   },
+//   {
+//     name: "PSW - Pakistan Single Window",
+//     description:
+//       "A digital platform for trade facilitation, streamlining customs and regulatory processes for importers and exporters.",
+//     image: "/cert/psw logo.png",
+//   },
+//   {
+//     name: "Alibaba Supplier",
+//     description:
+//       "A global e-commerce platform connecting buyers and suppliers, facilitating international trade and commerce.",
+//     image: "/cert/alibaba.png",
+//   },
+// ];
+
 // Animation variants
 const staggerContainer = {
   hidden: {},
@@ -82,7 +81,7 @@ const fadeIn = {
   },
 };
 
-const CertificatesSection = ({ certificates }) => {
+const CertificatesSection = ({certificates}) => {
   const swiperElRef = useRef(null);
 
   useEffect(() => {
@@ -148,15 +147,30 @@ const CertificatesSection = ({ certificates }) => {
     };
 
     // Assign parameters to Swiper element
-    Object.assign(swiperElRef.current, swiperParams);
+    if (swiperElRef.current) {
+      Object.assign(swiperElRef.current, swiperParams);
 
-    // Initialize Swiper
-    swiperElRef.current.initialize();
+      // Initialize Swiper
+      swiperElRef.current.initialize();
+
+      // Add resize listener to update Swiper layout on window size change
+      const handleResize = () => {
+        if (swiperElRef.current && swiperElRef.current.swiper) {
+          swiperElRef.current.swiper.update(); // Forces Swiper to update layout on resize
+        }
+      };
+
+      window.addEventListener("resize", handleResize);
+
+      return () => {
+        window.removeEventListener("resize", handleResize);
+      };
+    }
   }, []);
 
   return (
-    <section className="py-24 relative ">
-      <div className="absolute hidden sm:block inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-emerald-900/20 via-gray-900/10 to-gray-950 opacity-50"></div>
+    <section className="py-24 relative">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-emerald-900/20 via-gray-900/10 to-gray-950 opacity-50"></div>
 
       <div className="container mx-auto px-4 relative">
         <motion.div
@@ -189,13 +203,17 @@ const CertificatesSection = ({ certificates }) => {
               <swiper-slide key={index}>
                 <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-700 text-center h-full flex flex-col items-center justify-center transform transition-transform duration-500 hover:scale-105">
                   <div
-                    className={`relative w-32 h-32 md:w-40 md:h-40 mx-auto mb-6 ${[0, 2].includes(index) && "bg-white"} rounded-full overflow-hidden`}
+                    className={`relative w-28 h-28 md:w-40 md:h-40 mx-auto mb-6 ${
+                      [0, 2].includes(index) ? "bg-white" : ""
+                    } rounded-full overflow-hidden`}
                   >
-                    <img
+                    <Image
                       src={certificate.image || "/placeholder.svg"}
                       alt={certificate.name}
                       fill
-                      className="object-cover rounded-full transition-transform duration-700"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="object-contain p-2 rounded-full transition-transform duration-700"
+                      priority={index < 2} // Prioritize loading the first couple of images
                     />
                   </div>
                   <h3 className="text-sm font-bold text-white mb-2">
@@ -213,6 +231,5 @@ const CertificatesSection = ({ certificates }) => {
     </section>
   );
 };
-
 
 export default CertificatesSection;

@@ -193,7 +193,8 @@ export default function ForageCategoryPage() {
       unit: "per kg",
       minOrder: "5kg",
       availability: "In Stock",
-      image: "/products/forage/THAI GRASS MOCKUP POUCH.png",
+      // image: "/products/forage/THAI GRASS MOCKUP POUCH.png",
+      image: "/products/forage/Thai GrassW.svg",
       features: [
         "High leaf-to-stem ratio",
         "Excellent palatability",
@@ -234,7 +235,8 @@ export default function ForageCategoryPage() {
       unit: "per kg",
       minOrder: "5kg",
       availability: "In Stock",
-      image: "/products/forage/STAMINA ALFALFA SEEDS POUCH.png",
+      // image: "/products/forage/STAMINA ALFALFA SEEDS POUCH.png",
+      image: "/products/forage/AlfalfaW.svg",
       features: [
         "High protein content (18-22%)",
         "Deep root system",
@@ -244,7 +246,7 @@ export default function ForageCategoryPage() {
         "Excellent nutritional value",
       ],
       specifications: {
-        seedingRate: "15-20 kg/hectare",
+        seedingRate: "25kg/hectare",
         germinationRate: "85-90%",
         daysToGermination: "7-10 days",
         harvestTime: "60-70 days after planting (first cutting)",
@@ -275,7 +277,8 @@ export default function ForageCategoryPage() {
       unit: "per kg",
       minOrder: "5kg",
       availability: "In Stock",
-      image: "/products/forage/jivet annual ryegrass.jpg",
+      // image: "/products/forage/jivet annual ryegrass.jpg",
+      image: "/products/forage/RYEGRASS IMAGEW.svg",
       features: [
         "Rapid establishment for quick ground cover",
         "Outstanding winter and early spring production",
@@ -286,7 +289,7 @@ export default function ForageCategoryPage() {
         "Maintains quality into spring",
       ],
       specifications: {
-        seedingRate: "25-35 kg/hectare",
+        seedingRate: "20KG/hectare",
         germinationRate: "85-90%",
         daysToGermination: "7-14 days",
         harvestTime: "Rotational grazing every 21-28 days",
@@ -317,7 +320,8 @@ export default function ForageCategoryPage() {
       unit: "per kg",
       minOrder: "5kg",
       availability: "In Stock",
-      image: "/products/forage/IMG-20241017-WA0004(2).jpg",
+      // image: "/products/forage/IMG-20241017-WA0004(2).jpg",
+      image: "/products/forage/Berseem Clover ImageW.svg",
       features: [
         "Fast establishment",
         "Multiple cuttings",
@@ -327,7 +331,7 @@ export default function ForageCategoryPage() {
         "Winter growth",
       ],
       specifications: {
-        seedingRate: "20-25 kg/hectare",
+        seedingRate: "25KG/hectare",
         germinationRate: "80-85%",
         daysToGermination: "5-8 days",
         harvestTime: "50-60 days after planting (first cutting)",
@@ -358,7 +362,8 @@ export default function ForageCategoryPage() {
       unit: "per kg",
       minOrder: "2kg",
       availability: "In Stock",
-      image: "/products/forage/FODDER BEET IMAGE.jpg",
+      // image: "/products/forage/FODDER BEET IMAGE.jpg",
+      image: "/products/forage/Fodder BeetW.svg",
       features: [
         "High fresh matter yield for maximum biomass output",
         "Medium to high dry matter content (16-18%) for energy-dense feed",
@@ -371,7 +376,7 @@ export default function ForageCategoryPage() {
         "Medium to high bolting tolerance for crop reliability",
       ],
       specifications: {
-        seedingRate: "3-5 kg/hectare",
+        seedingRate: "60,000 SEEDS/hectare",
         germinationRate: "85-90%",
         daysToGermination: "7-14 days",
         harvestTime: "180-200 days after planting",
@@ -402,7 +407,7 @@ export default function ForageCategoryPage() {
       unit: "per kg",
       minOrder: "5kg",
       availability: "In Stock",
-      image: "/products/forage/1-27.jpeg.jpg",
+      image: "/products/forage/RHODES GRASS FINECUTW.svg",
       features: [
         "Fine leaf, high-quality forage grass",
         "Early and uniform flowering",
@@ -413,7 +418,7 @@ export default function ForageCategoryPage() {
         "Naturally low in oxalate levels - safe for livestock,",
       ],
       specifications: {
-        seedingRate: "6-8 kg/hectare",
+        seedingRate: "20kg/hectare",
         germinationRate: "70-80%",
         daysToGermination: "7-14 days",
         harvestTime: "70-80 days after planting",
