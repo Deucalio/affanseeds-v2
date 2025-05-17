@@ -367,9 +367,9 @@ export default function HomePage() {
       image: "/cert/fbr-logo.png",
     },
     {
-      name: "Fair Trade Certified",
-      description: "Ethical Trading Practices",
-      image: "/placeholder.svg?height=200&width=200&text=Fair+Trade",
+      name: "Pakistan Single Window",
+      description: "A digital platform for trade facilitation, streamlining customs and regulatory processes for importers and exporters.",
+      image: "/cert/psw logo.png",
     },
   ];
 
