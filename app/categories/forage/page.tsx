@@ -203,7 +203,7 @@ export default function ForageCategoryPage() {
         "Adapts to various soil types",
       ],
       specifications: {
-        seedingRate: "8-10 kg/hectare",
+        seedingRate: "1.7KG/hectare",
         germinationRate: "75-80%",
         daysToGermination: "7-14 days",
         harvestTime: "60-70 days after planting",

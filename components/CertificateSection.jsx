@@ -191,7 +191,7 @@ const CertificatesSection = ({ certificates }) => {
                   <div
                     className={`relative w-32 h-32 md:w-40 md:h-40 mx-auto mb-6 ${[0, 2].includes(index) && "bg-white"} rounded-full overflow-hidden`}
                   >
-                    <Image
+                    <img
                       src={certificate.image || "/placeholder.svg"}
                       alt={certificate.name}
                       fill
