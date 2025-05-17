@@ -728,8 +728,8 @@ export default function HomePage() {
                       className="object-contain"
                     />
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-2">{certificate.name}</h3>
-                  <p className="text-gray-400 text-sm">{certificate.description}</p>
+                  {/* <h3 className="text-xl font-bold text-white mb-2">{certificate.name}</h3> */}
+                  {/* <p className="text-gray-400 text-sm">{certificate.description}</p> */}
                 </motion.div>
               ))}
             </motion.div>
