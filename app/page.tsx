@@ -351,16 +351,17 @@ export default function HomePage() {
       name: "ISO 9001:2015",
       description: "Quality Management System",
       image: "/cert/c1-removebg-preview.png",
+      // image: "https://logowik.com/content/uploads/images/491_pakistan.jpg"
     },
     {
       name: "Organic Certification",
       description: "Certified Organic Producer",
-      image: "/cert/c2-removebg-preview.png",
+      image: "cert/kcci.webp",
     },
     {
       name: "Non-GMO Project",
       description: "Verified Non-GMO Products",
-      image: "/placeholder.svg?height=200&width=200&text=Non-GMO",
+      image: "",
     },
     {
       name: "Fair Trade Certified",
@@ -492,7 +493,7 @@ export default function HomePage() {
           className="relative flex flex-col pt-16 md:min-h-screen md:flex-row"
         >
           {/* Slideshow */}
-          <div className="relative w-full h-[35vh] mt-16 md:h-auto md:absolute md:inset-0 z-0">
+          <div className="relative w-full h-[35vh] mt-16 md:mt-0 md:h-auto md:absolute md:inset-0 z-0">
             {[
               "/slideshow/OIL SEEDS BANNER.svg",
               "/slideshow/VEGETABLES SEEDS.png",
@@ -732,7 +733,7 @@ export default function HomePage() {
               whileInView="visible"
               viewport={{ once: true, margin: "-100px" }}
               variants={staggerContainer}
-              className="grid md:grid-cols-4 gap-8"
+              className="grid md:grid-cols-4 gap-16"
             >
               {certificates.map((certificate, index) => (
                 <motion.div
@@ -741,13 +742,13 @@ export default function HomePage() {
                   className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-700 text-center"
                 >
                   <div
-                    className={`relative w-32 h-32 mx-auto mb-6 ${index == 0 && "bg-white"} rounded-full`}
+                    className={`relative w-40 h-40 mx-auto mb-6 ${index === 0 && "bg-white"}  rounded-full`}
                   >
                     <Image
                       src={certificate.image || "/placeholder.svg"}
                       alt={certificate.name}
                       fill
-                      className="object-contain"
+                      className={`  object-cover rounded-full transition-transform duration-700`}
                     />
                   </div>
                   {/* <h3 className="text-xl font-bold text-white mb-2">{certificate.name}</h3> */}
