@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
+import CertificatesSection from "../components/CertificateSection";
 import {
   ShoppingCart,
   Heart,
@@ -34,6 +35,17 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import { register } from "swiper/element/bundle";
+
+// Define Certificate type
+interface Certificate {
+  name: string;
+  description: string;
+  image: string;
+}
 
 const floatingAnimation = `
   @keyframes float {
@@ -374,7 +386,8 @@ export default function HomePage() {
     },
     {
       name: "Alibaba Supplier",
-      description: "A global e-commerce platform connecting buyers and suppliers, facilitating international trade and commerce.",
+      description:
+        "A global e-commerce platform connecting buyers and suppliers, facilitating international trade and commerce.",
       image: "/cert/alibaba.png",
     },
   ];
@@ -722,7 +735,7 @@ export default function HomePage() {
         </section>
 
         {/* Certificates Section */}
-        <section ref={certificatesRef} className="py-24 relative">
+        {/* <section ref={certificatesRef} className="py-24 relative">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-emerald-900/20 via-gray-900/10 to-gray-950 opacity-50"></div>
 
           <div className="container mx-auto px-4 relative">
@@ -773,14 +786,14 @@ export default function HomePage() {
               ))}
             </motion.div>
           </div>
-        </section>
+        </section> */}
+        <CertificatesSection certificates={certificates} />
 
         {/* Location Section */}
         <section
           style={{
             // Add bg image https://kohenoorint.com/wp-content/uploads/2017/12/colored-corrected.png
-            backgroundImage:
-              "url('worldmap.jpg')",
+            backgroundImage: "url('worldmap.jpg')",
           }}
           ref={locationRef}
           className="py-24 bg-gray-900 relative bg-center bg-cover bg-no-repeat"
