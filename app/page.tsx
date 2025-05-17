@@ -735,7 +735,7 @@ export default function HomePage() {
         </section>
 
         {/* Certificates Section */}
-        {/* <section ref={certificatesRef} className="py-24 relative">
+        <section ref={certificatesRef} className="py-24 sm:hidden relative">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-emerald-900/20 via-gray-900/10 to-gray-950 opacity-50"></div>
 
           <div className="container mx-auto px-4 relative">
@@ -786,7 +786,7 @@ export default function HomePage() {
               ))}
             </motion.div>
           </div>
-        </section> */}
+        </section>
         <CertificatesSection certificates={certificates} />
 
         {/* Location Section */}
