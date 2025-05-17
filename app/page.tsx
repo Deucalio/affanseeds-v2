@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState, useEffect, useRef } from "react"
-import Image from "next/image"
-import Link from "next/link"
-import { motion } from "framer-motion"
-import { useRouter } from "next/navigation"
+import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 import {
   ShoppingCart,
   Heart,
@@ -30,10 +30,10 @@ import {
   Building,
   Clock,
   ChevronLeft,
-} from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Input } from "@/components/ui/input"
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
 
 const floatingAnimation = `
   @keyframes float {
@@ -47,14 +47,18 @@ const floatingAnimation = `
       transform: translateY(0px);
     }
   }
-`
+`;
 interface LightSectionHeadingProps {
-  title: string
-  highlight?: string
-  description?: string
+  title: string;
+  highlight?: string;
+  description?: string;
 }
 
-const LightSectionHeading: React.FC<LightSectionHeadingProps> = ({ title, highlight, description }) => {
+const LightSectionHeading: React.FC<LightSectionHeadingProps> = ({
+  title,
+  highlight,
+  description,
+}) => {
   return (
     <div className="relative -mx-4 sm:-mx-6 md:-mx-8 lg:-mx-12 xl:-mx-24 mb-16">
       <div className="bg-gradient-to-r from-white/90 via-gray-100/95 to-white/90 py-12 shadow-lg">
@@ -62,40 +66,46 @@ const LightSectionHeading: React.FC<LightSectionHeadingProps> = ({ title, highli
         <div className="container mx-auto px-4 relative">
           <div className="text-center">
             <h2 className="text-3xl md:text-5xl font-bold mb-4 inline-block text-gray-800">
-              {title} {highlight && <span className="text-emerald-600">{highlight}</span>}
+              {title}{" "}
+              {highlight && (
+                <span className="text-emerald-600">{highlight}</span>
+              )}
             </h2>
             <div className="w-24 h-1 bg-emerald-500 mx-auto mb-6 rounded-full" />
-            {description && <p className="text-lg text-gray-600 max-w-2xl mx-auto">{description}</p>}
+            {description && (
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                {description}
+              </p>
+            )}
           </div>
         </div>
       </div>
     </div>
-  )
-}
-
+  );
+};
 
 const WelcomeSection: React.FC = () => {
   return (
     <section className="relative py-24 overflow-hidden">
       {/* Background with gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-r from-emerald-900 via-gray-900 to-emerald-900 opacity-90"></div>
-      
+
       {/* Decorative elements */}
       <div className="absolute inset-0">
         <div className="absolute top-0 right-0 w-1/3 h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-emerald-600/20 via-transparent to-transparent"></div>
         <div className="absolute bottom-0 left-0 w-1/3 h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-emerald-600/20 via-transparent to-transparent"></div>
       </div>
-      
+
       {/* Pattern overlay */}
-      <div 
+      <div
         className="absolute inset-0 opacity-5"
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fillRule='evenodd'%3E%3Cg fill='%23ffffff' fillOpacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
         }}
       ></div>
-      
+
       <div className="container mx-auto px-4 relative z-10">
-        <motion.div 
+        <motion.div
           className="text-center"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -106,10 +116,8 @@ const WelcomeSection: React.FC = () => {
             Welcome and Greetings at
           </h2>
           <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight">
-             
             <h2 className="text-4xl md:text-6xl font-bold mb-4 inline-block">
-            
-            Affan Agro <span className="text-emerald-400">Seeds</span>
+              Affan Agro <span className="text-emerald-400">Seeds</span>
             </h2>
           </h1>
           <div className="w-24 h-1 bg-emerald-400 mx-auto mb-6 rounded-full"></div>
@@ -119,18 +127,17 @@ const WelcomeSection: React.FC = () => {
         </motion.div>
       </div>
     </section>
-  )
-}
-
+  );
+};
 
 const SectionHeading = ({
   title,
   highlight,
   description,
 }: {
-  title: string
-  highlight?: string
-  description?: string
+  title: string;
+  highlight?: string;
+  description?: string;
 }) => {
   return (
     <div className="relative -mx-4 sm:-mx-6 md:-mx-8 lg:-mx-12 xl:-mx-24 mb-16">
@@ -138,75 +145,85 @@ const SectionHeading = ({
         <div className="container mx-auto px-4">
           <div className="text-center">
             <h2 className="text-3xl md:text-5xl font-bold mb-4 inline-block">
-              {title} {highlight && <span className="text-emerald-400">{highlight}</span>}
+              {title}{" "}
+              {highlight && (
+                <span className="text-emerald-400">{highlight}</span>
+              )}
             </h2>
             <div className="w-24 h-1 bg-emerald-500 mx-auto mb-6 rounded-full" />
-            {description && <p className="text-lg text-gray-300 max-w-2xl mx-auto">{description}</p>}
+            {description && (
+              <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+                {description}
+              </p>
+            )}
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default function HomePage() {
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [currentTestimonial, setCurrentTestimonial] = useState(0)
-  const router=  useRouter()
-  const [activeCategory, setActiveCategory] = useState("all")
-  const [searchQuery, setSearchQuery] = useState("")
-  const [cartCount, setCartCount] = useState(0)
-  const [wishlistCount, setWishlistCount] = useState(0)
-  const [hoveredProduct, setHoveredProduct] = useState<number | null>(null)
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const router = useRouter();
+  const [activeCategory, setActiveCategory] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [cartCount, setCartCount] = useState(0);
+  const [wishlistCount, setWishlistCount] = useState(0);
+  const [hoveredProduct, setHoveredProduct] = useState<number | null>(null);
 
-  const heroRef = useRef<HTMLDivElement>(null)
-  const featuredRef = useRef<HTMLDivElement>(null)
-  const categoriesRef = useRef<HTMLDivElement>(null)
-  const sustainabilityRef = useRef<HTMLDivElement>(null)
-  const aboutRef = useRef<HTMLDivElement>(null)
-  const locationRef = useRef<HTMLDivElement>(null)
-  const certificatesRef = useRef<HTMLDivElement>(null)
-  const testimonialsRef = useRef<HTMLDivElement>(null)
+  const heroRef = useRef<HTMLDivElement>(null);
+  const featuredRef = useRef<HTMLDivElement>(null);
+  const categoriesRef = useRef<HTMLDivElement>(null);
+  const sustainabilityRef = useRef<HTMLDivElement>(null);
+  const aboutRef = useRef<HTMLDivElement>(null);
+  const locationRef = useRef<HTMLDivElement>(null);
+  const certificatesRef = useRef<HTMLDivElement>(null);
+  const testimonialsRef = useRef<HTMLDivElement>(null);
 
-  const [activeSection, setActiveSection] = useState(0)
-  const [activeSlide, setActiveSlide] = useState(0)
+  const [activeSection, setActiveSection] = useState(0);
+  const [activeSlide, setActiveSlide] = useState(0);
 
   // Auto-advance slides
   useEffect(() => {
     const slideInterval = setInterval(() => {
-      setActiveSlide((prev) => (prev === 2 ? 0 : prev + 1))
-    }, 8000)
+      setActiveSlide((prev) => (prev === 2 ? 0 : prev + 1));
+    }, 8000);
 
-    return () => clearInterval(slideInterval)
-  }, [])
-
+    return () => clearInterval(slideInterval);
+  }, []);
 
   const nextTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1))
-  }
+    setCurrentTestimonial((prev) =>
+      prev === testimonials.length - 1 ? 0 : prev + 1
+    );
+  };
 
   const prevTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1))
-  }
+    setCurrentTestimonial((prev) =>
+      prev === 0 ? testimonials.length - 1 : prev - 1
+    );
+  };
 
   // Add this useEffect for auto-advancing the testimonial slider
   useEffect(() => {
     const timer = setInterval(() => {
-      nextTestimonial()
-    }, 5000)
+      nextTestimonial();
+    }, 5000);
 
-    return () => clearInterval(timer)
-  }, [])
+    return () => clearInterval(timer);
+  }, []);
 
   // Handle scroll events
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
-    }
+      setIsScrolled(window.scrollY > 50);
+    };
 
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Mock data for featured products
   const featuredProducts = [
@@ -262,7 +279,7 @@ export default function HomePage() {
       badge: "Extreme",
       badgeColor: "red",
     },
-  ]
+  ];
 
   // Categories
   const categories = [
@@ -287,14 +304,14 @@ export default function HomePage() {
     {
       id: "vegetable-seeds",
       name: "Vegetable Seeds",
-      description: "Fresh, high-yield vegetable seeds for commercial and home growers",
+      description:
+        "Fresh, high-yield vegetable seeds for commercial and home growers",
       icon: <Droplets className="h-6 w-6" />,
       image: "/products/seeds/sunflowerseeds.jpg",
       color: "from-rose-500 to-red-700",
       count: 5,
     },
-    
-  ]
+  ];
 
   // Sustainability practices
   const sustainabilityPractices = [
@@ -315,16 +332,18 @@ export default function HomePage() {
     {
       icon: <BookOpen className="h-10 w-10 text-emerald-400" />,
       title: "Educational Initiatives",
-      description: "We provide resources and workshops to help gardeners learn sustainable growing practices.",
+      description:
+        "We provide resources and workshops to help gardeners learn sustainable growing practices.",
       image: "/ss3.avif",
     },
     {
       icon: <Calendar className="h-10 w-10 text-emerald-400" />,
       title: "Seasonal Seed Selection",
-      description: "Our seed offerings follow natural growing cycles to promote biodiversity and ecological balance.",
+      description:
+        "Our seed offerings follow natural growing cycles to promote biodiversity and ecological balance.",
       image: "/livestock.jpg",
     },
-  ]
+  ];
 
   // Certificates
   const certificates = [
@@ -348,7 +367,7 @@ export default function HomePage() {
       description: "Ethical Trading Practices",
       image: "/placeholder.svg?height=200&width=200&text=Fair+Trade",
     },
-  ]
+  ];
 
   // Testimonials
   const testimonials = [
@@ -379,13 +398,13 @@ export default function HomePage() {
         "The collection of rare flower seeds exceeded my expectations. Not only was shipping fast, but the detailed growing instructions helped me successfully cultivate varieties I'd never grown before.",
       rating: 4,
     },
-  ]
+  ];
 
   // Animation variants
   const fadeInUp = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-  }
+  };
 
   const staggerContainer = {
     hidden: { opacity: 0 },
@@ -395,56 +414,55 @@ export default function HomePage() {
         staggerChildren: 0.1,
       },
     },
-  }
+  };
 
   const scaleIn = {
     hidden: { opacity: 0, scale: 0.8 },
     visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } },
-  }
+  };
 
   // Helper function for badge colors
   const getBadgeColor = (color: string) => {
     switch (color) {
       case "red":
-        return "bg-red-900/80 text-red-100 border-red-700"
+        return "bg-red-900/80 text-red-100 border-red-700";
       case "amber":
-        return "bg-amber-900/80 text-amber-100 border-amber-700"
+        return "bg-amber-900/80 text-amber-100 border-amber-700";
       case "green":
-        return "bg-emerald-900/80 text-emerald-100 border-emerald-700"
+        return "bg-emerald-900/80 text-emerald-100 border-emerald-700";
       case "blue":
-        return "bg-blue-900/80 text-blue-100 border-blue-700"
+        return "bg-blue-900/80 text-blue-100 border-blue-700";
       case "purple":
-        return "bg-purple-900/80 text-purple-100 border-purple-700"
+        return "bg-purple-900/80 text-purple-100 border-purple-700";
       case "violet":
-        return "bg-violet-900/80 text-violet-100 border-violet-700"
+        return "bg-violet-900/80 text-violet-100 border-violet-700";
       case "lime":
-        return "bg-lime-900/80 text-lime-100 border-lime-700"
+        return "bg-lime-900/80 text-lime-100 border-lime-700";
       default:
-        return "bg-emerald-900/80 text-emerald-100 border-emerald-700"
+        return "bg-emerald-900/80 text-emerald-100 border-emerald-700";
     }
-  }
+  };
 
   // Add to cart function
   const addToCart = (e: React.MouseEvent, productId: number) => {
-    e.preventDefault()
-    setCartCount((prev) => prev + 1)
+    e.preventDefault();
+    setCartCount((prev) => prev + 1);
     // Here you would add actual cart functionality
-  }
+  };
 
   // Add to wishlist function
   const addToWishlist = (e: React.MouseEvent, productId: number) => {
-    e.preventDefault()
-    setWishlistCount((prev) => prev + 1)
+    e.preventDefault();
+    setWishlistCount((prev) => prev + 1);
     // Here you would add actual wishlist functionality
-  }
-
+  };
 
   const scrollToSection = (id: string) => {
-    const element = document.getElementById(id)
+    const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" })
+      element.scrollIntoView({ behavior: "smooth" });
     }
-  }
+  };
 
   const slideshowImages = [
     {
@@ -456,13 +474,11 @@ export default function HomePage() {
       alt: "Organic farming",
     },
     {
-      image: "/placeholder.svg?height=1080&width=1920&text=Sustainable+Agriculture",
+      image:
+        "/placeholder.svg?height=1080&width=1920&text=Sustainable+Agriculture",
       alt: "Sustainable agriculture",
     },
-  ]
-
-  
-
+  ];
 
   return (
     <>
@@ -471,63 +487,70 @@ export default function HomePage() {
       `}</style>
       <main className="min-h-screen bg-gray-950 text-gray-100 overflow-x-hidden">
         {/* Hero Section */}
-        <section id="home" className="relative min-h-screen flex items-center pt-16">
-        {/* Slideshow */}
-        <div className="absolute inset-0 z-0">
-          {[
-            "/slideshow/OIL SEEDS BANNER.svg",
-            "/slideshow/VEGETABLES SEEDS.png",
-            "/slideshow-3.jpg",
-          ].map((src, index) => (
-            <div
-              key={index}
-              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-                index === activeSlide ? "opacity-100 z-10" : "opacity-0 z-0"
-              }`}
-            >
-              <Image
-                src={src || "/placeholder.svg"}
-                alt={`Slide ${index + 1}`}
-                fill
-                className="object-cover opacity-60"
-                priority={index === 0}
-              />
-              <div className="absolute inset-0 bg-gradient-to-b from-dark-900/90 via-dark-900/70 to-dark-900"></div>
-            </div>
-          ))}
-        </div>
+        <section
+          id="home"
+          className="relative min-h-screen flex items-center pt-16"
+        >
+          {/* Slideshow */}
+          <div className="absolute inset-0 z-0">
+            {[
+              "/slideshow/OIL SEEDS BANNER.svg",
+              "/slideshow/VEGETABLES SEEDS.png",
+              "/slideshow-3.jpg",
+            ].map((src, index) => (
+              <div
+                key={index}
+                className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+                  index === activeSlide ? "opacity-100 z-10" : "opacity-0 z-0"
+                }`}
+              >
+                <div className="relative w-full h-full">
+                  <Image
+                    src={src || "/placeholder.svg"}
+                    alt={`Slide ${index + 1}`}
+                    fill
+                    // className="object-cover opacity-60"
+                    className="object-contain md:object-cover opacity-60"
+                    priority={index === 0}
+                    sizes="100vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-b from-dark-900/90 via-dark-900/70 to-dark-900"></div>
+                </div>
+              </div>
+            ))}
+          </div>
 
-        {/* Content */}
-        <div className="container mx-auto px-4 z-10 relative">
-          <div className="max-w-3xl mx-auto">
-            {/* <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-6 leading-tight animate-fade-in-up">
+          {/* Content */}
+          <div className="container mx-auto px-4 z-10 relative">
+            <div className="max-w-3xl mx-auto">
+              {/* <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-6 leading-tight animate-fade-in-up">
               Wild Foraged & <span className="text-green-400">Organic Seeds</span>
             </h1> */}
 
-            {/* <p className="text-xl text-gray-100 mb-10 animate-fade-in-up animation-delay-200">
+              {/* <p className="text-xl text-gray-100 mb-10 animate-fade-in-up animation-delay-200">
               Sustainably harvested rare and heirloom varieties for the conscious gardener and culinary enthusiast.
             </p> */}
-
-          
+            </div>
           </div>
-        </div>
 
-        {/* Slideshow Controls */}
-        <div className="absolute bottom-32 left-1/2 -translate-x-1/2 z-10 flex space-x-3">
-          {[0, 1, 2].map((index) => (
-            <button
-              key={index}
-              onClick={() => setActiveSlide(index)}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                index === activeSlide ? "bg-green-400 scale-125" : "bg-white/50 hover:bg-white/80"
-              }`}
-              aria-label={`Go to slide ${index + 1}`}
-            />
-          ))}
-        </div>
+          {/* Slideshow Controls */}
+          <div className="absolute bottom-32 left-1/2 -translate-x-1/2 z-10 flex space-x-3">
+            {[0, 1, 2].map((index) => (
+              <button
+                key={index}
+                onClick={() => setActiveSlide(index)}
+                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  index === activeSlide
+                    ? "bg-green-400 scale-125"
+                    : "bg-white/50 hover:bg-white/80"
+                }`}
+                aria-label={`Go to slide ${index + 1}`}
+              />
+            ))}
+          </div>
 
-        {/* Scroll indicator */}
-        {/* <div
+          {/* Scroll indicator */}
+          {/* <div
           className="absolute bottom-10 left-1/2 -translate-x-1/2 cursor-pointer z-10 animate-bounce"
           onClick={() => scrollToSection("products")}
         >
@@ -535,7 +558,7 @@ export default function HomePage() {
             <ChevronDown className="h-6 w-6 text-green-400" />
           </div>
         </div> */}
-      </section>
+        </section>
 
         {/* <WelcomeSection/> */}
 
@@ -549,7 +572,7 @@ export default function HomePage() {
               highlight="Us"
               description="Dedicated to providing high-quality agricultural seeds and solutions to farmers across Pakistan."
             />
-         
+
             <motion.div
               initial="hidden"
               whileInView="visible"
@@ -558,29 +581,40 @@ export default function HomePage() {
               className="grid md:grid-cols-2 gap-12 items-center max-w-5xl mx-auto"
             >
               <motion.div variants={fadeInUp}>
-                <h3 className="text-2xl font-bold text-white mb-6">Our Story</h3>
+                <h3 className="text-2xl font-bold text-white mb-6">
+                  Our Story
+                </h3>
                 <div className="space-y-4 text-gray-300">
                   <p>
-                    Founded with a vision to revolutionize agriculture in Pakistan, Affan Agro Seeds has been at the
-                    forefront of providing premium quality seeds to farmers for over a decade.
+                    Founded with a vision to revolutionize agriculture in
+                    Pakistan, Affan Agro Seeds has been at the forefront of
+                    providing premium quality seeds to farmers for over a
+                    decade.
                   </p>
                   <p>
-                    We specialize in sourcing and developing high-yield, disease-resistant seed varieties that thrive in
-                    local growing conditions, helping farmers maximize their productivity and profitability.
+                    We specialize in sourcing and developing high-yield,
+                    disease-resistant seed varieties that thrive in local
+                    growing conditions, helping farmers maximize their
+                    productivity and profitability.
                   </p>
                   <p>
-                    Our team of agricultural experts works closely with farmers, providing not just seeds but
-                    comprehensive growing guidance and support throughout the cultivation process.
+                    Our team of agricultural experts works closely with farmers,
+                    providing not just seeds but comprehensive growing guidance
+                    and support throughout the cultivation process.
                   </p>
                 </div>
 
                 <div className="grid grid-cols-2 gap-6 mt-8">
                   <div className="bg-gray-800/50 rounded-xl p-4 text-center">
-                    <h4 className="text-3xl font-bold text-emerald-400 mb-2">10+</h4>
+                    <h4 className="text-3xl font-bold text-emerald-400 mb-2">
+                      10+
+                    </h4>
                     <p className="text-gray-300">Years of Experience</p>
                   </div>
                   <div className="bg-gray-800/50 rounded-xl p-4 text-center">
-                    <h4 className="text-3xl font-bold text-emerald-400 mb-2">1000+</h4>
+                    <h4 className="text-3xl font-bold text-emerald-400 mb-2">
+                      1000+
+                    </h4>
                     <p className="text-gray-300">Satisfied Farmers</p>
                   </div>
                 </div>
@@ -621,7 +655,6 @@ export default function HomePage() {
         </section>
 
         {/* Featured Products Section */}
-      
 
         {/* Categories Section */}
         <section ref={categoriesRef} className="py-24 relative">
@@ -642,7 +675,11 @@ export default function HomePage() {
               className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
             >
               {categories.map((category, index) => (
-                <motion.div key={category.id} variants={scaleIn} className="group">
+                <motion.div
+                  key={category.id}
+                  variants={scaleIn}
+                  className="group"
+                >
                   <Link href={`/categories/${category.id}`} className="block">
                     <div className="relative rounded-2xl overflow-hidden aspect-square">
                       {/* Background Image */}
@@ -660,11 +697,17 @@ export default function HomePage() {
 
                       {/* Content */}
                       <div className="absolute inset-0 p-6 flex flex-col justify-between">
-                        <div className="p-3 bg-black/30 backdrop-blur-sm rounded-full w-fit">{category.icon}</div>
+                        <div className="p-3 bg-black/30 backdrop-blur-sm rounded-full w-fit">
+                          {category.icon}
+                        </div>
 
                         <div>
-                          <h3 className="text-2xl font-bold text-white mb-2">{category.name}</h3>
-                          <p className="text-white/80 mb-4 line-clamp-2">{category.description}</p>
+                          <h3 className="text-2xl font-bold text-white mb-2">
+                            {category.name}
+                          </h3>
+                          <p className="text-white/80 mb-4 line-clamp-2">
+                            {category.description}
+                          </p>
                           <div className="flex items-center justify-between">
                             <Badge className="bg-black/30 text-white hover:bg-black/40">
                               {category.count} varieties
@@ -683,8 +726,6 @@ export default function HomePage() {
           </div>
         </section>
 
-      
-
         {/* Certificates Section */}
         <section ref={certificatesRef} className="py-24 relative">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-emerald-900/20 via-gray-900/10 to-gray-950 opacity-50"></div>
@@ -697,14 +738,11 @@ export default function HomePage() {
               variants={staggerContainer}
               className="text-center mb-16"
             >
-        
-
               <SectionHeading
                 title="Certifications and "
                 highlight="Affiliations"
                 description="We are proud to be certified by leading organizations in the agricultural industry."
               />
-
             </motion.div>
 
             <motion.div
@@ -720,7 +758,9 @@ export default function HomePage() {
                   variants={scaleIn}
                   className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-700 text-center"
                 >
-                  <div className={`relative w-32 h-32 mx-auto mb-6 ${index==0 && "bg-white"} rounded-full`}>
+                  <div
+                    className={`relative w-32 h-32 mx-auto mb-6 ${index == 0 && "bg-white"} rounded-full`}
+                  >
                     <Image
                       src={certificate.image || "/placeholder.svg"}
                       alt={certificate.name}
@@ -737,11 +777,15 @@ export default function HomePage() {
         </section>
 
         {/* Location Section */}
-        <section style={{
-          // Add bg image https://kohenoorint.com/wp-content/uploads/2017/12/colored-corrected.png
-          backgroundImage: "url('https://c4.wallpaperflare.com/wallpaper/888/200/919/earth-black-background-world-map-the-continent-wallpaper-preview.jpg')",
-
-        }} ref={locationRef} className="py-24 bg-gray-900 relative bg-center bg-cover bg-no-repeat">
+        <section
+          style={{
+            // Add bg image https://kohenoorint.com/wp-content/uploads/2017/12/colored-corrected.png
+            backgroundImage:
+              "url('https://c4.wallpaperflare.com/wallpaper/888/200/919/earth-black-background-world-map-the-continent-wallpaper-preview.jpg')",
+          }}
+          ref={locationRef}
+          className="py-24 bg-gray-900 relative bg-center bg-cover bg-no-repeat"
+        >
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-emerald-900/20 via-gray-900/10 to-gray-950 opacity-50"></div>
 
           <div className="container mx-auto px-4 relative">
@@ -752,12 +796,22 @@ export default function HomePage() {
               variants={staggerContainer}
               className="text-center mb-16"
             >
-              <motion.h2 variants={fadeInUp} className="text-3xl md:text-5xl font-bold mb-4 inline-block">
+              <motion.h2
+                variants={fadeInUp}
+                className="text-3xl md:text-5xl font-bold mb-4 inline-block"
+              >
                 Our <span className="text-emerald-400">Location</span>
               </motion.h2>
-              <motion.div variants={fadeInUp} className="w-24 h-1 bg-emerald-500 mx-auto mb-6 rounded-full" />
-              <motion.p variants={fadeInUp} className="text-lg text-gray-100 max-w-2xl mx-auto">
-                Visit our office or get in touch with us. We're always ready to assist you with your agricultural needs.
+              <motion.div
+                variants={fadeInUp}
+                className="w-24 h-1 bg-emerald-500 mx-auto mb-6 rounded-full"
+              />
+              <motion.p
+                variants={fadeInUp}
+                className="text-lg text-gray-100 max-w-2xl mx-auto"
+              >
+                Visit our office or get in touch with us. We're always ready to
+                assist you with your agricultural needs.
               </motion.p>
             </motion.div>
 
@@ -774,7 +828,9 @@ export default function HomePage() {
                     <Building className="h-6 w-6 text-emerald-400" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-white mb-2">Office Address</h3>
+                    <h3 className="text-xl font-bold text-white mb-2">
+                      Office Address
+                    </h3>
                     <p className="text-gray-300">
                       Affan Agro Seeds LLP
                       <br />
@@ -807,12 +863,9 @@ export default function HomePage() {
                   </div>
                 </div>
 
-                <div className="flex items-start">
-                 
-                
-                </div>
+                <div className="flex items-start"></div>
               </motion.div>
-{/* 
+              {/* 
               <motion.div variants={scaleIn} className="relative">
                 <div className="absolute -inset-4 rounded-2xl bg-emerald-600/10 opacity-20 blur-lg"></div>
                 <div className="relative rounded-2xl overflow-hidden shadow-lg h-full min-h-[400px]">
@@ -835,7 +888,10 @@ export default function HomePage() {
         </section>
 
         {/* Testimonials Section */}
-        <section ref={testimonialsRef} className="py-24 relative overflow-hidden">
+        <section
+          ref={testimonialsRef}
+          className="py-24 relative overflow-hidden"
+        >
           <div className="absolute inset-0  bg-black"></div>
 
           {/* Decorative elements */}
@@ -852,7 +908,9 @@ export default function HomePage() {
             <div className="max-w-4xl mx-auto relative">
               {/* Testimonial Slider */}
               <div className="relative bg-gray-800/70 backdrop-blur-md rounded-2xl p-8 md:p-12 border border-emerald-700/30 shadow-xl shadow-emerald-900/20">
-                <div className="absolute -top-6 -left-6 text-emerald-400 opacity-60 text-8xl font-serif">"</div>
+                <div className="absolute -top-6 -left-6 text-emerald-400 opacity-60 text-8xl font-serif">
+                  "
+                </div>
 
                 <motion.div
                   key={currentTestimonial}
@@ -881,12 +939,18 @@ export default function HomePage() {
                         />
                       ))}
                     </div>
-                    <h3 className="text-xl font-bold text-white">{testimonials[currentTestimonial].name}</h3>
-                    <p className="text-emerald-400">{testimonials[currentTestimonial].role}</p>
+                    <h3 className="text-xl font-bold text-white">
+                      {testimonials[currentTestimonial].name}
+                    </h3>
+                    <p className="text-emerald-400">
+                      {testimonials[currentTestimonial].role}
+                    </p>
                   </div>
                 </motion.div>
 
-                <div className="absolute -bottom-6 -right-6 text-emerald-400 opacity-60 text-8xl font-serif">"</div>
+                <div className="absolute -bottom-6 -right-6 text-emerald-400 opacity-60 text-8xl font-serif">
+                  "
+                </div>
               </div>
 
               {/* Navigation Dots */}
@@ -896,7 +960,9 @@ export default function HomePage() {
                     key={index}
                     onClick={() => setCurrentTestimonial(index)}
                     className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                      index === currentTestimonial ? "bg-emerald-500 scale-125" : "bg-gray-600 hover:bg-gray-500"
+                      index === currentTestimonial
+                        ? "bg-emerald-500 scale-125"
+                        : "bg-gray-600 hover:bg-gray-500"
                     }`}
                     aria-label={`Go to testimonial ${index + 1}`}
                   />
@@ -924,16 +990,9 @@ export default function HomePage() {
         </section>
 
         {/* Newsletter Section */}
-       
 
         {/* Floating Cart Button */}
-     
       </main>
     </>
-  )
+  );
 }
-
-
-
-
-

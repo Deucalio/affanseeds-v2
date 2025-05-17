@@ -432,3 +432,31 @@ html {
 .glass-effect {
   @apply bg-gray-900/70 backdrop-blur-md border border-gray-800;
 }
+
+
+@media (max-width: 768px) {
+  #home {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+  }
+
+  #home .container {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+}
+
+/* Responsive image handling */
+.responsive-banner-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 768px) {
+  .responsive-banner-container {
+    height: auto;
+    aspect-ratio: 1 / 1;
+  }
+}
