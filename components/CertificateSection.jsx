@@ -29,39 +29,6 @@ const SectionHeading = ({ title, highlight, description }) => {
   );
 };
 
-// const certificates = [
-//   {
-//     name: "Federal Seeds Certification & Registration Department, Government Of Pakistan",
-//     description:
-//       "Regulates and certifies seed quality in Pakistan to ensure reliable agricultural production and support the farming sector.",
-//     image: "/cert/c1-removebg-preview.png",
-//   },
-//   {
-//     name: "KCCI Karachi Chamber Of Commerce",
-//     description:
-//       "Supports and represents Karachi's business community, promoting trade, industry, and economic growth.",
-//     image: "/cert/kcci.webp",
-//   },
-//   {
-//     name: "Federal Board Of Revenue, Revenue Division - Government Of Pakistan",
-//     description:
-//       "Pakistan's key tax authority, responsible for tax collection, enforcement, and implementing fiscal policies.",
-//     image: "/cert/fbr-logo.png",
-//   },
-//   {
-//     name: "PSW - Pakistan Single Window",
-//     description:
-//       "A digital platform for trade facilitation, streamlining customs and regulatory processes for importers and exporters.",
-//     image: "/cert/psw logo.png",
-//   },
-//   {
-//     name: "Alibaba Supplier",
-//     description:
-//       "A global e-commerce platform connecting buyers and suppliers, facilitating international trade and commerce.",
-//     image: "/cert/alibaba.png",
-//   },
-// ];
-
 // Animation variants
 const staggerContainer = {
   hidden: {},
@@ -104,12 +71,15 @@ const CertificatesSection = ({certificates}) => {
       navigation: true,
       breakpoints: {
         640: {
-          slidesPerView: 2,
+          slidesPerView: 1.5,
         },
         768: {
-          slidesPerView: 3,
+          slidesPerView: 2.5,
         },
         1024: {
+          slidesPerView: 3.5,
+        },
+        1280: {
           slidesPerView: 4,
         },
       },
@@ -201,25 +171,31 @@ const CertificatesSection = ({certificates}) => {
           >
             {certificates.map((certificate, index) => (
               <swiper-slide key={index}>
-                <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-700 text-center h-full flex flex-col items-center justify-center transform transition-transform duration-500 hover:scale-105">
+                <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-4 sm:p-6 border border-gray-700 text-center h-full flex flex-col items-center justify-center transform transition-transform duration-500 hover:scale-105">
                   <div
-                    className={`relative w-28 h-28 md:w-40 md:h-40 mx-auto mb-6 ${
+                    className={`relative w-40 h-40 sm:w-36 sm:h-36 md:w-40 md:h-40 mx-auto mb-4 ${
                       [0, 2].includes(index) ? "bg-white" : ""
-                    } rounded-full overflow-hidden`}
+                    } rounded-full overflow-hidden flex items-center justify-center`}
                   >
-                    <Image
-                      src={certificate.image || "/placeholder.svg"}
-                      alt={certificate.name}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      className="object-contain p-2 rounded-full transition-transform duration-700"
-                      priority={index < 2} // Prioritize loading the first couple of images
-                    />
+                    <div className="relative w-full h-full">
+                      <Image
+                        src={certificate.image || "/placeholder.svg"}
+                        alt={certificate.name}
+                        fill
+                        sizes="(max-width: 640px) 160px, (max-width: 768px) 144px, 160px"
+                        className="object-contain p-3 rounded-full transition-transform duration-700"
+                        priority={index < 3} // Prioritize loading the first few images
+                        onError={(e) => {
+                          // Fallback for image loading errors
+                          e.target.src = "/placeholder.svg";
+                        }}
+                      />
+                    </div>
                   </div>
-                  <h3 className="text-sm font-bold text-white mb-2">
+                  <h3 className="text-sm sm:text-base font-bold text-white mb-2 line-clamp-2 px-1">
                     {certificate.name}
                   </h3>
-                  <p className="text-gray-400 text-xs">
+                  <p className="text-gray-400 text-xs sm:text-sm line-clamp-3 px-1">
                     {certificate.description}
                   </p>
                 </div>
