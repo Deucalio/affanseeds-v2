@@ -348,20 +348,20 @@ export default function HomePage() {
   // Certificates
   const certificates = [
     {
-      name: "ISO 9001:2015",
-      description: "Quality Management System",
+      name: "Federal Seeds Certification and Registration Department",
+      description: "Federal Seeds Certification and Registration Department",
       image: "/cert/c1-removebg-preview.png",
       // image: "https://logowik.com/content/uploads/images/491_pakistan.jpg"
     },
     {
-      name: "Organic Certification",
-      description: "Certified Organic Producer",
-      image: "cert/kcci.webp",
+      name: "Karachi Chamber of Commerce",
+      description: "Karachi Chamber of Commerce",
+      image: "/cert/kcci.webp",
     },
     {
-      name: "Non-GMO Project",
-      description: "Verified Non-GMO Products",
-      image: "",
+      name: "FBR",
+      description: "asdasd",
+      image: "/cert/fbr-logo.png",
     },
     {
       name: "Fair Trade Certified",
@@ -742,7 +742,7 @@ export default function HomePage() {
                   className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-700 text-center"
                 >
                   <div
-                    className={`relative w-40 h-40 mx-auto mb-6 ${index === 0 && "bg-white"}  rounded-full`}
+                    className={`relative w-40 h-40 mx-auto mb-6 ${index === 0 || index === 2 && "bg-white"}  rounded-full`}
                   >
                     <Image
                       src={certificate.image || "/placeholder.svg"}
@@ -751,7 +751,7 @@ export default function HomePage() {
                       className={`  object-cover rounded-full transition-transform duration-700`}
                     />
                   </div>
-                  {/* <h3 className="text-xl font-bold text-white mb-2">{certificate.name}</h3> */}
+                  <h3 className="text-sm  text-gray-300 mb-2">{certificate.name}</h3>
                   {/* <p className="text-gray-400 text-sm">{certificate.description}</p> */}
                 </motion.div>
               ))}
