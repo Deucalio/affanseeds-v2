@@ -165,31 +165,7 @@ export default function AboutPage() {
       </section>
 
       {/* Certifications Section */}
-      <section className="py-16 md:py-24 bg-gray-950">
-        <div className="container mx-auto px-4">
-          <div className="max-w-5xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="font-serif text-3xl font-bold text-white mb-6 opacity-0 reveal">Our Certifications</h2>
-              <div className="w-16 h-1 bg-emerald-500 mx-auto mb-8 opacity-0 reveal rounded-full"></div>
-              <p className="text-lg text-gray-300 max-w-3xl mx-auto opacity-0 reveal">
-                We maintain the highest standards in the industry, backed by internationally recognized certifications.
-              </p>
-            </div>
-
-            <div className="flex flex-wrap justify-center gap-8">
-              {[1, 2, 3].map((cert, index) => (
-                <div key={cert} className="text-center opacity-0 reveal" style={{ animationDelay: `${index * 150}ms` }}>
-                  <div className="p-4 bg-gray-800 rounded-full shadow-md mb-4 mx-auto w-20 h-20 flex items-center justify-center animate-float">
-                    <Award className="h-10 w-10 text-emerald-400" />
-                  </div>
-                  <h3 className="font-serif text-lg font-bold text-white mb-1">Certification {cert}</h3>
-                  <p className="text-sm text-gray-400">Quality Assured</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+     
 
       {/* Team Section */}
 
