@@ -185,9 +185,7 @@ export default function AboutPage() {
               Explore our range of premium agricultural seeds or contact us to learn more about our products.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4 opacity-0 reveal">
-              <Button className="bg-white hover:bg-gray-100 text-green-800 rounded-full px-8 py-6 text-lg shadow-lg shadow-green-900/30 border-0">
-                Explore Products
-              </Button>
+            
               <Link href="/contact">
                 <Button
                   variant="outline"
