@@ -621,10 +621,10 @@ export default function ForageCategoryPage() {
         {/* Background with gradient overlay */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/products/forage/banner.avif"
+            src="/products/forage/Forage Banner Inside.svg"
             alt="Forage field"
             fill
-            className="object-cover opacity-40"
+            className="object-cover opacity-100"
             priority
           />
           <div className="absolute inset-0 bg-gradient-to-b from-gray-950/80 via-gray-900/50 to-gray-950"></div>
