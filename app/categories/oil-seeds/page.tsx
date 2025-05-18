@@ -166,7 +166,7 @@ export default function OilSeedsPage() {
   const oilSeedsProducts: Product[] = [
     {
       id: 1,
-      name: "Premium Sunflower Seeds",
+      name: "Sunflower Seeds",
       scientificName: "Helianthus annuus",
       description:
         "Sunflower is widely cultivated in Pakistan and plays a significant role in meeting the country's edible oil demands. Our company offers high-quality Sunflower Seeds suitable for multiple uses, including sowing, oil extraction, and bird feed.",
