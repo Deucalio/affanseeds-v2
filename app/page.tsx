@@ -542,7 +542,7 @@ export default function HomePage() {
                   <img
                     src={src}
                     alt={`Slide ${index + 1}`}
-                    className="object-cover w-full h-full opacity-60"
+                    className="object-cover w-full h-full opacity-80"
                     loading={index === 0 ? "eager" : "lazy"}
                   />
                 </div>
