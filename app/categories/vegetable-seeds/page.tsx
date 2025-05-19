@@ -100,6 +100,19 @@ export default function VegetableSeedsPage() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
 
+
+  const [activeSection, setActiveSection] = useState(0);
+    const [activeSlide, setActiveSlide] = useState(0);
+  
+    // Auto-advance slides
+    useEffect(() => {
+      const slideInterval = setInterval(() => {
+        setActiveSlide((prev) => (prev === 2 ? 0 : prev + 1));
+      }, 8000);
+  
+      return () => clearInterval(slideInterval);
+    }, []);
+  
   // Handle scroll events
   useEffect(() => {
     const handleScroll = () => {
@@ -425,22 +438,45 @@ Nasarpuri is a trusted variety known for its well-shaped, large-sized bulbs that
 
       {/* Hero Section */}
       <section
-        ref={heroRef}
-        className="relative py-16 md:py-24 overflow-hidden"
-      >
-        {/* Background with gradient overlay */}
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/slideshow/VEGETABLES SEEDS.png"
-            alt="Vegetable garden"
-            fill
-            className="object-cover opacity-100"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-gray-950/80 via-gray-900/50 to-gray-950 opacity-90"></div>
-        </div>
-
-        <div className="container mx-auto px-4 relative z-10">
+          id="home"
+          className="relative flex flex-col pt-16 md:min-h-screen md:flex-row"
+        >
+          {/* Slideshow */}
+          <div
+            id="slideshow"
+            className="relative w-full h-[24vh] mt-16 md:mt-0 md:h-auto md:absolute md:inset-0 z-0"
+          >
+            {[
+              "/bannerimages/vegetables1.jpg",
+              "/bannerimages/vegetables2.jpg",
+              "/bannerimages/vegetables3.jpg",
+            ].map((src, index) => (
+              <div
+                key={index}
+                className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+                  index === activeSlide ? "opacity-100 z-10" : "opacity-0 z-0"
+                }`}
+              >
+                <div className="relative w-full h-full">
+                  {/* <Image
+                    src={src || "/placeholder.svg"}
+                    alt={`Slide ${index + 1}`}
+                    fill
+                    className="object-cover opacity-60"
+                    priority={index === 0}
+                    sizes="(max-width: 768px) 320px, 100vw"
+                  /> */}
+                  <img
+                    src={src}
+                    alt={`Slide ${index + 1}`}
+                    className="object-cover w-full h-full opacity-80"
+                    loading={index === 0 ? "eager" : "lazy"}
+                  />
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-b from-dark-900/90 via-dark-900/70 to-dark-900"></div>
+              </div>
+            ))}
+             <div className="container mx-auto px-4 relative z-10 hidden">
           <motion.div
             className="max-w-4xl mx-auto"
             initial="hidden"
@@ -522,7 +558,26 @@ Nasarpuri is a trusted variety known for its well-shaped, large-sized bulbs that
             </motion.div>
           </motion.div>
         </div>
-      </section>
+
+
+            {/* Slideshow Controls */}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex space-x-3">
+              {[0, 1, 2].map((index) => (
+                <button
+                  key={index}
+                  onClick={() => setActiveSlide(index)}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    index === activeSlide
+                      ? "bg-green-400 scale-125"
+                      : "bg-white/50 hover:bg-white/80"
+                  }`}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+
 
       {/* Products Section */}
       <section ref={productsRef} className="py-16 md:py-24 relative">
