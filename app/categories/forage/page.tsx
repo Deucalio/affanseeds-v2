@@ -101,6 +101,10 @@ const ForageHeroSection = ({ productsRef }: { productsRef: React.RefObject<HTMLE
   const heroRef = useRef(null);
   const [currentSlide, setCurrentSlide] = useState(0);
 
+
+
+
+  
   // Array of slider images
   const sliderImages = [
     "/bannerimages/forage1.svg",
