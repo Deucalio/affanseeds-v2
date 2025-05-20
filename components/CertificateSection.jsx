@@ -153,7 +153,7 @@ const CertificatesSection = ({certificates}) => {
           <SectionHeading
             title="Certifications and "
             highlight="Affiliations"
-            description="We are proud to be certified by leading organizations in the agricultural industry."
+            description=""
           />
         </motion.div>
 

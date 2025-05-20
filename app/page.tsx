@@ -397,33 +397,33 @@ export default function HomePage() {
   const testimonials = [
     {
       id: 1,
-      name: "Sarah Johnson",
+      name: "Ayesha Tariq",
       role: "Urban Gardener",
       // image: "/placeholder.svg?height=100&width=100",
       image: "/customer-1.avif",
 
       content:
-        "The rare herb seeds I purchased have transformed my urban garden into a fragrant paradise. The germination rate was impressive, and the flavors are unlike anything from the store.",
+        "Affan Agro's mustard seeds gave us a strong, uniform crop. The yield was impressive, even in tough weather conditions.",
       rating: 5,
     },
     {
       id: 2,
-      name: "Michael Chen",
-      role: "Chef & Grower",
+      name: "Hassan Ali",
+      role: "Market Vendor",
       // image: "/placeholder.svg?height=100&width=100",
       image: "/customer-2.avif",
       content:
-        "As a chef, I'm always looking for unique ingredients. The exotic vegetable seeds have allowed me to grow specialty produce that impresses my restaurant guests and can't be found elsewhere.",
+        "Their alfalfa seeds grew fast and full. My cattle are healthier, and feed costs have gone down noticeably. Highly recommend!",
       rating: 5,
     },
     {
       id: 3,
-      name: "Elena Rodriguez",
-      role: "Botanical Enthusiast",
+      name: "Tariq Ahmed",
+      role: "Market Vendor",
       // image: "/placeholder.svg?height=100&width=100",
       image: "/customer-3.avif",
       content:
-        "The collection of rare flower seeds exceeded my expectations. Not only was shipping fast, but the detailed growing instructions helped me successfully cultivate varieties I'd never grown before.",
+        "The herb varieties are vibrant and aromatic. My customers love the fresh flavors, and sales have gone up. The seeds germinated quickly and produced healthy plants.",
       rating: 4,
     },
   ];
@@ -921,55 +921,56 @@ export default function HomePage() {
 
           <div className="max-w-4xl mx-auto relative">
             {/* Testimonial Slider */}
-            <div className="relative bg-gray-800/30 backdrop-blur-md rounded-2xl p-8 md:p-12 border border-emerald-700/30 shadow-xl shadow-emerald-900/20">
-              <div className="absolute -top-6 -left-6 text-emerald-400 opacity-60 text-8xl font-serif">"</div>
+            <div className="relative rounded-2xl overflow-hidden shadow-xl shadow-emerald-900/20">
+              {/* Background Image */}
+              <div className="absolute inset-0 z-0">
+                <Image
+                  src="/testimonials/testimonial-bg.png"
+                  alt="Nature background"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 1024px"
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-emerald-900/90 to-gray-900/90 backdrop-blur-sm"></div>
+              </div>
 
-              <motion.div
-                key={currentTestimonial}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.5 }}
-                className="relative z-10"
-              >
-                <div className="flex flex-col md:flex-row items-center gap-8 mb-8">
-                  {/* Customer Image */}
-                  <div className="relative w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-emerald-600/30 shadow-lg flex-shrink-0">
-                    <Image
-                      src={testimonials[currentTestimonial].image || "/placeholder.svg"}
-                      alt={testimonials[currentTestimonial].name}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
+              <div className="relative z-10 p-8 md:p-12">
+                <div className="absolute -top-6 -left-6 text-emerald-400 opacity-60 text-8xl font-serif">"</div>
 
-                  {/* Testimonial Content */}
-                  <div className="text-center md:text-left">
-                    <p className="text-xl md:text-2xl text-gray-200 italic leading-relaxed">
+                <motion.div
+                  key={currentTestimonial}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.5 }}
+                  className="relative z-10"
+                >
+                  <div className="mb-8 text-center">
+                    <p className="text-xl md:text-2xl text-white italic leading-relaxed">
                       {testimonials[currentTestimonial].content}
                     </p>
                   </div>
-                </div>
 
-                <div className="flex flex-col items-center">
-                  <div className="flex items-center mb-2">
-                    {[...Array(5)].map((_, i) => (
-                      <Star
-                        key={i}
-                        className={`h-6 w-6 ${
-                          i < testimonials[currentTestimonial].rating
-                            ? "text-amber-400 fill-amber-400"
-                            : "text-gray-600"
-                        }`}
-                      />
-                    ))}
+                  <div className="flex flex-col items-center">
+                    <div className="flex items-center mb-2">
+                      {[...Array(5)].map((_, i) => (
+                        <Star
+                          key={i}
+                          className={`h-6 w-6 ${
+                            i < testimonials[currentTestimonial].rating
+                              ? "text-amber-400 fill-amber-400"
+                              : "text-gray-600"
+                          }`}
+                        />
+                      ))}
+                    </div>
+                    <h3 className="text-xl font-bold text-white">{testimonials[currentTestimonial].name}</h3>
+                    <p className="text-emerald-400">{testimonials[currentTestimonial].role}</p>
                   </div>
-                  <h3 className="text-xl font-bold text-white">{testimonials[currentTestimonial].name}</h3>
-                  <p className="text-emerald-400">{testimonials[currentTestimonial].role}</p>
-                </div>
-              </motion.div>
+                </motion.div>
 
-              <div className="absolute -bottom-6 -right-6 text-emerald-400 opacity-60 text-8xl font-serif">"</div>
+                <div className="absolute -bottom-6 -right-6 text-emerald-400 opacity-60 text-8xl font-serif">"</div>
+              </div>
             </div>
 
             {/* Navigation Dots */}
