@@ -173,13 +173,13 @@ const OilSeedsHeroSection = ({ productsRef }: { productsRef: React.RefObject<HTM
           animate="visible"
           variants={staggerContainer}
         >
-          <motion.div
+          {/* <motion.div
             variants={fadeInUp}
             className="inline-flex items-center px-4 py-2 rounded-full bg-amber-900/30 border border-amber-700/50 text-amber-300 text-sm font-medium mb-6 backdrop-blur-sm"
           >
             <Sun className="h-4 w-4 mr-2" />
             <span>Oil Seeds</span>
-          </motion.div>
+          </motion.div> */}
 
           <motion.h1
             variants={fadeInUp}

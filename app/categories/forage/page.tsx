@@ -188,13 +188,13 @@ const ForageHeroSection = ({ productsRef }: { productsRef: React.RefObject<HTMLE
           animate="visible"
           variants={staggerContainer}
         >
-          <motion.div
+          {/* <motion.div
             variants={fadeInUp}
             className="inline-flex items-center px-4 py-2 rounded-full bg-emerald-900/30 border border-emerald-700/50 text-emerald-300 text-sm font-medium mb-6 backdrop-blur-sm"
           >
             <Leaf className="h-4 w-4 mr-2" />
             <span>Forage Field Crop Seeds</span>
-          </motion.div>
+          </motion.div> */}
 
           <motion.h1
             variants={fadeInUp}

@@ -626,13 +626,13 @@ Nasarpuri is a trusted variety known for its well-shaped, large-sized bulbs that
 
         <div className="container mx-auto px-4 relative z-10">
           <motion.div className="max-w-4xl mx-auto" initial="hidden" animate="visible" variants={staggerContainer}>
-            <motion.div
+            {/* <motion.div
               variants={fadeInUp}
               className="inline-flex items-center px-4 py-2 rounded-full bg-emerald-900/30 border border-emerald-700/50 text-emerald-300 text-sm font-medium mb-6 backdrop-blur-sm"
             >
               <Leaf className="h-4 w-4 mr-2" />
               <span>Vegetable Seeds</span>
-            </motion.div>
+            </motion.div> */}
 
             <motion.h1
               variants={fadeInUp}
