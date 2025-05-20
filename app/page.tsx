@@ -714,7 +714,8 @@ export default function HomePage() {
                         </div> */}
 
                         <div>
-                          <h3 className="text-4xl text-center items-center flex justify-center font-bold text-slate-100 mb-2 mt-40">
+                          <h3 className={`text-4xl  items-center flex justify-center font-bold text-slate-100 mb-2
+                          absolute top-1/2 left-1/2 -translate-x-1/2 transition-transform duration-300  -translate-y-1/2 w-full text-center`}>
                             {category.name}
                           </h3>
                           {/* <p className="text-white/80 mb-4 line-clamp-2">
