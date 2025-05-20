@@ -657,7 +657,7 @@ Nasarpuri is a trusted variety known for its well-shaped, large-sized bulbs that
               variants={fadeInUp}
               className="text-4xl md:text-6xl font-bold mb-6 leading-tight bg-clip-text text-transparent bg-gradient-to-r from-emerald-300 via-green-200 to-emerald-300"
             >
-              Premium Vegetable Seeds for Your Garden
+              Premium Vegetable Seeds
             </motion.h1>
 
             <motion.p

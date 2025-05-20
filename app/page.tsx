@@ -423,7 +423,7 @@ export default function HomePage() {
       // image: "/placeholder.svg?height=100&width=100",
       image: "/customer-3.avif",
       content:
-        "The herb varieties are vibrant and aromatic. My customers love the fresh flavors, and sales have gone up. The seeds germinated quickly and produced healthy plants.",
+        "I'm thoroughly impressed with the quality of these seeds. They had an excellent germination rate—nearly every seed sprouted quickly and grew into strong, healthy plants.",
       rating: 4,
     },
   ];
@@ -617,20 +617,7 @@ export default function HomePage() {
                   </p>
                 </div>
 
-                <div className="grid grid-cols-2 gap-6 mt-8">
-                  <div className="bg-gray-800/50 rounded-xl p-4 text-center">
-                    <h4 className="text-3xl font-bold text-emerald-400 mb-2">
-                      10+
-                    </h4>
-                    <p className="text-gray-300">Years of Experience</p>
-                  </div>
-                  <div className="bg-gray-800/50 rounded-xl p-4 text-center">
-                    <h4 className="text-3xl font-bold text-emerald-400 mb-2">
-                      1000+
-                    </h4>
-                    <p className="text-gray-300">Satisfied Farmers</p>
-                  </div>
-                </div>
+                
               </motion.div>
 
               <motion.div variants={scaleIn} className="relative">
