@@ -300,7 +300,8 @@ export default function HomePage() {
       name: "Forage Field Crop Seeds",
       description: "High-quality seeds for pasture, hay, and silage production",
       icon: <Leaf className="h-6 w-6" />,
-      image: "/bannerimages/forage-home-category.jpg",
+      // image: "/bannerimages/forage-home-category.jpg",
+      image: "https://i.ibb.co/kgXTX4Xt/forage-home-category.jpg",
       color: "from-emerald-500 to-green-700",
       count: 6,
     },
@@ -691,11 +692,13 @@ export default function HomePage() {
                   <Link href={`/categories/${category.id}`} className="block">
                     <div className="relative rounded-2xl overflow-hidden aspect-square">
                       {/* Background Image */}
-                      <Image
+                      <img
                         src={category.image || "/placeholder.svg"}
                         alt={category.name}
-                        fill
-                        className="object-cover transition-transform duration-700 group-hover:scale-110"
+                        // fill
+                        // className="object-cover transition-transform duration-700 group-hover:scale-110"
+
+                        className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110"
                       />
 
                       {/* Gradient Overlay */}
