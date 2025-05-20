@@ -154,7 +154,7 @@ export default function Header() {
                     onClick={() => setShowTooltip(false)}
                   >
                     <div className="flex items-start">
-                      <div className={`p-2 rounded-lg bg-gradient-to-br ${category.color} mr-3`}>{category.icon}</div>
+                      {/* <div className={`p-2 rounded-lg bg-gradient-to-br ${category.color} mr-3`}>{category.icon}</div> */}
                       <div>
                         <div className="font-medium text-white group-hover:text-emerald-400 transition-colors">
                           {category.name}
@@ -233,7 +233,7 @@ export default function Header() {
                       href={category.href}
                       className="flex items-center p-4 bg-gray-900 rounded-lg hover:bg-gray-800 transition-colors"
                     >
-                      <div className={`p-2 rounded-lg bg-gradient-to-br ${category.color} mr-4`}>{category.icon}</div>
+                      {/* <div className={`p-2 rounded-lg bg-gradient-to-br ${category.color} mr-4`}>{category.icon}</div> */}
                       <div className="text-left">
                         <div className="font-medium text-white">{category.name}</div>
                         <p className="text-sm text-gray-400 mt-1">{category.description}</p>

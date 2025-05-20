@@ -109,7 +109,7 @@ const ForageHeroSection = ({ productsRef }: { productsRef: React.RefObject<HTMLE
   const sliderImages = [
     "/bannerimages/forage1.svg",
     "/bannerimages/forage2.svg", // Replace with your actual image paths
-    "/bannerimages/forage3.png", // Replace with your actual image paths
+    "/bannerimages/forage3.jpg", // Replace with your actual image paths
   ];
 
   // Auto slide effect
