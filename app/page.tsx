@@ -713,14 +713,14 @@ export default function HomePage() {
                           {category.icon}
                         </div> */}
 
-                        <div>
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 transition-transform duration-300  -translate-y-1/2 w-full text-center flex flex-col items-center">
                           <h3 className={`text-4xl  items-center flex justify-center font-bold text-slate-100 mb-2
-                          absolute top-1/2 left-1/2 -translate-x-1/2 transition-transform duration-300  -translate-y-1/2 w-full text-center`}>
+                          `}>
                             {category.name}
                           </h3>
-                          {/* <p className="text-white/80 mb-4 line-clamp-2">
+                          <p className="text-white/80 mb-4 line-clamp-2">
                             {category.description}
-                          </p> */}
+                          </p>
                           <div className="flex items-center justify-between">
                             {/* <Badge className="bg-black/30 text-white hover:bg-black/40">
                               {category.count} varieties
