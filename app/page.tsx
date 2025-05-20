@@ -701,7 +701,7 @@ export default function HomePage() {
                       {/* Gradient Overlay */}
                       <div
                         // className={`absolute inset-0 bg-gradient-to-b ${category.color} opacity-70 group-hover:opacity-80 transition-opacity duration-300`}
-                        className="absolute inset-0 bg-gradient-to-b from-gray-950/80 via-gray-900/50 to-gray-950 opacity-70"
+                        className="absolute inset-0 bg-gradient-to-b from-gray-950/80 via-gray-900/50 to-gray-950 opacity-80 group-hover:opacity-90 transition-opacity duration-300"
                       ></div>
 
                       {/* Content */}
@@ -711,12 +711,12 @@ export default function HomePage() {
                         </div> */}
 
                         <div>
-                          <h3 className="text-3xl font-bold text-white mb-2">
+                          <h3 className="text-4xl text-center items-center flex justify-center font-bold text-slate-100 mb-2 mt-40">
                             {category.name}
                           </h3>
-                          <p className="text-white/80 mb-4 line-clamp-2">
+                          {/* <p className="text-white/80 mb-4 line-clamp-2">
                             {category.description}
-                          </p>
+                          </p> */}
                           <div className="flex items-center justify-between">
                             {/* <Badge className="bg-black/30 text-white hover:bg-black/40">
                               {category.count} varieties
