@@ -1,11 +1,18 @@
-"use client"
+"use client";
 
-import { useEffect } from "react"
-import Image from "next/image"
-import Link from "next/link"
-import { ArrowRight, CheckCircle2, Award, Users, Leaf, Globe } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import Breadcrumb from "@/components/breadcrumb"
+import { useEffect } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import {
+  ArrowRight,
+  CheckCircle2,
+  Award,
+  Users,
+  Leaf,
+  Globe,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import Breadcrumb from "@/components/breadcrumb";
 
 export default function AboutPage() {
   // Scroll animation observer
@@ -14,52 +21,56 @@ export default function AboutPage() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add("animate-fade-in")
-            entry.target.classList.add("opacity-100")
+            entry.target.classList.add("animate-fade-in");
+            entry.target.classList.add("opacity-100");
           }
-        })
+        });
       },
       {
         threshold: 0.1,
         rootMargin: "0px 0px -100px 0px",
-      },
-    )
+      }
+    );
 
-    const elements = document.querySelectorAll(".reveal")
+    const elements = document.querySelectorAll(".reveal");
     elements.forEach((el) => {
-      observer.observe(el)
-    })
+      observer.observe(el);
+    });
 
     return () => {
       elements.forEach((el) => {
-        observer.unobserve(el)
-      })
-    }
-  }, [])
+        observer.unobserve(el);
+      });
+    };
+  }, []);
 
   // Core values
   const coreValues = [
     {
       icon: <Leaf className="h-6 w-6 text-emerald-400" />,
       title: "Sustainability",
-      description: "We're committed to sustainable farming practices that protect our environment.",
+      description:
+        "We're committed to sustainable farming practices that protect our environment.",
     },
     {
       icon: <CheckCircle2 className="h-6 w-6 text-emerald-400" />,
       title: "Quality",
-      description: "We never compromise on the quality of our seeds and agricultural products.",
+      description:
+        "We never compromise on the quality of our seeds and agricultural products.",
     },
     {
       icon: <Users className="h-6 w-6 text-emerald-400" />,
       title: "Community",
-      description: "Supporting local farmers and agricultural communities is at the heart of what we do.",
+      description:
+        "Supporting local farmers and agricultural communities is at the heart of what we do.",
     },
     {
       icon: <Globe className="h-6 w-6 text-emerald-400" />,
       title: "Innovation",
-      description: "We continuously research and develop better agricultural solutions.",
+      description:
+        "We continuously research and develop better agricultural solutions.",
     },
-  ]
+  ];
 
   return (
     <main className="pt-16 bg-gray-950 text-gray-200">
@@ -74,17 +85,24 @@ export default function AboutPage() {
 
         <div className="container mx-auto px-4 relative">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="font-serif text-4xl md:text-5xl font-bold text-white mb-6 opacity-0 reveal">About Us</h1>
+            <h1 className="font-serif text-4xl md:text-5xl font-bold text-white mb-6 opacity-0 reveal">
+              About Us
+            </h1>
             <div className="w-16 h-1 bg-emerald-400 mx-auto mb-8 opacity-0 reveal rounded-full"></div>
             <p className="text-lg md:text-xl text-emerald-100 mb-8 opacity-0 reveal">
-              Dedicated to providing high-quality agricultural seeds and solutions to farmers across Pakistan.
+              Dedicated to providing high-quality agricultural seeds and
+              solutions to farmers across Pakistan.
             </p>
           </div>
         </div>
 
         {/* Curved bottom */}
         <div className="absolute bottom-0 left-0 right-0">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" className="w-full h-auto fill-gray-950">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 1440 120"
+            className="w-full h-auto fill-gray-950"
+          >
             <path d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"></path>
           </svg>
         </div>
@@ -96,25 +114,54 @@ export default function AboutPage() {
           <div className="max-w-5xl mx-auto">
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div>
-                <h2 className="font-serif text-3xl font-bold text-white mb-6 opacity-0 reveal">Our Story</h2>
+                <h2 className="font-serif text-3xl font-bold text-white mb-6 opacity-0 reveal">
+                  Our Story
+                </h2>
                 <div className="w-16 h-1 bg-emerald-500 mb-8 opacity-0 reveal rounded-full"></div>
                 <div className="prose prose-lg text-gray-300">
-                  <p className="opacity-0 reveal" style={{ animationDelay: "100ms" }}>
-                    Founded in 2005, Affan Agro Seeds began with a simple mission: to provide Pakistani farmers with the
-                    highest quality seeds for better yields and sustainable farming.
+                  <p
+                    className="opacity-0 reveal"
+                    style={{ animationDelay: "100ms" }}
+                  >
+                    Founded in 2019, Affan Agro Seeds is a trusted name in the
+                    agricultural industry, dedicated to empowering farmers with
+                    high-quality seeds and sustainable farming solutions. From
+                    humble beginnings, we have grown into a leading supplier of
+                    premium seeds across oil seeds, forage seeds, vegetable
+                    seeds, spices, and herbs, serving farmers, growers, and
+                    agri-businesses throughout the region.
                   </p>
-                  <p className="opacity-0 reveal" style={{ animationDelay: "200ms" }}>
-                    What started as a small family business has grown into a trusted name in agricultural solutions,
-                    serving thousands of farmers across the country. Our commitment to quality and innovation has never
-                    wavered.
+                  <p
+                    className="opacity-0 reveal my-3"
+                    style={{ animationDelay: "200ms" }}
+                  >
+                    At Affan Agro Seeds, our vision is to support modern
+                    agriculture with reliable seed varieties that deliver high
+                    yield, disease resistance, and adaptability to different
+                    climates. We take pride in our research-driven approach and
+                    carefully selected seed lines that meet the evolving needs
+                    of today's agriculture.
                   </p>
-                  <p className="opacity-0 reveal" style={{ animationDelay: "300ms" }}>
-                    Today, we continue to research, develop, and distribute premium seeds that are adapted to local
-                    growing conditions and resistant to common diseases and pests.
+                  <p
+                    className="opacity-0 reveal my-2"
+                    style={{ animationDelay: "300ms" }}
+                  >
+                    Whether it's high-yielding mustard, protein-rich alfalfa,
+                    hybrid vegetables, or aromatic herbs and spices, our diverse
+                    product range is developed to ensure quality harvests and
+                    consistent results. We work closely with farmers, listening
+                    to their needs, offering guidance, and providing dependable
+                    seed solutions that lead to real success in the field.Driven
+                    by innovation, integrity, and a passion for growth, Affan
+                    Agro Seeds continues to contribute to the progress of
+                    agriculture—one seed at a time
                   </p>
                 </div>
               </div>
-              <div className="relative opacity-0 reveal" style={{ animationDelay: "200ms" }}>
+              <div
+                className="relative opacity-0 reveal"
+                style={{ animationDelay: "200ms" }}
+              >
                 <div className="absolute -inset-4 rounded-2xl bg-emerald-500/10 opacity-20 blur-lg"></div>
                 <div className="relative rounded-2xl overflow-hidden">
                   <Image
@@ -136,10 +183,13 @@ export default function AboutPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="font-serif text-3xl font-bold text-white mb-6 opacity-0 reveal">Our Core Values</h2>
+              <h2 className="font-serif text-3xl font-bold text-white mb-6 opacity-0 reveal">
+                Our Core Values
+              </h2>
               <div className="w-16 h-1 bg-emerald-500 mx-auto mb-8 opacity-0 reveal rounded-full"></div>
               <p className="text-lg text-gray-300 max-w-3xl mx-auto opacity-0 reveal">
-                These principles guide everything we do, from seed development to customer service.
+                These principles guide everything we do, from seed development
+                to customer service.
               </p>
             </div>
 
@@ -151,9 +201,13 @@ export default function AboutPage() {
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   <div className="flex items-start">
-                    <div className="p-3 bg-gray-700 rounded-full mr-4">{value.icon}</div>
+                    <div className="p-3 bg-gray-700 rounded-full mr-4">
+                      {value.icon}
+                    </div>
                     <div>
-                      <h3 className="font-serif text-xl font-bold text-white mb-2">{value.title}</h3>
+                      <h3 className="font-serif text-xl font-bold text-white mb-2">
+                        {value.title}
+                      </h3>
                       <p className="text-gray-300">{value.description}</p>
                     </div>
                   </div>
@@ -165,10 +219,8 @@ export default function AboutPage() {
       </section>
 
       {/* Certifications Section */}
-     
 
       {/* Team Section */}
-
 
       {/* CTA Section */}
       <section className="py-16 md:py-24 bg-green-900 relative overflow-hidden">
@@ -182,10 +234,10 @@ export default function AboutPage() {
               Ready to Get Started?
             </h2>
             <p className="text-lg text-green-100 mb-8 opacity-0 reveal">
-              Explore our range of premium agricultural seeds or contact us to learn more about our products.
+              Explore our range of premium agricultural seeds or contact us to
+              learn more about our products.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4 opacity-0 reveal">
-            
               <Link href="/contact">
                 <Button
                   variant="outline"
@@ -200,5 +252,5 @@ export default function AboutPage() {
         </div>
       </section>
     </main>
-  )
+  );
 }

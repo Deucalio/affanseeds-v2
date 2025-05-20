@@ -399,7 +399,9 @@ export default function HomePage() {
       id: 1,
       name: "Sarah Johnson",
       role: "Urban Gardener",
-      image: "/placeholder.svg?height=100&width=100",
+      // image: "/placeholder.svg?height=100&width=100",
+      image: "/customer-1.avif",
+
       content:
         "The rare herb seeds I purchased have transformed my urban garden into a fragrant paradise. The germination rate was impressive, and the flavors are unlike anything from the store.",
       rating: 5,
@@ -408,7 +410,8 @@ export default function HomePage() {
       id: 2,
       name: "Michael Chen",
       role: "Chef & Grower",
-      image: "/placeholder.svg?height=100&width=100",
+      // image: "/placeholder.svg?height=100&width=100",
+      image: "/customer-2.avif",
       content:
         "As a chef, I'm always looking for unique ingredients. The exotic vegetable seeds have allowed me to grow specialty produce that impresses my restaurant guests and can't be found elsewhere.",
       rating: 5,
@@ -417,7 +420,8 @@ export default function HomePage() {
       id: 3,
       name: "Elena Rodriguez",
       role: "Botanical Enthusiast",
-      image: "/placeholder.svg?height=100&width=100",
+      // image: "/placeholder.svg?height=100&width=100",
+      image: "/customer-3.avif",
       content:
         "The collection of rare flower seeds exceeded my expectations. Not only was shipping fast, but the detailed growing instructions helped me successfully cultivate varieties I'd never grown before.",
       rating: 4,
@@ -866,7 +870,7 @@ export default function HomePage() {
                   </div>
                   <div>
                     <h3 className="text-xl font-bold text-white mb-2">Phone</h3>
-                    <p className="text-gray-300">0223411135</p>
+                    <p className="text-gray-300">+92223411135</p>
                   </div>
                 </div>
 
@@ -905,106 +909,103 @@ export default function HomePage() {
         </section>
 
         {/* Testimonials Section */}
-        <section
-          ref={testimonialsRef}
-          className="py-24 relative overflow-hidden"
-        >
-          <div className="absolute inset-0  bg-black"></div>
+        <section ref={testimonialsRef} className="py-24 relative overflow-hidden">
+        <div className="absolute inset-0 bg-black/60"></div>
 
-          {/* Decorative elements */}
-          <div className="absolute top-0 left-0 w-full h-1/3 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-emerald-700/20 via-transparent to-transparent"></div>
-          <div className="absolute bottom-0 right-0 w-full h-1/3 bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-emerald-700/20 via-transparent to-transparent"></div>
+        {/* Decorative elements */}
+        <div className="absolute top-0 left-0 w-full h-1/3 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-emerald-700/20 via-transparent to-transparent"></div>
+        <div className="absolute bottom-0 right-0 w-full h-1/3 bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-emerald-700/20 via-transparent to-transparent"></div>
 
-          <div className="container mx-auto px-4 relative">
-            <SectionHeading
-              title="What Our"
-              highlight="Customers Say"
-              description="Read what gardeners and plant enthusiasts have to say about their experience with our seeds."
-            />
+        <div className="container mx-auto px-4 relative">
+          <SectionHeading title="What Our" highlight="Customers Say" />
 
-            <div className="max-w-4xl mx-auto relative">
-              {/* Testimonial Slider */}
-              <div className="relative bg-gray-800/70 backdrop-blur-md rounded-2xl p-8 md:p-12 border border-emerald-700/30 shadow-xl shadow-emerald-900/20">
-                <div className="absolute -top-6 -left-6 text-emerald-400 opacity-60 text-8xl font-serif">
-                  "
-                </div>
+          <div className="max-w-4xl mx-auto relative">
+            {/* Testimonial Slider */}
+            <div className="relative bg-gray-800/30 backdrop-blur-md rounded-2xl p-8 md:p-12 border border-emerald-700/30 shadow-xl shadow-emerald-900/20">
+              <div className="absolute -top-6 -left-6 text-emerald-400 opacity-60 text-8xl font-serif">"</div>
 
-                <motion.div
-                  key={currentTestimonial}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.5 }}
-                  className="relative z-10"
-                >
-                  <div className="mb-8 text-center">
+              <motion.div
+                key={currentTestimonial}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5 }}
+                className="relative z-10"
+              >
+                <div className="flex flex-col md:flex-row items-center gap-8 mb-8">
+                  {/* Customer Image */}
+                  <div className="relative w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-emerald-600/30 shadow-lg flex-shrink-0">
+                    <Image
+                      src={testimonials[currentTestimonial].image || "/placeholder.svg"}
+                      alt={testimonials[currentTestimonial].name}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+
+                  {/* Testimonial Content */}
+                  <div className="text-center md:text-left">
                     <p className="text-xl md:text-2xl text-gray-200 italic leading-relaxed">
                       {testimonials[currentTestimonial].content}
                     </p>
                   </div>
-
-                  <div className="flex flex-col items-center">
-                    <div className="flex items-center mb-2">
-                      {[...Array(5)].map((_, i) => (
-                        <Star
-                          key={i}
-                          className={`h-6 w-6 ${
-                            i < testimonials[currentTestimonial].rating
-                              ? "text-amber-400 fill-amber-400"
-                              : "text-gray-600"
-                          }`}
-                        />
-                      ))}
-                    </div>
-                    <h3 className="text-xl font-bold text-white">
-                      {testimonials[currentTestimonial].name}
-                    </h3>
-                    <p className="text-emerald-400">
-                      {testimonials[currentTestimonial].role}
-                    </p>
-                  </div>
-                </motion.div>
-
-                <div className="absolute -bottom-6 -right-6 text-emerald-400 opacity-60 text-8xl font-serif">
-                  "
                 </div>
-              </div>
 
-              {/* Navigation Dots */}
-              <div className="flex justify-center mt-8 space-x-2">
-                {testimonials.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentTestimonial(index)}
-                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                      index === currentTestimonial
-                        ? "bg-emerald-500 scale-125"
-                        : "bg-gray-600 hover:bg-gray-500"
-                    }`}
-                    aria-label={`Go to testimonial ${index + 1}`}
-                  />
-                ))}
-              </div>
+                <div className="flex flex-col items-center">
+                  <div className="flex items-center mb-2">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className={`h-6 w-6 ${
+                          i < testimonials[currentTestimonial].rating
+                            ? "text-amber-400 fill-amber-400"
+                            : "text-gray-600"
+                        }`}
+                      />
+                    ))}
+                  </div>
+                  <h3 className="text-xl font-bold text-white">{testimonials[currentTestimonial].name}</h3>
+                  <p className="text-emerald-400">{testimonials[currentTestimonial].role}</p>
+                </div>
+              </motion.div>
 
-              {/* Navigation Arrows */}
-              <button
-                onClick={prevTestimonial}
-                className="absolute top-1/2 -translate-y-1/2 -left-4 md:-left-12 bg-gray-800/80 hover:bg-emerald-800/80 text-white p-3 rounded-full transition-all duration-300"
-                aria-label="Previous testimonial"
-              >
-                <ChevronLeft className="h-6 w-6" />
-              </button>
-
-              <button
-                onClick={nextTestimonial}
-                className="absolute top-1/2 -translate-y-1/2 -right-4 md:-right-12 bg-gray-800/80 hover:bg-emerald-800/80 text-white p-3 rounded-full transition-all duration-300"
-                aria-label="Next testimonial"
-              >
-                <ChevronRight className="h-6 w-6" />
-              </button>
+              <div className="absolute -bottom-6 -right-6 text-emerald-400 opacity-60 text-8xl font-serif">"</div>
             </div>
+
+            {/* Navigation Dots */}
+            <div className="flex justify-center mt-8 space-x-2">
+              {testimonials.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentTestimonial(index)}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    index === currentTestimonial ? "bg-emerald-500 scale-125" : "bg-gray-600 hover:bg-gray-500"
+                  }`}
+                  aria-label={`Go to testimonial ${index + 1}`}
+                />
+              ))}
+            </div>
+
+            {/* Navigation Arrows */}
+            <button
+              onClick={prevTestimonial}
+              className="absolute top-1/2 -translate-y-1/2 -left-4 md:-left-12 bg-gray-800/80 hover:bg-emerald-800/80 text-white p-3 rounded-full transition-all duration-300"
+              aria-label="Previous testimonial"
+            >
+              <ChevronLeft className="h-6 w-6" />
+            </button>
+
+            <button
+              onClick={nextTestimonial}
+              className="absolute top-1/2 -translate-y-1/2 -right-4 md:-right-12 bg-gray-800/80 hover:bg-emerald-800/80 text-white p-3 rounded-full transition-all duration-300"
+              aria-label="Next testimonial"
+            >
+              <ChevronRight className="h-6 w-6" />
+            </button>
           </div>
-        </section>
+        </div>
+      </section>
+
 
         {/* Newsletter Section */}
 

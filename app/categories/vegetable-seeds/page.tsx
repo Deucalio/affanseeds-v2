@@ -81,24 +81,29 @@ interface Feature {
   description: string;
 }
 
-
-const VegetablesHeroSection = ({ productsRef }: { productsRef: React.RefObject<HTMLElement | null> }) => {
+const VegetablesHeroSection = ({
+  productsRef,
+}: {
+  productsRef: React.RefObject<HTMLElement | null>;
+}) => {
   const [activeSlide, setActiveSlide] = useState(0);
   const sliderImages = [
     "/bannerimages/vegetables1.jpg",
     "/bannerimages/vegetables2.jpg",
     "/bannerimages/vegetables3.jpg",
   ];
-  
+
   // Auto slide effect
   useEffect(() => {
     const interval = setInterval(() => {
-      setActiveSlide((prev) => (prev === sliderImages.length - 1 ? 0 : prev + 1));
+      setActiveSlide((prev) =>
+        prev === sliderImages.length - 1 ? 0 : prev + 1
+      );
     }, 5000);
-    
+
     return () => clearInterval(interval);
   }, []);
-  
+
   // Animation variants
   const staggerContainer = {
     hidden: {},
@@ -108,7 +113,7 @@ const VegetablesHeroSection = ({ productsRef }: { productsRef: React.RefObject<H
       },
     },
   };
-  
+
   const fadeInUp = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -187,19 +192,27 @@ const VegetablesHeroSection = ({ productsRef }: { productsRef: React.RefObject<H
             >
               {[
                 {
-                  icon: <Check className="h-4 w-4 md:h-5 md:w-5 text-emerald-400" />,
+                  icon: (
+                    <Check className="h-4 w-4 md:h-5 md:w-5 text-emerald-400" />
+                  ),
                   text: "Non-GMO Seeds",
                 },
                 {
-                  icon: <Check className="h-4 w-4 md:h-5 md:w-5 text-emerald-400" />,
+                  icon: (
+                    <Check className="h-4 w-4 md:h-5 md:w-5 text-emerald-400" />
+                  ),
                   text: "High Germination Rate",
                 },
                 {
-                  icon: <Check className="h-4 w-4 md:h-5 md:w-5 text-emerald-400" />,
+                  icon: (
+                    <Check className="h-4 w-4 md:h-5 md:w-5 text-emerald-400" />
+                  ),
                   text: "Disease Resistant Varieties",
                 },
                 {
-                  icon: <Check className="h-4 w-4 md:h-5 md:w-5 text-emerald-400" />,
+                  icon: (
+                    <Check className="h-4 w-4 md:h-5 md:w-5 text-emerald-400" />
+                  ),
                   text: "Expert Growing Support",
                 },
               ].map((item, i) => (
@@ -253,7 +266,6 @@ const VegetablesHeroSection = ({ productsRef }: { productsRef: React.RefObject<H
   );
 };
 
-
 export default function VegetableSeedsPage() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [cartCount, setCartCount] = useState(0);
@@ -273,19 +285,18 @@ export default function VegetableSeedsPage() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
 
-
   const [activeSection, setActiveSection] = useState(0);
-    const [activeSlide, setActiveSlide] = useState(0);
-  
-    // Auto-advance slides
-    useEffect(() => {
-      const slideInterval = setInterval(() => {
-        setActiveSlide((prev) => (prev === 2 ? 0 : prev + 1));
-      }, 8000);
-  
-      return () => clearInterval(slideInterval);
-    }, []);
-  
+  const [activeSlide, setActiveSlide] = useState(0);
+
+  // Auto-advance slides
+  useEffect(() => {
+    const slideInterval = setInterval(() => {
+      setActiveSlide((prev) => (prev === 2 ? 0 : prev + 1));
+    }, 8000);
+
+    return () => clearInterval(slideInterval);
+  }, []);
+
   // Handle scroll events
   useEffect(() => {
     const handleScroll = () => {
@@ -611,7 +622,10 @@ Nasarpuri is a trusted variety known for its well-shaped, large-sized bulbs that
 
       {/* Hero Section */}
       {/* <VegetablesHeroSection productsRef={productsRef} /> */}
-      <section ref={heroRef} className="relative py-16 md:py-24 overflow-hidden">
+      <section
+        ref={heroRef}
+        className="relative py-16 md:py-24 overflow-hidden"
+      >
         {/* Background with gradient overlay */}
         <div className="absolute inset-0 z-0">
           <Image
@@ -625,7 +639,12 @@ Nasarpuri is a trusted variety known for its well-shaped, large-sized bulbs that
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
-          <motion.div className="max-w-4xl mx-auto" initial="hidden" animate="visible" variants={staggerContainer}>
+          <motion.div
+            className="max-w-4xl mx-auto"
+            initial="hidden"
+            animate="visible"
+            variants={staggerContainer}
+          >
             {/* <motion.div
               variants={fadeInUp}
               className="inline-flex items-center px-4 py-2 rounded-full bg-emerald-900/30 border border-emerald-700/50 text-emerald-300 text-sm font-medium mb-6 backdrop-blur-sm"
@@ -641,46 +660,71 @@ Nasarpuri is a trusted variety known for its well-shaped, large-sized bulbs that
               Premium Vegetable Seeds for Your Garden
             </motion.h1>
 
-            <motion.p variants={fadeInUp} className="text-xl text-gray-300 mb-10">
-              High-quality seeds for growing delicious, nutritious vegetables. Our seeds are carefully selected for
-              flavor, yield, and disease resistance to ensure your gardening success.
+            <motion.p
+              variants={fadeInUp}
+              className="text-xl text-gray-300 mb-10"
+            >
+              {/* High-quality seeds for growing delicious, nutritious vegetables. Our seeds are carefully selected for
+              flavor, yield, and disease resistance to ensure your gardening success. */}
+              High-quality seeds for growing delicious, nutritious vegetables.
+              Our seeds are carefully selected for flavor, yield, and disease
+              resistance to ensure your farming success.
             </motion.p>
 
-            <motion.div variants={fadeInUp} className="flex flex-wrap gap-4 mb-8">
+            <motion.div
+              variants={fadeInUp}
+              className="flex flex-wrap gap-4 mb-8"
+            >
               {[
-                { icon: <Check className="h-5 w-5 text-emerald-400" />, text: "Non-GMO Seeds" },
-                { icon: <Check className="h-5 w-5 text-emerald-400" />, text: "High Germination Rate" },
-                { icon: <Check className="h-5 w-5 text-emerald-400" />, text: "Disease Resistant Varieties" },
-                { icon: <Check className="h-5 w-5 text-emerald-400" />, text: "Expert Growing Support" },
+                {
+                  icon: <Check className="h-5 w-5 text-emerald-400" />,
+                  text: "Non-GMO Seeds",
+                },
+                {
+                  icon: <Check className="h-5 w-5 text-emerald-400" />,
+                  text: "High Germination Rate",
+                },
+                {
+                  icon: <Check className="h-5 w-5 text-emerald-400" />,
+                  text: "Disease Resistant Varieties",
+                },
+                {
+                  icon: <Check className="h-5 w-5 text-emerald-400" />,
+                  text: "Expert Growing Support",
+                },
               ].map((item, i) => (
                 <div
                   key={i}
                   className="flex items-center px-4 py-2 bg-gray-800/50 backdrop-blur-sm rounded-full border border-gray-700"
                 >
                   {item.icon}
-                  <span className="ml-2 text-sm text-gray-200">{item.text}</span>
+                  <span className="ml-2 text-sm text-gray-200">
+                    {item.text}
+                  </span>
                 </div>
               ))}
             </motion.div>
 
-            <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4">
+            <motion.div
+              variants={fadeInUp}
+              className="flex flex-col sm:flex-row gap-4"
+            >
               <Button
                 size="lg"
                 className="bg-emerald-600 hover:bg-emerald-700 text-white border-0 rounded-full px-8 py-6 text-lg shadow-lg shadow-emerald-900/50 group"
-                onClick={() => productsRef.current?.scrollIntoView({ behavior: "smooth" })}
+                onClick={() =>
+                  productsRef.current?.scrollIntoView({ behavior: "smooth" })
+                }
               >
                 <span>Explore Products</span>
                 <ChevronDown className="ml-2 h-5 w-5 transition-transform group-hover:translate-y-1" />
               </Button>
-
-      
             </motion.div>
           </motion.div>
         </div>
       </section>
 
       {/* Scroll to Products Section */}
-
 
       {/* Products Section */}
       <section ref={productsRef} className="py-16 md:py-24 relative">
