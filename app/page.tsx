@@ -398,7 +398,7 @@ export default function HomePage() {
     {
       id: 1,
       name: "Ayesha Tariq",
-      role: "Urban Gardener",
+      role: "Market Vendor",
       // image: "/placeholder.svg?height=100&width=100",
       image: "/customer-1.avif",
 
@@ -409,7 +409,7 @@ export default function HomePage() {
     {
       id: 2,
       name: "Hassan Ali",
-      role: "Market Vendor",
+      role: "Farmer",
       // image: "/placeholder.svg?height=100&width=100",
       image: "/customer-2.avif",
       content:
