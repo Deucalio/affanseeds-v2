@@ -300,7 +300,7 @@ export default function HomePage() {
       name: "Forage Field Crop Seeds",
       description: "High-quality seeds for pasture, hay, and silage production",
       icon: <Leaf className="h-6 w-6" />,
-      image: "/products/forage/STAMINA ALFALFA SEEDS POUCH.png",
+      image: "/bannerimages/forage-home-category.jpg",
       color: "from-emerald-500 to-green-700",
       count: 6,
     },
@@ -309,7 +309,7 @@ export default function HomePage() {
       name: "Oil Seeds",
       description: "Premium quality seeds for oil production",
       icon: <Sun className="h-6 w-6" />,
-      image: "/products/seeds/TITAN MUSTRAD SEEDS POUCH.png",
+      image: "/bannerimages/oil-home-category.jpg",
       color: "from-amber-500 to-orange-700",
       count: 3,
     },
@@ -319,7 +319,7 @@ export default function HomePage() {
       description:
         "Fresh, high-yield vegetable seeds for commercial and home growers",
       icon: <Droplets className="h-6 w-6" />,
-      image: "/products/seeds/sunflowerseeds.jpg",
+      image: "/bannerimages/vegetable-home-category.jpg",
       color: "from-rose-500 to-red-700",
       count: 5,
     },
@@ -520,9 +520,9 @@ export default function HomePage() {
             className="relative w-full h-[24vh] mt-16 md:mt-0 md:h-auto md:absolute md:inset-0 z-0"
           >
             {[
-              "/slideshow/OIL SEEDS BANNER.svg",
+              "/bannerimages/slideshow1.png",
               "/slideshow/VEGETABLES SEEDS.png",
-              "/slideshow-3.jpg",
+              "/slideshow/OIL SEEDS BANNER-slideshow3.svg",
             ].map((src, index) => (
               <div
                 key={index}
@@ -700,29 +700,30 @@ export default function HomePage() {
 
                       {/* Gradient Overlay */}
                       <div
-                        className={`absolute inset-0 bg-gradient-to-b ${category.color} opacity-70 group-hover:opacity-80 transition-opacity duration-300`}
+                        // className={`absolute inset-0 bg-gradient-to-b ${category.color} opacity-70 group-hover:opacity-80 transition-opacity duration-300`}
+                        className="absolute inset-0 bg-gradient-to-b from-gray-950/80 via-gray-900/50 to-gray-950 opacity-70"
                       ></div>
 
                       {/* Content */}
                       <div className="absolute inset-0 p-6 flex flex-col justify-between">
-                        <div className="p-3 bg-black/30 backdrop-blur-sm rounded-full w-fit">
+                        {/* <div className="p-3 bg-black/30 backdrop-blur-sm rounded-full w-fit">
                           {category.icon}
-                        </div>
+                        </div> */}
 
                         <div>
-                          <h3 className="text-2xl font-bold text-white mb-2">
+                          <h3 className="text-3xl font-bold text-white mb-2">
                             {category.name}
                           </h3>
                           <p className="text-white/80 mb-4 line-clamp-2">
                             {category.description}
                           </p>
                           <div className="flex items-center justify-between">
-                            <Badge className="bg-black/30 text-white hover:bg-black/40">
+                            {/* <Badge className="bg-black/30 text-white hover:bg-black/40">
                               {category.count} varieties
-                            </Badge>
-                            <span className="text-white group-hover:translate-x-1 transition-transform duration-300">
-                              <ChevronRight className="h-5 w-5" />
-                            </span>
+                            </Badge> */}
+                            {/* <span className="text-white group-hover:translate-x-1 transition-transform duration-300"> */}
+                              {/* <ChevronRight className="h-5 w-5" /> */}
+                            {/* </span> */}
                           </div>
                         </div>
                       </div>

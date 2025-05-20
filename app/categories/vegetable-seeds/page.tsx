@@ -81,6 +81,179 @@ interface Feature {
   description: string;
 }
 
+
+const VegetablesHeroSection = ({ productsRef }: { productsRef: React.RefObject<HTMLElement | null> }) => {
+  const [activeSlide, setActiveSlide] = useState(0);
+  const sliderImages = [
+    "/bannerimages/vegetables1.jpg",
+    "/bannerimages/vegetables2.jpg",
+    "/bannerimages/vegetables3.jpg",
+  ];
+  
+  // Auto slide effect
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveSlide((prev) => (prev === sliderImages.length - 1 ? 0 : prev + 1));
+    }, 5000);
+    
+    return () => clearInterval(interval);
+  }, []);
+  
+  // Animation variants
+  const staggerContainer = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+  
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+      },
+    },
+  };
+
+  return (
+    <section
+      id="home"
+      className="relative flex flex-col pt-16 md:min-h-screen md:flex-row"
+    >
+      {/* Slideshow */}
+      <div
+        id="slideshow"
+        className="relative w-full h-[30vh] mt-16 md:mt-0 md:h-auto md:absolute md:inset-0 z-0"
+      >
+        {sliderImages.map((src, index) => (
+          <div
+            key={index}
+            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+              index === activeSlide ? "opacity-100 z-10" : "opacity-0 z-0"
+            }`}
+          >
+            <div className="relative w-full h-full">
+              <img
+                src={src}
+                alt={`Slide ${index + 1}`}
+                className="object-cover w-full h-full opacity-80"
+                loading={index === 0 ? "eager" : "lazy"}
+              />
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-b from-dark-900/90 via-dark-900/70 to-dark-900"></div>
+          </div>
+        ))}
+
+        {/* Content for the hero section */}
+        <div className="container mx-auto px-4 relative z-10 mt-8 md:mt-24">
+          <motion.div
+            className="max-w-4xl mx-auto"
+            initial="hidden"
+            animate="visible"
+            variants={staggerContainer}
+          >
+            <motion.div
+              variants={fadeInUp}
+              className="inline-flex items-center px-4 py-2 rounded-full bg-emerald-900/30 border border-emerald-700/50 text-emerald-300 text-sm font-medium mb-6 backdrop-blur-sm"
+            >
+              <Leaf className="h-4 w-4 mr-2" />
+              <span>Vegetable Seeds</span>
+            </motion.div>
+
+            <motion.h1
+              variants={fadeInUp}
+              className="text-3xl md:text-6xl font-bold mb-4 md:mb-6 leading-tight bg-clip-text text-transparent bg-gradient-to-r from-emerald-300 via-green-200 to-emerald-300"
+            >
+              Premium Vegetable Seeds for Your Garden
+            </motion.h1>
+
+            <motion.p
+              variants={fadeInUp}
+              className="text-lg md:text-xl text-gray-300 mb-6 md:mb-10"
+            >
+              High-quality seeds for growing delicious, nutritious vegetables.
+              Our seeds are carefully selected for flavor, yield, and disease
+              resistance to ensure your gardening success.
+            </motion.p>
+
+            <motion.div
+              variants={fadeInUp}
+              className="flex flex-wrap gap-3 md:gap-4 mb-6 md:mb-8"
+            >
+              {[
+                {
+                  icon: <Check className="h-4 w-4 md:h-5 md:w-5 text-emerald-400" />,
+                  text: "Non-GMO Seeds",
+                },
+                {
+                  icon: <Check className="h-4 w-4 md:h-5 md:w-5 text-emerald-400" />,
+                  text: "High Germination Rate",
+                },
+                {
+                  icon: <Check className="h-4 w-4 md:h-5 md:w-5 text-emerald-400" />,
+                  text: "Disease Resistant Varieties",
+                },
+                {
+                  icon: <Check className="h-4 w-4 md:h-5 md:w-5 text-emerald-400" />,
+                  text: "Expert Growing Support",
+                },
+              ].map((item, i) => (
+                <div
+                  key={i}
+                  className="flex items-center px-3 py-1 md:px-4 md:py-2 bg-gray-800/50 backdrop-blur-sm rounded-full border border-gray-700"
+                >
+                  {item.icon}
+                  <span className="ml-1 md:ml-2 text-xs md:text-sm text-gray-200">
+                    {item.text}
+                  </span>
+                </div>
+              ))}
+            </motion.div>
+
+            <motion.div
+              variants={fadeInUp}
+              className="flex flex-col sm:flex-row gap-4"
+            >
+              <Button
+                size="lg"
+                className="bg-emerald-600 hover:bg-emerald-700 text-white border-0 rounded-full px-6 py-5 md:px-8 md:py-6 text-base md:text-lg shadow-lg shadow-emerald-900/50 group"
+                onClick={() =>
+                  productsRef.current?.scrollIntoView({ behavior: "smooth" })
+                }
+              >
+                <span>Explore Products</span>
+                <ChevronDown className="ml-2 h-4 w-4 md:h-5 md:w-5 transition-transform group-hover:translate-y-1" />
+              </Button>
+            </motion.div>
+          </motion.div>
+        </div>
+
+        {/* Slideshow Controls */}
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex space-x-3">
+          {[0, 1, 2].map((index) => (
+            <button
+              key={index}
+              onClick={() => setActiveSlide(index)}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                index === activeSlide
+                  ? "bg-green-400 scale-125"
+                  : "bg-white/50 hover:bg-white/80"
+              }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+
 export default function VegetableSeedsPage() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [cartCount, setCartCount] = useState(0);
@@ -198,7 +371,7 @@ ANMOL F1 is a productive hybrid okra variety featuring medium-tall plants with s
         "Harvest starts approximately 45 days after sowing",
       ],
       specifications: {
-        seedingRate: "1.5-2 kg/hectare",
+        seedingRate: "10 kg/hectare",
         germinationRate: "90-95%",
         daysToGermination: "3-7 days",
         harvestTime: "45-55 days after planting",
@@ -239,8 +412,8 @@ ANMOL F1 is a productive hybrid okra variety featuring medium-tall plants with s
         "Shelf Life: Firm fruits that handle long-distance transport without damage",
       ],
       specifications: {
-        seedingRate: "110,000 to 130,000 kg/hectare (under ideal conditions)",
-
+        // seedingRate: "110,000 to 130,000 kg/hectare (under ideal conditions)",
+        seedingRate: "125gm/hectare",
         germinationRate: "85-90%",
         daysToGermination: "5-10 days",
         harvestTime: "70-85 days after transplanting",
@@ -261,10 +434,10 @@ ANMOL F1 is a productive hybrid okra variety featuring medium-tall plants with s
     },
     {
       id: 3,
-      name: "Hot Pepper Super Bullet F1 Hybrid Seeds",
+      name: "Hot Pepper Hot Queen F1 Hybrid Seeds",
       scientificName: "Capsicum annuum",
       description:
-        "Super Bullet F1 is a high-performing hybrid with a strong, medium-tall plant structure and a spreading growth habit. It matures early—ready for first picking around 65 days after transplant—and keeps producing for up to a year under the right care. Expect eye-catching, green chili peppers measuring 5–7 cm in length and 1–1.5 cm in width. The fruits are consistent in size and ideal for both fresh use and commercial sales. This hybrid shows solid resistance to powdery mildew and delivers dependable performance season after season. Designed for versatility—great for fresh markets or processing. Yields average between 40–50 tons per acre, even under standard conditions.",
+        "Hot Queen F1 is a high-performing hybrid with a strong, medium-tall plant structure and a spreading growth habit. It matures early—ready for first picking around 65 days after transplant—and keeps producing for up to a year under the right care. Expect eye-catching, green chili peppers measuring 5–7 cm in length and 1–1.5 cm in width. The fruits are consistent in size and ideal for both fresh use and commercial sales. This hybrid shows solid resistance to powdery mildew and delivers dependable performance season after season. Designed for versatility—great for fresh markets or processing. Yields average between 40–50 tons per acre, even under standard conditions.",
       longDescription:
         "Premium Okra Seeds (Abelmoschus esculentus) are specially selected for their productivity, pod quality, and heat tolerance. These seeds produce plants with vigorous growth, extended harvest periods, and resistance to common pests. Our okra varieties have been bred to produce tender, flavorful pods that maintain their quality even in challenging growing conditions.",
       price: 10.99,
@@ -280,7 +453,7 @@ ANMOL F1 is a productive hybrid okra variety featuring medium-tall plants with s
         "Disease resistance: Strong tolerance to powdery mildew.",
       ],
       specifications: {
-        seedingRate: "8-10 kg/hectare",
+        seedingRate: "250 gm/hectare",
         germinationRate: "70-85%",
         daysToGermination: "5-10 days",
         harvestTime: "50-60 days after planting",
@@ -319,7 +492,7 @@ Nasarpuri is a trusted variety known for its well-shaped, large-sized bulbs that
         "Strong yield performance: 22,500 to 30,000 kg per hectare",
       ],
       specifications: {
-        seedingRate: "22,500-30,000 kg/hectare",
+        seedingRate: "5 kg/hectare",
         germinationRate: "85-90%",
         daysToGermination: "7-14 days",
         harvestTime: "60-90 days after transplanting",
@@ -437,52 +610,22 @@ Nasarpuri is a trusted variety known for its well-shaped, large-sized bulbs that
       {/* <Breadcrumb /> */}
 
       {/* Hero Section */}
-      <section
-          id="home"
-          className="relative flex flex-col pt-16 md:min-h-screen md:flex-row"
-        >
-          {/* Slideshow */}
-          <div
-            id="slideshow"
-            className="relative w-full h-[24vh] mt-16 md:mt-0 md:h-auto md:absolute md:inset-0 z-0"
-          >
-            {[
-              "/bannerimages/vegetables1.jpg",
-              "/bannerimages/vegetables2.jpg",
-              "/bannerimages/vegetables3.jpg",
-            ].map((src, index) => (
-              <div
-                key={index}
-                className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-                  index === activeSlide ? "opacity-100 z-10" : "opacity-0 z-0"
-                }`}
-              >
-                <div className="relative w-full h-full">
-                  {/* <Image
-                    src={src || "/placeholder.svg"}
-                    alt={`Slide ${index + 1}`}
-                    fill
-                    className="object-cover opacity-60"
-                    priority={index === 0}
-                    sizes="(max-width: 768px) 320px, 100vw"
-                  /> */}
-                  <img
-                    src={src}
-                    alt={`Slide ${index + 1}`}
-                    className="object-cover w-full h-full opacity-80"
-                    loading={index === 0 ? "eager" : "lazy"}
-                  />
-                </div>
-                <div className="absolute inset-0 bg-gradient-to-b from-dark-900/90 via-dark-900/70 to-dark-900"></div>
-              </div>
-            ))}
-             <div className="container mx-auto px-4 relative z-10 hidden">
-          <motion.div
-            className="max-w-4xl mx-auto"
-            initial="hidden"
-            animate="visible"
-            variants={staggerContainer}
-          >
+      {/* <VegetablesHeroSection productsRef={productsRef} /> */}
+      <section ref={heroRef} className="relative py-16 md:py-24 overflow-hidden">
+        {/* Background with gradient overlay */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/bannerimages/vegetable1.jpg"
+            alt="Vegetable garden"
+            fill
+            className="object-cover opacity-90"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-gray-950/80 via-gray-900/50 to-gray-950"></div>
+        </div>
+
+        <div className="container mx-auto px-4 relative z-10">
+          <motion.div className="max-w-4xl mx-auto" initial="hidden" animate="visible" variants={staggerContainer}>
             <motion.div
               variants={fadeInUp}
               className="inline-flex items-center px-4 py-2 rounded-full bg-emerald-900/30 border border-emerald-700/50 text-emerald-300 text-sm font-medium mb-6 backdrop-blur-sm"
@@ -498,85 +641,45 @@ Nasarpuri is a trusted variety known for its well-shaped, large-sized bulbs that
               Premium Vegetable Seeds for Your Garden
             </motion.h1>
 
-            <motion.p
-              variants={fadeInUp}
-              className="text-xl text-gray-300 mb-10"
-            >
-              High-quality seeds for growing delicious, nutritious vegetables.
-              Our seeds are carefully selected for flavor, yield, and disease
-              resistance to ensure your gardening success.
+            <motion.p variants={fadeInUp} className="text-xl text-gray-300 mb-10">
+              High-quality seeds for growing delicious, nutritious vegetables. Our seeds are carefully selected for
+              flavor, yield, and disease resistance to ensure your gardening success.
             </motion.p>
 
-            <motion.div
-              variants={fadeInUp}
-              className="flex flex-wrap gap-4 mb-8"
-            >
+            <motion.div variants={fadeInUp} className="flex flex-wrap gap-4 mb-8">
               {[
-                {
-                  icon: <Check className="h-5 w-5 text-emerald-400" />,
-                  text: "Non-GMO Seeds",
-                },
-                {
-                  icon: <Check className="h-5 w-5 text-emerald-400" />,
-                  text: "High Germination Rate",
-                },
-                {
-                  icon: <Check className="h-5 w-5 text-emerald-400" />,
-                  text: "Disease Resistant Varieties",
-                },
-                {
-                  icon: <Check className="h-5 w-5 text-emerald-400" />,
-                  text: "Expert Growing Support",
-                },
+                { icon: <Check className="h-5 w-5 text-emerald-400" />, text: "Non-GMO Seeds" },
+                { icon: <Check className="h-5 w-5 text-emerald-400" />, text: "High Germination Rate" },
+                { icon: <Check className="h-5 w-5 text-emerald-400" />, text: "Disease Resistant Varieties" },
+                { icon: <Check className="h-5 w-5 text-emerald-400" />, text: "Expert Growing Support" },
               ].map((item, i) => (
                 <div
                   key={i}
                   className="flex items-center px-4 py-2 bg-gray-800/50 backdrop-blur-sm rounded-full border border-gray-700"
                 >
                   {item.icon}
-                  <span className="ml-2 text-sm text-gray-200">
-                    {item.text}
-                  </span>
+                  <span className="ml-2 text-sm text-gray-200">{item.text}</span>
                 </div>
               ))}
             </motion.div>
 
-            <motion.div
-              variants={fadeInUp}
-              className="flex flex-col sm:flex-row gap-4"
-            >
+            <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4">
               <Button
                 size="lg"
                 className="bg-emerald-600 hover:bg-emerald-700 text-white border-0 rounded-full px-8 py-6 text-lg shadow-lg shadow-emerald-900/50 group"
-                onClick={() =>
-                  productsRef.current?.scrollIntoView({ behavior: "smooth" })
-                }
+                onClick={() => productsRef.current?.scrollIntoView({ behavior: "smooth" })}
               >
                 <span>Explore Products</span>
                 <ChevronDown className="ml-2 h-5 w-5 transition-transform group-hover:translate-y-1" />
               </Button>
+
+      
             </motion.div>
           </motion.div>
         </div>
+      </section>
 
-
-            {/* Slideshow Controls */}
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex space-x-3">
-              {[0, 1, 2].map((index) => (
-                <button
-                  key={index}
-                  onClick={() => setActiveSlide(index)}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                    index === activeSlide
-                      ? "bg-green-400 scale-125"
-                      : "bg-white/50 hover:bg-white/80"
-                  }`}
-                  aria-label={`Go to slide ${index + 1}`}
-                />
-              ))}
-            </div>
-          </div>
-        </section>
+      {/* Scroll to Products Section */}
 
 
       {/* Products Section */}
@@ -656,7 +759,7 @@ Nasarpuri is a trusted variety known for its well-shaped, large-sized bulbs that
                     <h3 className="text-3xl font-bold text-white mb-2">
                       {product.name}
                     </h3>
-                    <p className="text-emerald-400 italic mb-4">
+                    <p className="text-emerald-400 italic mb-4 hidden">
                       {product.scientificName}
                     </p>
                     <p className="text-gray-300 mb-6">{product.description}</p>
