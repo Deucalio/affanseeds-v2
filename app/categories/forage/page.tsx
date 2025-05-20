@@ -362,7 +362,7 @@ export default function ForageCategoryPage() {
     {
       id: 1,
       name: "Thai Grass Seeds",
-      scientificName: "Megathyrus maximus",
+      scientificName: "Guinea Grass",
       description:
         "Thai Grass Seeds are a premium fodder solution designed for tropical and subtropical climates. With rapid growth, lush green leaves, and rich nutritional value, they offer the perfect balance of quality and quantity for livestock feeding. Their strong regrowth and high protein content ensure a continuous, reliable fodder supply with minimal effort. Easy to grow and cost-effective to maintain, Thai Grass is the smart choice for farmers seeking long-term, sustainable results in modern agriculture.",
       longDescription:
