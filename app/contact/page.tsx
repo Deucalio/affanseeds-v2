@@ -191,7 +191,7 @@ export default function ContactPage() {
                     <h3 className="font-serif text-xl font-bold text-white mb-2">
                       Phone
                     </h3>
-                    <p className="text-gray-300">0223411135</p>
+                    <p className="text-gray-300">+92223411135</p>
                   </div>
                 </div>
 
