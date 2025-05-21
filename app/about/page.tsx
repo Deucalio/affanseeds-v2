@@ -165,7 +165,8 @@ export default function AboutPage() {
                 <div className="absolute -inset-4 rounded-2xl bg-emerald-500/10 opacity-20 blur-lg"></div>
                 <div className="relative rounded-2xl overflow-hidden">
                   <Image
-                    src="/ourstory.jpeg"
+                    // src="/ourstory.jpeg"
+                    src="/aboutus.jpg"
                     alt="Our Story"
                     width={800}
                     height={600}

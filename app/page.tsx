@@ -624,7 +624,8 @@ export default function HomePage() {
                 <div className="absolute -inset-4 rounded-2xl bg-emerald-600/10 opacity-20 blur-lg"></div>
                 <div className="relative rounded-2xl overflow-hidden shadow-lg">
                   <Image
-                    src="/livestock.jpg"
+                    // src="/livestock.jpg"
+                    src="/ourstory.jpg"
                     alt="Our Team"
                     width={800}
                     height={600}
