@@ -36,32 +36,7 @@ export default function Footer() {
               gardener. We source unique varieties from around the world to help
               you grow something extraordinary.
             </p>
-            <div className="flex space-x-4">
-              <a
-                href="#"
-                className="text-gray-400 hover:text-emerald-400 transition-colors"
-              >
-                <Facebook className="h-5 w-5" />
-              </a>
-              <a
-                href="#"
-                className="text-gray-400 hover:text-emerald-400 transition-colors"
-              >
-                <Instagram className="h-5 w-5" />
-              </a>
-              <a
-                href="#"
-                className="text-gray-400 hover:text-emerald-400 transition-colors"
-              >
-                <Twitter className="h-5 w-5" />
-              </a>
-              <a
-                href="#"
-                className="text-gray-400 hover:text-emerald-400 transition-colors"
-              >
-                <Youtube className="h-5 w-5" />
-              </a>
-            </div>
+        
           </div>
 
           {/* Column 2: Quick Links */}
