@@ -244,6 +244,16 @@ export default function Header() {
               </div>
 
               <Link
+                href="/"
+                className={cn(
+                  "text-xl font-medium transition-colors hover:text-emerald-400 py-2 text-center",
+                  pathname === "/" ? "text-emerald-400" : "text-gray-200",
+                )}
+              >
+                Home
+              </Link>
+
+              <Link
                 href="/about"
                 className={cn(
                   "text-xl font-medium transition-colors hover:text-emerald-400 py-2 text-center",
