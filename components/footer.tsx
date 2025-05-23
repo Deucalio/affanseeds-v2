@@ -32,18 +32,19 @@ export default function Footer() {
               />
             </div>
             <p className="text-gray-400 mb-6">
-              Discover rare, exotic, and heirloom seeds for the adventurous
-              gardener. We source unique varieties from around the world to help
-              you grow something extraordinary.
+              At Affan Agro Seeds, we specialize in high-quality forage,
+              vegetable, and oil seeds tailored for modern farming needs. With a
+              commitment to innovation, performance, and reliability, we supply
+              seeds that support better yields, improved animal nutrition, and
+              stronger crops. Whether you're cultivating green fodder, producing
+              vegetables, or growing oilseed crops, our carefully selected
+              varieties are designed to meet the demands of farmers across
+              Pakistan and beyond.
             </p>
-        
           </div>
 
           {/* Column 2: Quick Links */}
 
-
-
-          
           <div>
             <h3 className="text-white text-lg font-bold mb-6">Quick Links</h3>
             <ul className="space-y-4">
@@ -84,7 +85,6 @@ export default function Footer() {
                   href="tel:+92223411135"
                   className="text-gray-400 hover:text-emerald-400 transition-colors"
                 >
-                  
                   +92223411135
                 </a>
               </li>
@@ -94,7 +94,7 @@ export default function Footer() {
                   href="mailto:info@affanagroseeds.com"
                   className="text-gray-400 hover:text-emerald-400 transition-colors"
                 >
-                 info@affanagroseeds.com 
+                  info@affanagroseeds.com
                 </a>
               </li>
             </ul>

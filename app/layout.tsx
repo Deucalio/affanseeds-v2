@@ -23,7 +23,7 @@ const playfair = Playfair_Display({
 });
 
 export const metadata = {
-  title: "Affan Agro Seeds | Rare & Exotic Seeds",
+  title: "Affan Agro Seeds",
   description:
     "Discover rare, exotic, and heirloom seeds for the adventurous gardener",
   generator: "v0.dev",
