@@ -40,6 +40,10 @@ export default function Footer() {
           </div>
 
           {/* Column 2: Quick Links */}
+
+
+
+          
           <div>
             <h3 className="text-white text-lg font-bold mb-6">Quick Links</h3>
             <ul className="space-y-4">
